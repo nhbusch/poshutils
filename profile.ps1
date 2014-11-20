@@ -70,9 +70,9 @@ $user_cmds | %{
 }
 
 # Load posh-git profile
-if(Test-Path -Path (Join-Path $ExpectedUserModulePath 'posh-git\profile.ps1') -PathType Leaf)
+if(Test-Path -Path (Join-Path $ExpectedUserModulePath 'PoshGit\profile.ps1') -PathType Leaf)
 {
-  . (Join-Path $ExpectedUserModulePath 'posh-git\profile.ps1')
+  . (Join-Path $ExpectedUserModulePath 'PoshGit\profile.ps1')
 }
 
 # PS drives
