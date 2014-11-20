@@ -4,6 +4,6 @@
 [submodule "Modules/Pester"]
 	path = Modules/Pester
 	url = git@github.com:pester/Pester.git
-[submodule "Modules\\PoshGit"]
-	path = Modules\\PoshGit
+[submodule "Modules/posh-git"]
+	path = Modules/posh-git
 	url = git@github.com:dahlbyk/posh-git.git
