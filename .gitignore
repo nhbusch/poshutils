@@ -1,0 +1,5 @@
+obj
+*.orig
+VERSION
+build
+Test.xml
