@@ -1,26 +1,24 @@
-###########################################################################
+###############################################################################
 #
 # Powershell profile for current user on all hosts
 #
 # Copyright (c) 2014 Nils H. Busch. All rights reserved.
 #
-# Licensed under the MIT License (MIT).
+# Distributed under the MIT License (MIT).
+# See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
 #
-# You should have received a copy of the MIT License along with this file.
-# If not, you may obtain a copy at http://opensource.org/licenses/MIT.
-#
-###########################################################################
+###############################################################################
 
 $SourcePath = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'WindowsPowerShell'
 
-###########################################################################
+###############################################################################
 # Import modules
 $UserModulePath = Join-Path -Path ($SourcePath) -ChildPath 'Modules'
 
 Import-Module -Name (Join-Path (Join-Path $UserModulePath 'PsGet') 'PsGet')
 Import-Module posh-git
 
-###########################################################################
+###############################################################################
 # Functions
 
 # Sets up a simple prompt, adding the git prompt parts inside git repos
@@ -89,7 +87,7 @@ function Get-CmdletAlias($cmdletname)
      Definition, Name -auto
 }
 
-###########################################################################
+###############################################################################
 # Source scripts
 $user_cmds = 'Add-Signature','Add-Path','Invoke-WalkCommand','VisualStudioUtils'
 $user_cmds | %{
@@ -104,7 +102,7 @@ $user_cmds | %{
 #  . (Join-Path $ExpectedUserModulePath 'PoshGit\profile.ps1')
 #}
 
-###########################################################################
+###############################################################################
 # PS drives
 New-PSDrive -Name user -PSProvider filesystem -Root $env:USERPROFILE | Out-Null
 New-PSDrive -Name dev -PSProvider filesystem -Root $env:USERPROFILE\Dev | Out-Null
@@ -112,10 +110,10 @@ New-PSDrive -Name scripts -PSProvider filesystem -Root $SourcePath | Out-Null
 New-PSDrive -Name build -PSProvider filesystem -Root C:\build | Out-Null
 New-PSDrive -Name repos -PSProvider filesystem -Root $env:USERPROFILE\Dev\repos | Out-Null
 
-###########################################################################
+###############################################################################
 # Aliases
 New-Alias -Name ivv -Value Import-VisualStudioVars
-New-Alias -Name ass -Value Start-SshAgent 
+New-Alias -Name ssa -Value Start-SshAgent 
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
 

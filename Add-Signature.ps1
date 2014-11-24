@@ -1,21 +1,13 @@
-﻿###########################################################################
+﻿###############################################################################
 #
 # Add-Signature
 #
 # Copyright (c) 2014 Nils H. Busch. All rights reserved.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0.txt
+# Distributed under the MIT License (MIT).
+# See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-###########################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -59,8 +51,8 @@ function Add-Signature
 # SIG # Begin signature block
 # MIIFzAYJKoZIhvcNAQcCoIIFvTCCBbkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1mJvI5PSVrI5b0lcLW9zZBIv
-# UM+gggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU94OxwgvSXOrQ5U+6VBt9D6y/
+# LPegggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNDA3MTYxNjQzNTRaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwggEiMA0GCSqGSIb3DQEBAQUA
@@ -81,11 +73,11 @@ function Add-Signature
 # ggHdAgEBMEAwLDEqMCgGA1UEAxMhUG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0
 # ZSBSb290AhDFq/kEYhrzu0J+i1wyDfNTMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3
 # AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisG
-# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBQ6g1r8NxEv
-# qzI0wbb+gu04mmGKQTANBgkqhkiG9w0BAQEFAASCAQAwvSEms4+u0Vxv3cHdjCAA
-# qJz74pt2oKTtSkCFcFwSFmn4noP1P1JCrX7Yr0mn6zvs5s8CbsOnHxzKknzD/bK3
-# 7+MDgScZIvW8FCfn8vJusYyl9M2krmT0NR2n8Ysbnbb8Y8WfeOEDzsSE+khHOv0I
-# SgnbLAUjDz08p/3TpaB3AadHpSd+n5fyGkP3wXidZLShL+w9aIcZ1K/H4q1SAZwh
-# KMck+yfezXaEu37a57G5x+dyZbW8FmqrccZw3nf4Hg7GxoXfp3pz/kfyU0Pk4Y2c
-# hjE8Gg3e+5OJh9P94O575SYAKrN4ixRfCbmCcJAxTpQ9PIrF+eWds2I4dElYJSrt
+# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBTvQT7gF104
+# krBq1UNyeSHOxgq6JjANBgkqhkiG9w0BAQEFAASCAQClw1W1aGFMAjECX2duURqF
+# TCbUQefr5mpiW6+OOEVGHBzmCFtD0DqJ0NOYfuroWW9dJqmp4T3Gg6WKnm6i7D3z
+# 7/rGpgWrFG9m1og1AocNovBgrRkzYDYdy7SenPguzk2UcQEv3fsz3xRQLpCKsl5z
+# x+vcMAJCLmxL5heHOYA0f3QBprLKmktQi51jq8ZU/IoWjgybicMsXPQ8bGYWyYVH
+# 7uhsygVo0DfT/YUVJUaVx+QODK098KIRAWmFT85poK3g5V97IqDDEgzMuh7gd9rA
+# VtdGDUTy+QFx69Zkk9ur0NK6K2SFZ/GT5qr4gGdam9lotvoY496HqYJFO88DYnP1
 # SIG # End signature block

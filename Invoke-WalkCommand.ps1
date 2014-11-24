@@ -1,21 +1,13 @@
-###########################################################################
+###############################################################################
 #
 # Invoke-WalkCommand
 #
 # Copyright (c) 2014 Nils H. Busch. All rights reserved.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0.txt
+# Distributed under the MIT License (MIT).
+# See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-###########################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -88,8 +80,8 @@ function Invoke-WalkCommand
 # SIG # Begin signature block
 # MIIFzAYJKoZIhvcNAQcCoIIFvTCCBbkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU9wyYH/0JbaWHfcAjGocCffZS
-# sqagggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUssKtbySGsXZYKbm3hjbGQ1Xr
+# 6Z6gggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNDA3MTYxNjQzNTRaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwggEiMA0GCSqGSIb3DQEBAQUA
@@ -110,11 +102,11 @@ function Invoke-WalkCommand
 # ggHdAgEBMEAwLDEqMCgGA1UEAxMhUG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0
 # ZSBSb290AhDFq/kEYhrzu0J+i1wyDfNTMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3
 # AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisG
-# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBRLOpD+EY9m
-# oqhnqxLuY/s7slyDdDANBgkqhkiG9w0BAQEFAASCAQCHM7Q+ODOVvyRNTu9p0Upl
-# pUTFQTmCRiF6PVPLLcE6NpvnGBw1tTsFUoWeJgPskKpJ14l8xu/ZOqhl7hnSmBpC
-# L5DxEBt68wWcM8h7RRMxGaJp4N5mEO5OG6J8XtySd6OAPZP6MwtY0djb6uxYk8R3
-# /nbSMorgqx3Ozxu//7i41LZ2uNxSiMw4qo9kXtCmpghSOVyjYYm1rMdqH3HuFk09
-# LwLy/OA7y9bZNuV6OdvH0sev2zLZwmDWVzhF5PmWZ206J/WNZbC+iHEjp68aC1le
-# vMbVqDBSbJOC21zQ+ovcH4+pjVjbDm9ole+Sx6JCmwrAIZoJJNQcYrV8fU87d15o
+# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBT0IGlAU8Rp
+# IwZNYfHhcxOvSrJOrDANBgkqhkiG9w0BAQEFAASCAQCvw9RlRTsFDxHsQp5MYwne
+# T5EA2g1bYgHIGV61KKLBbHSTaluKVmXT6yeVfeOFm0iGg11n0QPp1vT5UBvLMC9c
+# /veBO67+FUG716ljJxYjTnxQ42+ZB3GUhH8ped+u+Ypq0bG+JxZdKXP/HiJjHIgv
+# LBySnbkofmrl1LDACi9e5h02OG7I8HGNj0MAcXXjLQCFcu/x03VaV0jjCXlwnxZj
+# z0I1NuXsnZiOUXKnrd0Df4ZRXH0ggxbG3qRfEgiefyr8+HA7tzdkwHzMTlVxxmG2
+# 3+8TRogS8UBlp3z6u7ZLWiZoChh/fCPaVzpjoWvs3lcm1uOWQC2odOLfiXQvr2Br
 # SIG # End signature block

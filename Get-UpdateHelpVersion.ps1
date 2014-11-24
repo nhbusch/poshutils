@@ -1,4 +1,14 @@
-#Get-UpdateHelpVersion.ps1
+###############################################################################
+#
+# Get-UpdateHelpVersion
+#
+# Copyright (c) 2014 Nils H. Busch. All rights reserved.
+#
+# Distributed under the MIT License (MIT).
+# See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
+#
+###############################################################################
+
 Param
 (
   [parameter(Mandatory=$False)]
@@ -37,8 +47,8 @@ foreach($mModule in $Modules)
 # SIG # Begin signature block
 # MIIFzAYJKoZIhvcNAQcCoIIFvTCCBbkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUqXHd1tM6+Q0QXAFUzmhac7N1
-# VKagggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU4/o0OgCP8h/nH27IDa9EeNeF
+# vqqgggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNDA3MTYxNjQzNTRaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwggEiMA0GCSqGSIb3DQEBAQUA
@@ -59,11 +69,11 @@ foreach($mModule in $Modules)
 # ggHdAgEBMEAwLDEqMCgGA1UEAxMhUG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0
 # ZSBSb290AhDFq/kEYhrzu0J+i1wyDfNTMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3
 # AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisG
-# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBRoDRVnA+H4
-# l05f8Rp2hNI9DnnebDANBgkqhkiG9w0BAQEFAASCAQCCmd0h0smj52T2Ysui10DG
-# CM8ZX45HsusR0iI2PmaDHuGJpHfNm189WanPaKlaSbyIBWcvui+TNiHBIWd2IGbT
-# v+AO4PklCNEwqccD9yGvh6FJhlqU4m/KR0OLVHLK11of7SDko9sVt7x1TdvJ0PPc
-# DHeX8qw26puRy858dUHYmMzJPrdr5xp/gadcjFIBrLsz+e3BwB3qGU5AdkNBLx2g
-# GflW/eOOqPMAIQWZ8MXvtG59XvFt/mkQNnnxzhgHtO3dn98AMle18g/EVsZvWU7t
-# 6U7zQ4QXtKXCmo/77fyt3oKaN0ciPZsfd2VsSb4pJIAta/BG87ycjFJYczvC9j+K
+# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBSGcRXtyqqP
+# BNJWiNI//qgDCqgs+zANBgkqhkiG9w0BAQEFAASCAQC/OKWu2gzfcwnPN3Gh9E42
+# k+3REPZQJdeGofgiNaPTjiVavmVtY5BylqbwUmgffaPgdzZb/HHVwbiGbjwgl+33
+# GE17J/3snBQdW1YlwZlqTCpLSVN2UesIiULRI12ZNzAaJgBM9syGcdLtICGnw0bt
+# Li8h3ad5B6yuRPZY4JMGE0debXV8UpBZKq8Y3Pd7rAKbBNIJ4X7H05qkNpXdiL85
+# bgVsEkciYlu8OX8D6F/ICWQXgoiJoNgWpBc8lBffgKjxsu+8L375HxcVk6hP3cMk
+# YwAH5vZHYxn/ViKoDaB5n4rlP6c3Hi+BV/2WgtVoJBZaoZbY+27xWDl5q1ugxjPa
 # SIG # End signature block

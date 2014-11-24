@@ -1,28 +1,13 @@
-###########################################################################
+###############################################################################
 #
-# VisualStudioUtils
+# Utilites for VisualStudio(R).
 #
 # Copyright (c) 2014 Nils H. Busch. All rights reserved.
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# http://www.apache.org/licenses/LICENSE-2.0.txt
+# Distributed under the MIT License (MIT).
+# See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-###########################################################################
-
-###########################################################################
-#
-# Code is based on PSCX http://pscx.codeplex.com/ published under
-# the Microsoft Public License (Ms-PL) http://pscx.codeplex.com/license.
-#
-###########################################################################
+###############################################################################
 
 <#
 .SYNOPSIS
@@ -149,8 +134,8 @@ function Import-VisualStudioVars
 # SIG # Begin signature block
 # MIIFzAYJKoZIhvcNAQcCoIIFvTCCBbkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUgbIRhSrzLtl0hWElvpSRSnZL
-# 3wigggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUnrikeFV2kZAsnfrL/2syILr6
+# wrigggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNDA3MTYxNjQzNTRaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwggEiMA0GCSqGSIb3DQEBAQUA
@@ -171,11 +156,11 @@ function Import-VisualStudioVars
 # ggHdAgEBMEAwLDEqMCgGA1UEAxMhUG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0
 # ZSBSb290AhDFq/kEYhrzu0J+i1wyDfNTMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3
 # AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisG
-# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBQUuIjgKlfn
-# BX/av1rUAY8pRIJDUTANBgkqhkiG9w0BAQEFAASCAQBAuPja+iQDutSVhwXAKrtR
-# ADRR2ATmBMny12xCqx+fHHujg3U+Mk01P8mlFD/y6rKpOuR0NJU01tgSJfv1VCx/
-# TS14vXpx602e3WwGqjAK5sYDyPeNdOTXiiO3sbGSGemLjmih0SH0Y4MFidrZydsL
-# sIaZYE2oaBqlfNL1qd6OFaXFPc6HLaZT+sz3eB+8VIC/B2btP0nautK++4d4NnJH
-# DtV7qwkDlpYU0UgVArOGRdW6AxxC+QWFgA8Gyv39nrjMlAmwoQ4He5akc0WTfat0
-# 9UGh0GUb0w/cTXn1HKnFz5rmtsue+V/N2XFIon0VY/eDEP44VMBHVKfXwpMrqQKe
+# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBQTxMDtvLMa
+# nne0J4zQ2iOIsriE+jANBgkqhkiG9w0BAQEFAASCAQC7b6ZVHs1zoZ7micBqJEgu
+# 8uBX4H8TA7DXEOqdTl0bTWqpXym+g5sGqZfIPZH4zZnkPfeakmjsTz5CG1EGbXrj
+# k8Kq3Wprta1yo6KhOPWuKxphcnB5IughqFVOG+/j/NPNhoF+xIFirZ4Dxynv5oZp
+# wjAr3qVJU8hgRWkKVYU+Rw/b8PpZIZw6UOMA2w76MwllG6MAphxWV3mKXoLPdleU
+# p6mKJEiPEhTofIL1HrVRW8pyCniqH5Oia1Kkqi0L7kBdIxQSq8psbv8xfec4pYnV
+# g6FyscLcvONIJotL7ysuz0wptElQ10k8n4sDgctOeuxHt+eMiuUBdfkjlJ8OrsSj
 # SIG # End signature block
