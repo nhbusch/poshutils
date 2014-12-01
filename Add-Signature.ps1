@@ -11,7 +11,7 @@
 
 <#
 .SYNOPSIS
-  Signs a file. 
+  Signs a file.
 
 .DESCRIPTION
   The Add-Signature script signs a script file using the code-signing
@@ -31,17 +31,17 @@
 
 #>
 
-function Add-Signature 
+function Add-Signature
 {
   [CmdletBinding()]
   param(
-      [Parameter(Position=0, ValueFromPipeline=$true, 
+      [Parameter(Position=0, ValueFromPipeline=$true,
        ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
       [String] $File
   )
 
 
-  process 
+  process
   {
     $_cert = @(Get-ChildItem cert:\CurrentUser\My -codesigning)[0]
     Set-AuthenticodeSignature $File $_cert
@@ -51,8 +51,8 @@ function Add-Signature
 # SIG # Begin signature block
 # MIIFzAYJKoZIhvcNAQcCoIIFvTCCBbkCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU94OxwgvSXOrQ5U+6VBt9D6y/
-# LPegggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUl3+CEGNrnlVToyDPChm1/9cM
+# MsSgggNVMIIDUTCCAj2gAwIBAgIQxav5BGIa87tCfotcMg3zUzAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNDA3MTYxNjQzNTRaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwggEiMA0GCSqGSIb3DQEBAQUA
@@ -73,11 +73,11 @@ function Add-Signature
 # ggHdAgEBMEAwLDEqMCgGA1UEAxMhUG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0
 # ZSBSb290AhDFq/kEYhrzu0J+i1wyDfNTMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3
 # AgEMMQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisG
-# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBTvQT7gF104
-# krBq1UNyeSHOxgq6JjANBgkqhkiG9w0BAQEFAASCAQClw1W1aGFMAjECX2duURqF
-# TCbUQefr5mpiW6+OOEVGHBzmCFtD0DqJ0NOYfuroWW9dJqmp4T3Gg6WKnm6i7D3z
-# 7/rGpgWrFG9m1og1AocNovBgrRkzYDYdy7SenPguzk2UcQEv3fsz3xRQLpCKsl5z
-# x+vcMAJCLmxL5heHOYA0f3QBprLKmktQi51jq8ZU/IoWjgybicMsXPQ8bGYWyYVH
-# 7uhsygVo0DfT/YUVJUaVx+QODK098KIRAWmFT85poK3g5V97IqDDEgzMuh7gd9rA
-# VtdGDUTy+QFx69Zkk9ur0NK6K2SFZ/GT5qr4gGdam9lotvoY496HqYJFO88DYnP1
+# AQQBgjcCAQsxDjAMBgorBgEEAYI3AgEVMCMGCSqGSIb3DQEJBDEWBBRkUpMQouKL
+# 28gmA0OG5pUHAqXAkzANBgkqhkiG9w0BAQEFAASCAQB0x7aDovPlLF8lLxR6XeM0
+# T6Xjz+ohBZHaWgum4qnJIgJTnXId2wSDCuZ1RN8ZVt0RV9nVQ4I0wnQrZ+0+T0rr
+# 3qcXabtFraBtaTl+/qxIgmoQ2rBfw7j+rk4KnrOMbpzCvIvkxv4g+T5GFWhVE5Ir
+# obdcz6vfY14dkCexoMamR/zl3N0mobBzIKbRQZNGgwZS3sKh4UEWAyZi8kU7SGl7
+# 6m9IODTJQqcOyP7sMSRMIkegma9GsgkhcXnuHBfJnrM5NLOyEzL9Du9fRs59h7yB
+# j8jzjpZujamaEamFimh0jaQqlFWUfcgEnrn9Zt6OfcFBhoyTUJCUACYiXqTCuaba
 # SIG # End signature block
