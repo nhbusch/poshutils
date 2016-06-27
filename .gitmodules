@@ -1,6 +1,3 @@
-[submodule "Modules/PsGet"]
-	path = Modules/PsGet
-	url = git@github.com:psget/psget.git
 [submodule "Modules/Pester"]
 	path = Modules/Pester
 	url = git@github.com:pester/Pester.git

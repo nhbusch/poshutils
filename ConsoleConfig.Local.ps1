@@ -1,23 +1,47 @@
 ################################################################################
 #
-# Powershell profile for current user on current host
+# Configure PowerShell console settings
 #
-# Copyright (c) 2014 Nils H. Busch. All rights reserved.
+# Copyright (c) 2016 Nils H. Busch. All rights reserved.
 #
 # Distributed under the MIT License (MIT).
 # See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
 #
 ################################################################################
 
-# Customize PowerShell console host
-(Get-Host).UI.RawUI.WindowTitle = `
-  "Windows PowerShell [$env:USERDOMAIN\$env:USERNAME@$env:COMPUTERNAME]"
+# Sets console settings
+function Set-ConsoleConfig
+{
+  $console = $Host.UI.RawUI  
 
+  $console.ForegroundColor = "DarkBlue"
+
+  # Modify cursor
+  $console.CursorSize = 12
+
+  # Modify special property objects
+  $buffer_size = $console.BufferSize
+  $buffer_size.Width = 120
+  $buffer_size.Height = 3000
+  $console.BufferSize = $buffer_size
+
+  $size = $console.WindowSize
+  $size.Width = 120
+  $size.Height = 50
+  $console.WindowSize = $size
+
+  # For solarized color scheme
+  $Host.PrivateData.DebugBackgroundColor = "Black"
+  $Host.PrivateData.ErrorBackgroundColor = "Black"
+  $Host.PrivateData.WarningForegroundColor = "DarkRed"
+}
+
+Set-ConsoleConfig
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/wlE007PwyWoLMSugUlh/Kl4
-# amygggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU675bfBFOevcIqh2kkRD9fuG+
+# nCigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -33,8 +57,8 @@
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTlLRl6leB2+usfZlxVzKOIz3pyXjANBgkqhkiG
-# 9w0BAQEFAASBgDiQF9pxacTrR33QkN5L6tDqqaVlLoQYiIUfeu49BwBhldTQ+Voe
-# Uch6JWWOkg58tgTIxVMDeDyZ95hx4yH9af1PqPAas5goHisNIzt8SbOf7s76W1qH
-# mGo6MzVqZoJBWMfifQnHJ0B166Orvje2PoG9c4fV+ZXsGTXNM/XDEFeo
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTCHCNLMoACy/Nd9GMcIcMe+JF32zANBgkqhkiG
+# 9w0BAQEFAASBgAEbYMIf7TXpG9muuu3zK9yxi9xDRe7XeasQjVd2tr7iu6h070Id
+# sRYP2fC9Deu1ZMAbozUR/QWcvwK41AYX25lYknciu+92R7xG7vp6QelAXa0ketRz
+# INtanyT5rxnzu+ndPeiDBi2V81RgMADqcVSVGRnc4tbvn0NZ+M8RHIhU
 # SIG # End signature block

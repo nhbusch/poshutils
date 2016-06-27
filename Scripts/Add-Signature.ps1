@@ -1,6 +1,6 @@
-################################################################################
+﻿################################################################################
 #
-# Powershell profile for current user on current host
+# Add-Signature
 #
 # Copyright (c) 2014 Nils H. Busch. All rights reserved.
 #
@@ -9,15 +9,50 @@
 #
 ################################################################################
 
-# Customize PowerShell console host
-(Get-Host).UI.RawUI.WindowTitle = `
-  "Windows PowerShell [$env:USERDOMAIN\$env:USERNAME@$env:COMPUTERNAME]"
+<#
+.SYNOPSIS
+  Signs a file.
+
+.DESCRIPTION
+  The Add-Signature script signs a script file using the code-signing
+  certificate of the current user.
+
+.PARAMETER File
+  Specifies the script file to sign.
+
+.SYNTAX
+
+.EXAMPLE
+  PS > Add-Signature foo.txt
+  Signs file foo.txt.
+  
+.LINK
+  Set-AuthenticodeSignature
+
+#>
+
+function Add-Signature
+{
+  [CmdletBinding()]
+  param(
+      [Parameter(Position=0, ValueFromPipeline=$true,
+       ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
+      [String] $File
+  )
+
+
+  process
+  {
+    $_cert = @(Get-ChildItem cert:\CurrentUser\My -codesigning)[0]
+    Set-AuthenticodeSignature $File $_cert
+  }
+}
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU/wlE007PwyWoLMSugUlh/Kl4
-# amygggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrEBpgZO1EMbs/NYIHehZ7eIr
+# C9ygggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -33,8 +68,8 @@
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTlLRl6leB2+usfZlxVzKOIz3pyXjANBgkqhkiG
-# 9w0BAQEFAASBgDiQF9pxacTrR33QkN5L6tDqqaVlLoQYiIUfeu49BwBhldTQ+Voe
-# Uch6JWWOkg58tgTIxVMDeDyZ95hx4yH9af1PqPAas5goHisNIzt8SbOf7s76W1qH
-# mGo6MzVqZoJBWMfifQnHJ0B166Orvje2PoG9c4fV+ZXsGTXNM/XDEFeo
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQbnG9yIQlmMHYK6WYh2tITYJq5LjANBgkqhkiG
+# 9w0BAQEFAASBgHLvJaZeFrnon9UnOldH1ZDl98DGICy00M9unyqsaZLenw7CQOLU
+# 5EkaMlCwjPmYA+6XQ5s/v1R9LPuAYivo3eOznkWGp3iU9/KgfLmbRiXjQXoO7USx
+# xJiJT33pVDZIQYELRrGOGtO+KJPoiIp+U0D6Jjxf75wg1r62tOoTbUNN
 # SIG # End signature block

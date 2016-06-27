@@ -9,7 +9,7 @@ function Get-Batchfile ($file) {
 function VsVars32($version = "10.0")
 {
     $key = "HKLM:SOFTWARE\Microsoft\VisualStudio\" + $version
-    $VsKey = get-ItemProperty $key
+    $VsKey = Get-ItemProperty $key
     $VsInstallPath = [System.IO.Path]::GetDirectoryName($VsKey.InstallDir)
     $VsToolsDir = [System.IO.Path]::GetDirectoryName($VsInstallPath)
     $VsToolsDir = [System.IO.Path]::Combine($VsToolsDir, "Tools")
@@ -142,3 +142,29 @@ function GetConsoleWindow()
 {
     Invoke-Win32 "kernel32" ([IntPtr]) "GetConsoleWindow"
 }
+
+# SIG # Begin signature block
+# MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
+# gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUnL5V2FydceK3iQVKbWytvhHH
+# aDugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
+# Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
+# IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
+# gY0AMIGJAoGBAKkPizbTOsd+uVe3mD7INJ98Yac1CZmp5hzO78G/U9AjHkBEaUWi
+# awbbsevIZwLY+lIjhz8iNWUjF/BsHpYHFFbQzpo3Dwl9/nQt38ZVwUYkfvrkD+dG
+# zs7adaGO7xvCmT/0PF1Dw9s0NxX/u+dEjgqMKp1c7avenvemT6ywd6iTAgMBAAGj
+# djB0MBMGA1UdJQQMMAoGCCsGAQUFBwMDMF0GA1UdAQRWMFSAEKs6i/WOhLGt+nxH
+# CCNHiOKhLjAsMSowKAYDVQQDEyFQb3dlclNoZWxsIExvY2FsIENlcnRpZmljYXRl
+# IFJvb3SCEMFP9BrKKP6QQWBYTOZuSCowCQYFKw4DAh0FAAOBgQBUraMSyau3Kv82
+# nEhiv4SokzuhmrRz+8sxdwycwqfxZYSscmrMPlhbZsMM/5d+npzzinCHiIaUjUIR
+# EKKYHFpECfNpI/BLyiVr9asNIb8pqFmACvfRDBC7hIq8biuBuF+syACJiK6F4KPe
+# OcMTPNMQhztINw8xzJ9P7D2BQteeaTGCAWAwggFcAgEBMEAwLDEqMCgGA1UEAxMh
+# UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
+# DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
+# SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTVwe2reuE05w8TuxjT1ujcTy9bSjANBgkqhkiG
+# 9w0BAQEFAASBgArdwcOYY9ozB5A7RNw8a6U+7sRvpWvG7Weofl93qGh66QsWK8E2
+# QM2dCvnYHJq2p60yj1y538hDayA51+8Q9/8MsMATxYVlK9zp5XFPN8GTi3xY85h5
+# cfDD4djy8WSUIssgGapd2KM38W9OsCfe5KqGR9tJ+qMGHaZv4JiJdk0H
+# SIG # End signature block
