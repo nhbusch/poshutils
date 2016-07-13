@@ -17,11 +17,9 @@ $Global:GitPromptSettings.AfterForegroundColor=[ConsoleColor]::DarkYellow
 $Global:GitPromptSettings.DelimForegroundColor=[ConsoleColor]::DarkYellow
 $Global:GitPromptSettings.IndexForegroundColor=[ConsoleColor]::Gray
 $Global:GitPromptSettings.WorkingForegroundColor=[ConsoleColor]::DarkRed # DarkGreen
-$Global:GitPromptSettings.UntrackedForegroundColor=[ConsoleColor]::DarkRed # Obsolete in 1.2
-#$Global:GitPromptSettings.LocalDefaultForegroundColor=[ConsoleColor]::DarkGreen 
-#$Global:GitPromptSettings.LocalWorkingForegroundColor=[ConsoleColor]::DarkRed  # White?
-#$Global:GitPromptSettings.LocalStagedForegroundColor=[ConsoleColor]::Cyan
-#$Global:GitPromptSettings.StashForegroundColor=[ConsoleColor]::Red 
-
+#$Global:GitPromptSettings.BeforeIndexForegroundColor=[ConsoleColor]::Gray
+$Global:GitPromptSettings.BeforeStashForegroundColor=[ConsoleColor]::Magenta
+$Global:GitPromptSettings.StashForegroundColor=[ConsoleColor]::Magenta 
+$Global:GitPromptSettings.AfterStashForegroundColor=[ConsoleColor]::Magenta 
 # Configure title
 $Global:GitPromptSettings.EnableWindowTitle="Git [$env:USERDOMAIN\$env:USERNAME@$env:COMPUTERNAME]: "

@@ -3,3 +3,9 @@ obj
 VERSION
 build
 Test.xml
+*.exe
+*.dll
+bin
+Modules/Pester
+Modules/PSReadline
+Modules/posh-git

@@ -10,18 +10,38 @@
 ################################################################################
 
 ################################################################################
-# Default paths 
-$script:ThisPath = Split-Path $MyInvocation.MyCommand.Definition -Parent
+# User paths 
+function Set-UserPaths($Root) 
+{
+  # User script path
+  $script_path= Join-Path $Root 'Scripts'
 
-# UserScriptPath
-$UserScriptPath = Join-Path $script:ThisPath 'Scripts'
+  # Module path
+  $module_path = @($env:PSModulePath -split ';')
+  $expected_user_module_path = Join-Path $Root 'Modules'
+  if(-not ($module_path | Where-Object { $_ -eq $expected_user_module_path })) {
+    $env:PSModulePath = $expected_user_module_path + '\;' + $env:PSModulePath
+  }
 
-# Module path
-$ModulePaths = @($env:PSModulePath -split ';')
-$ExpectedUserModulePath = Join-Path $script:ThisPath 'Modules'
-if(-not ($ModulePaths | Where-Object { $_ -eq $ExpectedUserModulePath })) {
-  $env:PSModulePath = $ExpectedUserModulePath + '\;' + $env:PSModulePath
+  # Adds path to local commands to PATH environment variable
+  function Add-LocalCommandPath
+  {
+    $tail = Join-Path 'opt' 'utils'
+    $head = (Get-Item "Env:HOMEDRIVE").Value, 'C:' | Get-Unique # don't sort
+    foreach ($h in $head) {
+      $path = Join-Path $h $tail
+      if(Test-Path -Path $path -PathType Container) {
+        $env:path += ";" + $path
+        break
+      }
+    }
+  }
+  Add-LocalCommandPath
+  
+  @{Root = $Root; Scripts = $script_path}
 }
+
+$UserPath = Set-UserPaths(Split-Path $MyInvocation.MyCommand.Definition -Parent)
 
 ################################################################################
 # Import modules with special needs
@@ -33,19 +53,21 @@ if((Get-Command -Name git) -and (Get-Module -Name posh-git -ListAvailable)) {
     $WithGitSupport = $true;
 
     # Configure
-    if(Test-Path -Path (Join-Path $script:ThisPath 'PoshGitConfig.Local.ps1') -PathType Leaf) {
-      . (Join-Path $script:ThisPath 'PoshGitConfig.Local.ps1')
+    if(Test-Path -Path (Join-Path $UserPath.Root 'PoshGitConfig.Local.ps1') -PathType Leaf) {
+      . (Join-Path $UserPath.Root 'PoshGitConfig.Local.ps1')
     }
   }
 }
 
 # If not auto-loaded, import PSReadline
-if($Host.Name -eq 'ConsoleHost'  -and !(Get-Module -Name PSReadline) -and (Get-Module -Name PsReadline -ListAvailable)) {
-  Import-Module -Name PSReadLine
+if($Host.Name -eq 'ConsoleHost') {
+  if(!(Get-Module -Name PSReadline) -and (Get-Module -Name PsReadline -ListAvailable)) {
+    Import-Module -Name PSReadLine
+  }
 
   # Configure
-  if(Test-Path -Path (Join-Path $script:ThisPath 'PSReadlineConfig.Local.ps1') -PathType Leaf) {
-    . (Join-Path $script:ThisPath 'PSReadlineConfig.Local.ps1')
+  if(Test-Path -Path (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1') -PathType Leaf) {
+    . (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1')
   }
 }
 
@@ -54,8 +76,8 @@ if($Host.Name -eq 'ConsoleHost'  -and !(Get-Module -Name PSReadline) -and (Get-M
 
 # Console host
 if($Host.Name -eq 'ConsoleHost') {
-  if(Test-Path -Path (Join-Path $script:ThisPath 'ConsoleConfig.Local.ps1') -PathType Leaf) {
-     & (Join-Path $script:ThisPath 'ConsoleConfig.Local.ps1') 
+  if(Test-Path -Path (Join-Path $UserPath.Root  'ConsoleConfig.Local.ps1') -PathType Leaf) {
+     & (Join-Path $UserPath.Root 'ConsoleConfig.Local.ps1') 
   }
 }
 
@@ -64,11 +86,8 @@ function global:prompt
 {
   $realLASTEXITCODE = $LASTEXITCODE
 
-  # Reset color, which can be messed up by Enable-GitColors
-  #$Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor see above #  DarkBlue
-
   # Replace home path with tilde
-  $path = $pwd.ProviderPath.Replace("$env:HOMEDRIVE"+"$env:HOMEPATH",'~').Replace("$env:USERPROFILE",'~~')
+  $path = $pwd.ProviderPath.Replace("$env:HOMEDRIVE"+"$env:HOMEPATH",'~').Replace("$HOME", '~').Replace("$env:USERPROFILE",'~~')
   Write-Host ("[$env:USERNAME@$env:COMPUTERNAME"+"] ") -ForegroundColor Green -NoNewline # was Cyan
   Write-Host ("$path") -ForegroundColor Yellow -NoNewline 
 
@@ -77,71 +96,25 @@ function global:prompt
   }
 
   $global:LASTEXITCODE = $realLASTEXITCODE
-  #Write-Host "$env:USERNAME@$env:COMPUTERNAME$('>' * ($nestedPromptLevel + 1))" -ForegroundColor Blue -NoNewline
   return "$('>' * ($nestedPromptLevel + 1)) "
 }
 
-# Fancier output for Git
-if($WithGitSupport) {
-  Enable-GitColors
-}
-
-# FIXME Move to helper function setting user paths
-# Adds path to utilities to PATH environment variable
-function Add-UtilsPath
-{
-  $tail = Join-Path 'opt' 'utils'
-  $head = (Get-Item "Env:HOMEDRIVE").Value, 'C:'
-  foreach ($h in $head) {
-    $utils_path = Join-Path $h $tail
-    if(Test-Path -Path $utils_path -PathType Container) {
-      $env:path += ";" + $utils_path
-      break
-    }
-  }
-}
-Add-UtilsPath
-
 ################################################################################
 # Functions
-
-# FIXME Move to utils
-# Opens Windows PowerShell Help as a compiled HTML Help file (.chm).
-function Get-CHM
-{
-  (Invoke-Item $env:windir\help\mui\0409\WindowsPowerShellHelp.chm)
-}
-
-# Gets the location of a command (equivalent of *nix which)
-function which($name)
-{
-  Get-Command $name | Select-Object -ExpandProperty Definition
-}
-
-# Gets the alias for a cmdlet
-function Get-CmdletAlias($cmdletname)
-{
-  Get-Alias | where {$_.definition -like "*$cmdletname*"} | Format-Table `
-     Definition, Name -auto
-}
-
-################################################################################
-# Source scripts
-#FIXME hide internal vars like user_cmds, here we could use script block
-$user_cmds = 'Add-Signature','Add-Path','Invoke-WalkCommand','VisualStudioUtils'
-$user_cmds | %{
-  if(Test-Path -Path (Join-Path $UserScriptPath ($_ + '.ps1')) -PathType Leaf) {
-    . (Join-Path $UserScriptPath ($_ + '.ps1'))
-  }
-}
-
-
+# Dot sources all function files and scripts in local scripts directory, 
+# currently set to '$PSScriptRoot\Scripts'.
+# Valid function files must end with *.ps1 extension. 
+# Files beginning with double underscores are excluded from loading.
+# FIXME place them in a module and dot source from there (put them in Function folder)
+Get-ChildItem $UserPath.Scripts | 
+      Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } | 
+      ForEach-Object { . $_.FullName } 
 
 ################################################################################
 # PS drives
 New-PSDrive -Name user -PSProvider filesystem -Root $env:USERPROFILE | Out-Null
 New-PSDrive -Name dev -PSProvider filesystem -Root D:\dev | Out-Null
-New-PSDrive -Name scripts -PSProvider filesystem -Root $script:ThisPath | Out-Null
+New-PSDrive -Name scripts -PSProvider filesystem -Root $UserPath.Root | Out-Null
 New-PSDrive -Name build -PSProvider filesystem -Root D:\build | Out-Null
 New-PSDrive -Name repos -PSProvider filesystem -Root D:\dev\repos | Out-Null
 New-PSDrive -Name tfs -PSProvider filesystem -Root D:\dev\tfs | Out-Null
@@ -153,21 +126,20 @@ New-Alias -Name ssa -Value Start-SshAgent
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
 New-Alias -Name edit -Value vim.bat
+New-Alias -Name cmake -Value cmake.bat
+New-Alias -Name die -Value Stop-CurrentProcess
 #FIXME alias ll when colored dir output
 
-# ScriptRoot
-# or PSScriptRoot if version < 3
-
-# Change to powershell source directory
-if (Test-Path -Path $script:ThisPath -PathType Container) {
-  Set-Location $script:ThisPath
+# Change to powershell user script directory
+if (Test-Path -Path $UserPath.Root -PathType Container) {
+  Set-Location $UserPath.Root
 }
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUGs7E8vmh+YYr+XEAjU1K8qAC
-# AvCgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUpoRlNBe6vaDmV/Ha+qbZvJNU
+# geygggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -183,8 +155,8 @@ if (Test-Path -Path $script:ThisPath -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTH+NTefbx9kEn11ZSDfkUHHx5C9zANBgkqhkiG
-# 9w0BAQEFAASBgFiAvU00zADr/rx+OPuwoB/Q9AJ4RqpgE4rHQ/21x1qtYpbYfEty
-# KOFs/nrhPfA+p0HPOlrL6Q4TpqravFnxgMQ2CCf3MgP0BHfvWW8lW3Z68dfAFsAZ
-# Vj0972crKGEU1Bwc2xkzTOSQjLFv3rddQ2S11400mNXY6JkiLTLuN89g
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTUMstWPJoV/JGSpy5Y891WovNBHzANBgkqhkiG
+# 9w0BAQEFAASBgIlGgweIcqZP5atza44MeWZ4kZvVuaJICf6wmrYk+VUZfcvjGp1R
+# m+W/igfQODMhFaHZ0kJgXn2tXy027d1/1y/2LZhFyWtNFP+yly1/k7GITSE8fTs1
+# kM+mYxQN02MshwcIQFnbsUQ6Wy/eLo113FwPirTBHX6K3GWt/OKxQ4sU
 # SIG # End signature block

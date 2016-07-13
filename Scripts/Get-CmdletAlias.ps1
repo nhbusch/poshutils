@@ -1,6 +1,6 @@
 ################################################################################
 #
-# General utility functions
+# Get-CmdletAlias
 #
 # Copyright (c) 2014-2016 Nils H. Busch. All rights reserved.
 #
@@ -11,73 +11,46 @@
 
 <#
 .SYNOPSIS
-  Opens Windows PowerShell HTML help.
+  Gets the alias for a cmdlet.
 
 .DESCRIPTION
-  The Get-CHM function opens the Windows Powershell as a compiled HTML file (.chm).
+  The Get-CmdletAlias function returns the alias name of the cmdlet argument.
 
-.LINK
-  Get-Help
-#>
-function Get-CHM
-{
-  Invoke-Item $env:windir\help\mui\0409\WindowsPowerShellHelp.chm
-}
-
-<#
-.SYNOPSIS
-  Gets the command binding.
-
-.DESCRIPTION
-  The which function returns the cmdlet or executable a command is bound to.
-  It is the equivalent of the *nix which command.
-
-  Returns error if command is unknown.
+.PARAMETER Name
+  Specifies the cmdlet.
 
 .EXAMPLE
-  PS > which dir
-  This command returns the command the alias dir refers to.
-  
-.EXAMPLE
-  PS > which explorer
-  This command returns the location of the executable explorer.
+  PS > Set-Alias -Name gh -Value Get-Help
+  PS > Get-CmdletAlias Get-Help
+  Returns the alias 'gh'.
   
 .LINK
-  Get-Command
+  Get-Alias
 #>
-function which
+
+function Get-CmdletAlias
 {
-  param (
-   # [Parameter(Position=0, ValueFromPipeline=$true, 
-   #  ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
-   # [String]
-	  #[ValidateNotNullOrEmpty()]
+  [CmdletBinding(SupportsShouldProcess=$true)]
+  param(
+    [Parameter(Position=0, ValueFromPipeline=$true, 
+     ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
+    [String]
+	  [ValidateNotNullOrEmpty()]
 	  $Name
   )
 
-  Get-Command $Name | Select-Object -ExpandProperty Definition
-}
+  process 
+  {
+    Get-Alias | where {$_.definition -like "*$Name*"} | Format-Table `
+     Definition, Name -auto
+  }
 
-<#
-.SYNOPSIS
-  Kills current process.
-
-.DESCRIPTION
-  The function Stop-CurrentProcess kills the current process. 
-  If emitted from a PowerShell console, it exits the console.
-
-.LINK
-  Stop-Process
-#>
-function Stop-CurrentProcess
-{
-  Stop-Process -Id $PID
 }
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUyCBw0eUjOdOUxQxbEaPGXeNt
-# EU2gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUHsAuKPVSsYn3+bz2J+/Qz/Fw
+# 2t6gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -93,8 +66,8 @@ function Stop-CurrentProcess
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRCaFUiWdeOPk16TtHBySZuk/8pHDANBgkqhkiG
-# 9w0BAQEFAASBgATG6DDsafY+58sG18Gu7SgWF5xrtKY4Puva8619P6TEFVUiZM41
-# i41C+/B0sQ5E1ptYInba7ZyaWHhILaT8i191K0WwLq8+PSJoKxYjAUTuUdQ5oJmb
-# aW+3EEQ4GIM7vGjrkaqSdSOpQEEaO+3T7iaGxyl6fu0g9uWuTcmPTIjI
+# AgEVMCMGCSqGSIb3DQEJBDEWBBSFwJRMLy7TguAAAa1j7bC4hCExwTANBgkqhkiG
+# 9w0BAQEFAASBgKEHDY4fkQLm2LP407cKwIRFz2VAdbGtajzAvr1lA8UEsUlR6KN9
+# 09j2FYxLtjunOeCKIYyWl5OijzE9St9HXsxYiX0ee0OjDj1JgcXzMR//2ruHv8CP
+# GXw0ywQk0bRxVaWzxAbW9Y/NsAgC0HPLf1sNOW88wa/+Eg0UEDfzJ2yq
 # SIG # End signature block
