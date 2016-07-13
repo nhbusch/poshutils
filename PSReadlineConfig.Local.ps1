@@ -161,6 +161,16 @@ Set-PSReadlineKeyHandler -Key Ctrl+Shift+v `
   }
 }
 
+# Copy working directory to clipboard
+# Mnemonic:_W_orking directory
+Set-PSReadlineKeyHandler -Key Alt+w `
+                         -BriefDescription CopyWorkingDirectoryToClipboard `
+                         -LongDescription "Copy the working directory to the clipboard" `
+                         -ScriptBlock {
+  Add-Type -Assembly PresentationCore
+  [System.Windows.Clipboard]::SetText($pwd.Path, 'Text')
+}
+
 #endregion
 
 #region Text objects
@@ -314,6 +324,43 @@ Set-PSReadlineKeyHandler -Key "Alt+'" `
 # Capture screen; mnemonic _D_isplay _C_apture
 Set-PSReadlineKeyHandler -Chord 'Ctrl+D,Ctrl+C' -Function CaptureScreen
 
+# Replace any aliases on the command line with the resolved commands.
+# Mnemonic: _E_xpand alias
+Set-PSReadlineKeyHandler -Key Alt+e `
+                         -BriefDescription ExpandAliases `
+                         -LongDescription "Replace all aliases with the full command" `
+                         -ScriptBlock {
+  param($key, $arg)
+
+  $ast = $null
+  $tokens = $null
+  $errors = $null
+  $cursor = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$tokens, [ref]$errors, [ref]$cursor)
+                           
+  $startAdjustment = 0
+  foreach ($token in $tokens) {
+    if ($token.TokenFlags -band [System.Management.Automation.Language.TokenFlags]::CommandName) {
+      $alias = $ExecutionContext.InvokeCommand.GetCommand($token.Extent.Text, 'Alias')
+      if ($alias -ne $null) {
+        $resolvedCommand = $alias.ResolvedCommandName 
+        if ($resolvedCommand -ne $null) {
+          $extent = $token.Extent
+          $length = $extent.EndOffset - $extent.StartOffset
+          [Microsoft.PowerShell.PSConsoleReadLine]::Replace(
+            $extent.StartOffset + $startAdjustment,
+            $length,
+            $resolvedCommand)
+          
+          # Our copy of the tokens won't have been updated, so we need to
+          # adjust by the difference in length
+          $startAdjustment += ($resolvedCommand.Length - $length)
+        }
+      }
+    }
+  }
+}
+
 # Run cmake in current directory
 
 # Build current directory
@@ -323,8 +370,8 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+D,Ctrl+C' -Function CaptureScreen
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUbiY2/x90SmZwq32yBm4isWtR
-# 2C2gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUEU00xbkvUqPeTamhLxzV/m9I
+# r9CgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -340,8 +387,8 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+D,Ctrl+C' -Function CaptureScreen
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQ5Fg63lg6LWLiAfGTIVaWoKWQdPjANBgkqhkiG
-# 9w0BAQEFAASBgKN85L9pjysQ+ponj7TUYonwskXQC1ppA5wtmvkR+WQbFnypV5nS
-# PIgy/6dUcNXWSpB4aYTGA8VNu+Q5V7wDP9erxh41imKxkW9O/v4gG/df5UxJ3V8f
-# SJrRltD6VdBvkSFLctks6P+ibX9H1CBlx2hkaP95URIiFkiObx4uSXkA
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ7bUwBVDqTzYAcjPjzheJjfkQAtzANBgkqhkiG
+# 9w0BAQEFAASBgAJ9b3Z92DVTn4SaaSa02wW1Fl7e741Qf8BSRFJbEtJvLoWpqKkF
+# C/GqF/98A/DM8pf4J3wMG+1j8Ndtrk2d3/bWfgkgIlecGNSPxWJ592HxO5wxo4i8
+# 6npVV9+9zD5Rs5+NfATUfzAtSTjSFvJN/j0MpwhfLHveloZKE3uZkztZ
 # SIG # End signature block
