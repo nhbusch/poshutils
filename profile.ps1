@@ -128,6 +128,7 @@ New-Alias -Name walk -Value Invoke-WalkCommand
 New-Alias -Name edit -Value vim.bat
 New-Alias -Name cmake -Value cmake.bat
 New-Alias -Name die -Value Stop-CurrentProcess
+New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
 #FIXME alias ll when colored dir output
 
 # Change to powershell user script directory
@@ -138,8 +139,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUpoRlNBe6vaDmV/Ha+qbZvJNU
-# geygggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrUhuuK5EIdbZwsX8qw7ryAOG
+# CFugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -155,8 +156,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTUMstWPJoV/JGSpy5Y891WovNBHzANBgkqhkiG
-# 9w0BAQEFAASBgIlGgweIcqZP5atza44MeWZ4kZvVuaJICf6wmrYk+VUZfcvjGp1R
-# m+W/igfQODMhFaHZ0kJgXn2tXy027d1/1y/2LZhFyWtNFP+yly1/k7GITSE8fTs1
-# kM+mYxQN02MshwcIQFnbsUQ6Wy/eLo113FwPirTBHX6K3GWt/OKxQ4sU
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRxx+s6xdFnG39lkeL8WZUtZ8w3VzANBgkqhkiG
+# 9w0BAQEFAASBgEdpmLVGCqxaY/peeJp6lrWzbQwxiiJ4dId/5Ut+D06s9qies0c0
+# /StH7x6b061qya+fegZqGj6q07NbteLJqCccuJp4RzZCtz9bVLbPcoKMO2I1jEny
+# 15N2DyLv8f0E48sVIiDWQYUuraxp9uTLRNXh9HkEZ+ThMAMtxPhzY9qB
 # SIG # End signature block
