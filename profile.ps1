@@ -88,7 +88,7 @@ function global:prompt
 
   # Replace home path with tilde
   $path = $pwd.ProviderPath.Replace("$env:HOMEDRIVE"+"$env:HOMEPATH",'~').Replace("$HOME", '~').Replace("$env:USERPROFILE",'~~')
-  Write-Host ("[$env:USERNAME@$env:COMPUTERNAME"+"] ") -ForegroundColor Green -NoNewline # was Cyan
+  Write-Host ("$env:USERNAME@$env:COMPUTERNAME"+":") -ForegroundColor Green -NoNewline # was Cyan
   Write-Host ("$path") -ForegroundColor Yellow -NoNewline 
 
   if($WithGitSupport) {
@@ -139,8 +139,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrUhuuK5EIdbZwsX8qw7ryAOG
-# CFugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUqIVdbJkyZbcbQSMCe61DgA3L
+# MzOgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -156,8 +156,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRxx+s6xdFnG39lkeL8WZUtZ8w3VzANBgkqhkiG
-# 9w0BAQEFAASBgEdpmLVGCqxaY/peeJp6lrWzbQwxiiJ4dId/5Ut+D06s9qies0c0
-# /StH7x6b061qya+fegZqGj6q07NbteLJqCccuJp4RzZCtz9bVLbPcoKMO2I1jEny
-# 15N2DyLv8f0E48sVIiDWQYUuraxp9uTLRNXh9HkEZ+ThMAMtxPhzY9qB
+# AgEVMCMGCSqGSIb3DQEJBDEWBBR5EOkqC4JLEr+fE73lah//kkRk7zANBgkqhkiG
+# 9w0BAQEFAASBgEN0qsDP80/PEOMJmYo6eQrrnIpv6L1uoKjq6fzqv9tUqjVBESgi
+# +f9j7s/It25oAg/XnY7OeAHF9VbdNnUz3OvJY12vE6R9nGulaypT5yu8zcAgFjLJ
+# tpV0FqhkeX/hz3BC0T9Jr5Wvs9EXBUDiSaFIb7WRiqZimtH7lzqxx/8u
 # SIG # End signature block
