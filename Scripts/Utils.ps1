@@ -73,6 +73,22 @@ function Stop-CurrentProcess
 {
   Stop-Process -Id $PID
 }
+
+<#
+.SYNOPSIS
+  Make link.
+
+.DESCRIPTION
+  The function mklink is a wrapper aound the mklink command built into cmd.exe.
+  All arguments are forwarded to the builtin command.
+
+.LINK
+
+#>
+function mklink
+{
+  cmd /c mklink $args
+}
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR

@@ -55,7 +55,7 @@ function Add-Path
     [String]
     [ValidateNotNullOrEmpty()]
     $Path,
-	  [Parameter(ValueFromPipeline=$false,
+    [Parameter(ValueFromPipeline=$false,
      ValueFromPipelineByPropertyName=$false, Mandatory=$false)]
     [Switch]
     $Permanent,
@@ -112,8 +112,8 @@ function Add-Path
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUGph0db291UGoDWLk2Jj7xS9N
-# KaegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUwtAdl7ot05lz9HGJv1AJ6ehj
+# ho+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -129,8 +129,8 @@ function Add-Path
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTt9Gx+vPu8OKHBMDDaLaS/8dKZ1DANBgkqhkiG
-# 9w0BAQEFAASBgKbLSnENZfH+T2wraTNotRx0IqPnQlYYlLwTXACeCjpYTqXczbgw
-# 3aybfSND1Uv2odZWU04tmtxVrltruJaC+zvdH5Q70ZHYSTFHRGQkc/YraxIJddlZ
-# NcChUbDuAKU5olkjILvC2S6MHqXRd7w+XR9WVeaijFI/JPtcwb88Ltlc
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTjYYdclRpaZeBln4oziU0d1QGhdjANBgkqhkiG
+# 9w0BAQEFAASBgIsmzV6uFKtcu5cFtva7eITZNGhhvtuOtOVRcuxR3XSaVc2VHbM4
+# TuKqLRVGZXZZzHV9f13kEKznZwNNr9matWW5OZP1EGlxBAReGVgOuKhns4E/cP7a
+# endARWhoTtk/rw4t/8AQdqU1jLIGBMtUo6kJbh1+edV/fZmlHdtf4CyU
 # SIG # End signature block
