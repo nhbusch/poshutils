@@ -11,7 +11,7 @@
 
 <#
 .SYNOPSIS
-  Adds path to system path. 
+  Adds path to system path.
 
 .DESCRIPTION
   The Add-Path function appends a path to the system path for the current
@@ -39,9 +39,9 @@
 
 .EXAMPLE
   PS > Add-Path -Path C:\path\to\my\files -Permanent -Prepend
-  Prepends the directory 'C:\path\to\my\files' permanently to the list of system 
+  Prepends the directory 'C:\path\to\my\files' permanently to the list of system
   paths.
-  
+
 .LINK
 
 #>
@@ -50,22 +50,22 @@ function Add-Path
 {
   [CmdletBinding(SupportsShouldProcess=$true)]
   param(
-    [Parameter(Position=0, ValueFromPipeline=$true, 
+    [Parameter(Position=0, ValueFromPipeline=$true,
      ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
     [String]
-	  [ValidateNotNullOrEmpty()]
-	  $Path,
-	  [Parameter(ValueFromPipeline=$false, 
+    [ValidateNotNullOrEmpty()]
+    $Path,
+	  [Parameter(ValueFromPipeline=$false,
      ValueFromPipelineByPropertyName=$false, Mandatory=$false)]
-    [Switch] 
-	  $Permanent,
-    [Parameter(ValueFromPipeline=$false, 
+    [Switch]
+    $Permanent,
+    [Parameter(ValueFromPipeline=$false,
      ValueFromPipelineByPropertyName=$false, Mandatory=$false)]
-    [Switch] 
-	  $Prepend
+    [Switch]
+    $Prepend
   )
 
-  process 
+  process
   {
     if (!(Test-Path -Path $Path -PathType Container))
     {
@@ -81,7 +81,7 @@ function Add-Path
     }
     else {
       # add backslash
-      if(!($Path[-1] -match '\\')) { 
+      if(!($Path[-1] -match '\\')) {
         $Path = $Path + '\'
       }
       Write-Verbose "Adding path `'$Path`' to system path."
@@ -104,7 +104,7 @@ function Add-Path
     }
   }
 
-  end 
+  end
   {
     return $_new
   }
@@ -112,8 +112,8 @@ function Add-Path
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU0eoQGwywsHT4HADCrBX1WSII
-# 3OigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUGph0db291UGoDWLk2Jj7xS9N
+# KaegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -129,8 +129,8 @@ function Add-Path
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRekbBhcc4uFuCCFXhqZiEZAJLTQzANBgkqhkiG
-# 9w0BAQEFAASBgH6BTz4C96CbxAGU04GXucuvx+FUlgUg5TkPv1WI1vYRl3zbVgMk
-# KNCclxuh0mdj6XHuZGSFA+11TG81RZo6B2eJpVdT5WC6BcHhfDKZqJ/ykz/nX4Ju
-# kwNcqt7M05sMxZ1FmTmcaKDXae03oS8lc0RClYGWnGe+iVRFnyNm/XJV
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTt9Gx+vPu8OKHBMDDaLaS/8dKZ1DANBgkqhkiG
+# 9w0BAQEFAASBgKbLSnENZfH+T2wraTNotRx0IqPnQlYYlLwTXACeCjpYTqXczbgw
+# 3aybfSND1Uv2odZWU04tmtxVrltruJaC+zvdH5Q70ZHYSTFHRGQkc/YraxIJddlZ
+# NcChUbDuAKU5olkjILvC2S6MHqXRd7w+XR9WVeaijFI/JPtcwb88Ltlc
 # SIG # End signature block

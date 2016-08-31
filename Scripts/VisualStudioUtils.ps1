@@ -2,7 +2,7 @@
 #
 # Utilites for VisualStudio(R).
 #
-# Copyright (c) 2014 Nils H. Busch. All rights reserved.
+# Copyright (c) 2014-2016 Nils H. Busch. All rights reserved.
 #
 # Distributed under the MIT License (MIT).
 # See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
@@ -11,12 +11,12 @@
 
 <#
 .SYNOPSIS
-  Invokes the specified batch file and retains any environment variable 
+  Invokes the specified batch file and retains any environment variable
   changes it makes.
 
 .DESCRIPTION
-  Invoke the specified batch file (and parameters), but also propagate any  
-  environment variable changes back to the PowerShell environment that  
+  Invoke the specified batch file (and parameters), but also propagate any
+  environment variable changes back to the PowerShell environment that
   called it.
 
 .PARAMETER Path
@@ -31,25 +31,25 @@
   propagated to the current PowerShell session.
 
 .NOTES
-  Author: Lee Holmes    
+  Author: Lee Holmes
 #>
 function Invoke-BatchFile
 {
-  param([string]$Path, [string]$Parameters)  
+  param([string]$Path, [string]$Parameters)
 
-  $tempFile = [IO.Path]::GetTempFileName()  
+  $tempFile = [IO.Path]::GetTempFileName()
 
-  # Store the output of cmd.exe.  We also ask cmd.exe to output   
-  # the environment table after the batch file completes  
-  cmd.exe /c " `"$Path`" $Parameters && set > `"$tempFile`" " 
+  # Store the output of cmd.exe.  We also ask cmd.exe to output
+  # the environment table after the batch file completes
+  cmd.exe /c " `"$Path`" $Parameters && set > `"$tempFile`" "
 
-  # Go through the environment variables in the temp file.  
-  # For each of them, set the variable in our local environment.  
-  Get-Content $tempFile | Foreach-Object {   
-      if ($_ -match "^(.*?)=(.*)$") { 
-        Set-Content "env:\$($matches[1])" $matches[2]  
-      } 
-  }  
+  # Go through the environment variables in the temp file.
+  # For each of them, set the variable in our local environment.
+  Get-Content $tempFile | Foreach-Object {
+      if ($_ -match "^(.*?)=(.*)$") {
+        Set-Content "env:\$($matches[1])" $matches[2]
+      }
+  }
 
   Remove-Item $tempFile
 }
@@ -59,9 +59,9 @@ function Invoke-BatchFile
   Imports environment variables for the specified version of Visual Studio.
 
 .DESCRIPTION
-  Imports environment variables for the specified version of Visual Studio. 
+  Imports environment variables for the specified version of Visual Studio.
   This function selects the appropriate set of environment variables
-  depending on the target architecture and the architecture of the hosting 
+  depending on the target architecture and the architecture of the hosting
   PowerShell process (either 32bit or 64bit).
 
 .PARAMETER Version
@@ -69,14 +69,14 @@ function Invoke-BatchFile
   values are 2008, 2010, 2012, 2013, and 2015.
 
 .PARAMETER Architecure
-  Selects the desired architecture to configure the environment for. 
-  Defaults to x86 if running in 32-bit PowerShell, otherwise defaults to 
+  Selects the desired architecture to configure the environment for.
+  Defaults to x86 if running in 32-bit PowerShell, otherwise defaults to
   amd64. Other valid values are: arm, x86_arm, x86_amd64
 
 .EXAMPLE
   C:\PS> Import-VisualStudioVars 2010
 
-  Sets up the environment variables to use the VS 2010 compilers. Defaults 
+  Sets up the environment variables to use the VS 2010 compilers. Defaults
   to x86 if running in 32-bit PowerShell, otherwise defaults to amd64.
 
 .EXAMPLE
@@ -84,38 +84,38 @@ function Invoke-BatchFile
 
   Sets up the environment variables for the VS 2012 arm compiler.
 
-.LINK 
+.LINK
   Invoke-BatchFile
-  
+
 #>
-function Import-VisualStudioVars 
+function Import-VisualStudioVars
 {
   param([Parameter(Mandatory = $true, Position = 0)]
         [ValidateSet('90', '2008', '100', '2010', '110', '2012', '120', '2013', '140', '2015')]
         [string]
         $Version,
         [Parameter(Position = 1)]
-		    [string]
+        [string]
         $Architecture = $(if( [intptr]::size -eq 8) {'amd64'} else {'x86'})
   )
- 
+
   End {
     switch -regex ($Version) {
       '90|2008' {
         Invoke-BatchFile "${env:VS90COMNTOOLS}..\..\VC\vcvarsall.bat" $Architecture
         Write-Host "Imported VS 2008 $Architecture environment variables." -ForegroundColor Green
       }
-      
+
       '100|2010' {
         Invoke-BatchFile "${env:VS100COMNTOOLS}..\..\VC\vcvarsall.bat" $Architecture
         Write-Host "Imported VS 2010 $Architecture environment variables." -ForegroundColor Green
       }
- 
+
       '110|2012' {
         Invoke-BatchFile "${env:VS110COMNTOOLS}..\..\VC\vcvarsall.bat" $Architecture
         Write-Host "Imported VS 2012 $Architecture environment variables." -ForegroundColor Green
       }
- 
+
       '120|2013' {
         Invoke-BatchFile "${env:VS120COMNTOOLS}..\..\VC\vcvarsall.bat" $Architecture
         Write-Host "Imported VS 2013 $Architecture environment variables." -ForegroundColor Green
@@ -124,7 +124,7 @@ function Import-VisualStudioVars
         Invoke-BatchFile "${env:VS140COMNTOOLS}..\..\VC\vcvarsall.bat" $Architecture
         Write-Host "Imported VS 2015 $Architecture environment variables." -ForegroundColor Green
       }
- 
+
       default {
         Write-Error "Import-VisualStudioVars: Unknown version: $Version"
       }
@@ -134,8 +134,8 @@ function Import-VisualStudioVars
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUfAHXPpA4HraFC6mmnhuYyaYY
-# WVqgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1nt7u3iutienNqG8D2+46GUe
+# cGugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -151,8 +151,8 @@ function Import-VisualStudioVars
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBS1odKZOFROMYPfk+ZHaGzHYOWxQDANBgkqhkiG
-# 9w0BAQEFAASBgHKlgry2MvCMvaF3VcZ07RUGU/CyvGJddlKl6B2Srt46DyJpgW0F
-# fzoA/92ZaQY2RLYcwS3TX78oYt/wmSC/foRa/Ack/8eZZuN8hxtaepp2WvmgeXSG
-# 9Gm6ifzz9PNvUzwGPTW050U8R1RKu/cDxTfed6eYTMVGPt5BlHzjurZf
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTsjWaHtLsveyNbdWVfr3Vz8EIvTzANBgkqhkiG
+# 9w0BAQEFAASBgHTBEqQwtDbu2vE+1kPTCOQl0hLQrAjvrNxbVu0eTUXN0Agli5Fd
+# sfxfYOVjhNRGWW5XIfVd4OrOT1CtP2i3i47uTsXSIdlm43BgMLRlzJfYe0XOswLS
+# k5nSfOcvlRA5o9ZRL3Xnf2/g+7YTr1sv+enUWgexY96gfYom5RfBaVkX
 # SIG # End signature block

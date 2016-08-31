@@ -105,7 +105,7 @@ function global:prompt
 # currently set to '$PSScriptRoot\Scripts'.
 # Valid function files must end with *.ps1 extension. 
 # Files beginning with double underscores are excluded from loading.
-# FIXME place them in a module and dot source from there (put them in Function folder)
+# FIXME Eventually place them in a module and load this
 Get-ChildItem $UserPath.Scripts | 
       Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } | 
       ForEach-Object { . $_.FullName } 
@@ -127,6 +127,7 @@ New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
 New-Alias -Name edit -Value vim.bat
 New-Alias -Name cmake -Value cmake.bat
+New-Alias -Name ctest -Value ctest.bat
 New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
 #FIXME alias ll when colored dir output
@@ -139,8 +140,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUqIVdbJkyZbcbQSMCe61DgA3L
-# MzOgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUIwamm+7IZqHP2xouX0+gy7EM
+# 6wKgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -156,8 +157,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBR5EOkqC4JLEr+fE73lah//kkRk7zANBgkqhkiG
-# 9w0BAQEFAASBgEN0qsDP80/PEOMJmYo6eQrrnIpv6L1uoKjq6fzqv9tUqjVBESgi
-# +f9j7s/It25oAg/XnY7OeAHF9VbdNnUz3OvJY12vE6R9nGulaypT5yu8zcAgFjLJ
-# tpV0FqhkeX/hz3BC0T9Jr5Wvs9EXBUDiSaFIb7WRiqZimtH7lzqxx/8u
+# AgEVMCMGCSqGSIb3DQEJBDEWBBT1yWl0UhiBxJCiYZh+x1tWt9e3BzANBgkqhkiG
+# 9w0BAQEFAASBgJwTYXihULiT+tfYCt00uiI6Psj1u5SUOaUEONtG/0aLiDiFb7pH
+# 3BXL8PAYf2yyH5Hr8KWK/toSvPPOyZSzkccFCJMzGyu+JqFvWwSbbxEo/HgWaDXu
+# L+tKo63KqbAuEtZqPgNRWKpnQGJJyldx6ctHwqL4Lvtdi7d+jobDAVW2
 # SIG # End signature block

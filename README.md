@@ -1,7 +1,7 @@
 poshutils
 =========
 
-Collection of PowerShell modules and utilities.
+Collection of PowerShell modules, utilities and config files.
 
 These PowerShell commands include tools for programming in VisualStudio(R),
 Git source code management, signing code and various system utilities.
@@ -9,38 +9,61 @@ Git source code management, signing code and various system utilities.
 They make use of the following external PowerShell modules:
 
 * [Pester](https://github.com/pester/Pester)
-* [PsGet](https://github.com/psget/psget)
+* [PsReadline](https://github.com/lzybkr/PSReadLine) (part of PowerShell 5.0)
 * [posh-git](https://github.com/dahlbyk/posh-git)
 
-which are incorporated as submodules.
+which may be retrieved from the [PowerShellGallery](https://www.powershellgallery.com/).
 
 Installation
 ------------
 
-Clone the repository 
+### Prerequisites
 
+* PowerShell 3.0 or later
+* [Git for Windows](https://git-scm.com/download/win)
 
-```
-  git clone git@github.com:nhbusch/poshutils.git %USERPROFILE%/Documents/WindowsPowerShell
-```
+### Automatic installation
 
-Install submodules (first time only)
+To automatically install the content of this repository along with its dependencies,
+enter in a PowerShell shell
 
-```
-  cd ~/Documents/WindowsPowerShell/Modules
-  git submodule init
-  git submodule update
-```
-
-To upgrade a specific module, go to the submodule directory and pull the latest changes by
-
-```
-  git pull origin master
+```powershell
+git clone https://github.com/nhbusch/poshutils.git path/to/repo
+cd path/to/repo
+.\Install
 ```
 
-Upgrading all modules can be achieved by 
+which clones this repository, changes to the installation directory, and runs the 
+install script. The install script will also create a link from the PowerShell 
+user directory - usually `$env:USERPROFILE\Documents\WindowsPowerShell` - to the
+above installation directory.
+
+### Manual installation
+
+Install external modules
+
+Installing external modules requires PowerShellGet, which is part of PowerShell
+5.0 or later (distributed with Windows 10 or
+[Windows Management Framework 5.0)](http://go.microsoft.com/fwlink/?LinkId=398175).
+If you are on PowerShell 3.0 or 4.0, you need to install
+[PowerShellGet](https://www.microsoft.com/en-us/download/details.aspx?id=49186) instead.
+
+To install the above dependencies into the user module path, run e.g.,
+
+```powershell
+Install-Module -Name PSReadLine -Scope CurrentUser
+```
+
+Finally, clone this repository
 
 ```
-  git submodule foreach git pull origin master
+  git clone https://github.com/nhbusch/poshutils.git path/to/repo
 ```
 
+and create a hard link from the PowerShell user directory to there
+
+```powershell
+  cmd /c mklink /j (Split-Path $PROFILE -Parent) path\to\repo\poshutils
+```
+
+and your are done!
