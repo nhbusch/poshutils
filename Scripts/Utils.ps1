@@ -37,18 +37,18 @@ function Get-CHM
 .EXAMPLE
   PS > which dir
   This command returns the command the alias dir refers to.
-  
+
 .EXAMPLE
   PS > which explorer
   This command returns the location of the executable explorer.
-  
+
 .LINK
   Get-Command
 #>
 function which
 {
   param (
-   # [Parameter(Position=0, ValueFromPipeline=$true, 
+   # [Parameter(Position=0, ValueFromPipeline=$true,
    #  ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
    # [String]
 	  #[ValidateNotNullOrEmpty()]
@@ -63,7 +63,7 @@ function which
   Kills current process.
 
 .DESCRIPTION
-  The function Stop-CurrentProcess kills the current process. 
+  The function Stop-CurrentProcess kills the current process.
   If emitted from a PowerShell console, it exits the console.
 
 .LINK
@@ -92,8 +92,8 @@ function mklink
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUyCBw0eUjOdOUxQxbEaPGXeNt
-# EU2gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU4H0KUAOmJLMmCg/juFTVBXYm
+# 0vigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -109,8 +109,8 @@ function mklink
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRCaFUiWdeOPk16TtHBySZuk/8pHDANBgkqhkiG
-# 9w0BAQEFAASBgATG6DDsafY+58sG18Gu7SgWF5xrtKY4Puva8619P6TEFVUiZM41
-# i41C+/B0sQ5E1ptYInba7ZyaWHhILaT8i191K0WwLq8+PSJoKxYjAUTuUdQ5oJmb
-# aW+3EEQ4GIM7vGjrkaqSdSOpQEEaO+3T7iaGxyl6fu0g9uWuTcmPTIjI
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTfrunm2DOxW4pQOe0H3A+Bh/ZVlzANBgkqhkiG
+# 9w0BAQEFAASBgCndpdZv+2YLcp+EO1l5HHBQ+cMaDBKPAJvfrPYeAWXxqsEdKkmh
+# IzOaxRAm9KJ7ZG1AveYFG74PxfJVw7/fdC0IQDhi9IogGW91eRslHZK+UpV7N/7o
+# KhKXC7iwUIjtYeElYbXNWGaxCAEzA1O6QRAXWIHcQmvJLX6caFEU8qZe
 # SIG # End signature block

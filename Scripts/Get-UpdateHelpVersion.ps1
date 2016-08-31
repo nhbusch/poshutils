@@ -25,7 +25,7 @@
 .EXAMPLE
   PS > Get-UpdateHelpVersion ISE
   Retrieves update information on ISE help.
-  
+
 .LINK
 
 #>
@@ -37,15 +37,15 @@ function Get-UpdateHelpVersion
 		[parameter(Mandatory=$False)]
 		[String[]] $Module
 	)
-	
+
 	process {
 		$HelpInfoNamespace = @{helpInfo="http://schemas.microsoft.com/powershell/help/2010/05"}
 
-		if($Module) { 
-		  $Modules = Get-Module $Module -ListAvailable | where {$_.HelpInfoUri} 
+		if($Module) {
+		  $Modules = Get-Module $Module -ListAvailable | where {$_.HelpInfoUri}
     }
-    else { 
-	    $Modules = Get-Module -ListAvailable | where {$_.HelpInfoUri} 
+    else {
+	    $Modules = Get-Module -ListAvailable | where {$_.HelpInfoUri}
     }
 
     foreach($mModule in $Modules) {
@@ -57,7 +57,7 @@ function Get-UpdateHelpVersion
         foreach($mNode in $mNodes) {
 			    $mCulture=$mNode.Node.UICultureName
           $mVer=$mNode.Node.UICultureVersion
-            
+
           [PSCustomObject]@{"ModuleName"=$mName; "Culture"=$mCulture; "Version"=$mVer}
         }
       }
@@ -68,8 +68,8 @@ function Get-UpdateHelpVersion
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUCyu/DN5KUGbJ44P2ZuHtJZGG
-# zi+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUyAaITMdojw0b0rtQoIlnIVPZ
+# 0ECgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -85,8 +85,8 @@ function Get-UpdateHelpVersion
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRSEnybbwybVzn+QQjSjsYKgU25FzANBgkqhkiG
-# 9w0BAQEFAASBgDp0HxAO9twOZwCz39Ubb3rEEW+S+M6E3vL42nFkxhsZAnym5V5t
-# OJ5DKfIoHD8K50CJ1+y/y44BbhrAWsgUD6NA28i0y8Rb9eq785mh+8/OExyIqkuz
-# tKnWr07WDWHA1samT8tN/c2GcKgvSreoCj9G/j6OzhOcJrXEbdUR/vCr
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRis6SdpKRrf2YT9a39b2c2Qg8sXzANBgkqhkiG
+# 9w0BAQEFAASBgGGUm6EOF+2t2/i3iiFXFcN+ztmwtZsL36nK5IYb1xny95aONL4k
+# SoafaMBhg5yiQHAZSf9dIE4RtaRUtp0SZP2TYQNE9Rt3AMf40z8GWtzaOmLzn0ZA
+# UiXUJ1FHjYaidBoJhrqdIRDM6m3sUwgKepTYTr0boyDByS2jQeN/xxbh
 # SIG # End signature block

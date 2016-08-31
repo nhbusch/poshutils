@@ -11,11 +11,11 @@
 
 <#
 .SYNOPSIS
-  Invokes command recursively on child directories. 
+  Invokes command recursively on child directories.
 
 .DESCRIPTION
   The Invoke-WalkCommand function executes a command or script block
-  recursively on all sub-directories below Path. 
+  recursively on all sub-directories below Path.
 
 .PARAMETER Command
   Specifies the command or script block to execute.
@@ -29,7 +29,7 @@
 .EXAMPLE
   PS > Invoke-WalkCommand {pwd} C:\path\to\my\files
   Lists all direct child directories of 'C:\path\to\my\files'.
-  
+
 .EXAMPLE
   PS > Invoke-WalkCommand { msbuild /t:clean }
   Cleans all projects in current directory and below.
@@ -37,28 +37,28 @@
 .EXAMPLE
   PS > Invoke-WalkCommand -Command { Invoke-WalkCommand {pwd} }
   Lists all child directories and their children of current directory.
-  
+
 .LINK
   Invoke-Command
 #>
 
-function Invoke-WalkCommand 
+function Invoke-WalkCommand
 {
   [CmdletBinding(SupportsShouldProcess=$true)]
   param(
-    [Parameter(Position=0, ValueFromPipeline=$true, 
+    [Parameter(Position=0, ValueFromPipeline=$true,
      ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
     [ScriptBlock]
 	  [ValidateNotNullOrEmpty()]
 	  $Command,
-	  [Parameter(Position=1, ValueFromPipeline=$true, 
+	  [Parameter(Position=1, ValueFromPipeline=$true,
      ValueFromPipelineByPropertyName=$true, Mandatory=$false)]
     [String]
 	  [ValidateNotNullOrEmpty()]
 	  $Path = (Get-Location)
   )
 
-  process 
+  process
   {
     if(!(Test-Path -Path $Path -PathType Container)) {
       throw New-Object System.IO.DirectoryNotFoundException("Path does not exist.")
@@ -69,19 +69,19 @@ function Invoke-WalkCommand
       if($PSCmdlet.ShouldProcess($_, $Command)) {
         Push-Location (Join-Path $Path $_)
 
-        #Write-Verbose "Applying `'$Command`' on `'$_`'"     
+        #Write-Verbose "Applying `'$Command`' on `'$_`'"
         & $Command # FIXME: Invoke-Command -ScriptBlock ?
 
         Pop-Location
       }
     }
-  }  
+  }
 }
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUYQTskim9C30oLYzCsSNQMTyF
-# HXCgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUUrLRBf4gcV/N3YfrTKe/wTgu
+# uligggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -97,8 +97,8 @@ function Invoke-WalkCommand
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQ8dsUSinpxtPSyeP/xKPVCO6w7QzANBgkqhkiG
-# 9w0BAQEFAASBgItlSwEP667I0leDjnPNLcX5Vj0QI0q2ZZZ9O7D4qn60hesFbbNq
-# O2Am411BukViP9vbwwyqzay4tIGPmDZQMzFZvWlIgmRbkltMvexTEEhW4IG6ivkJ
-# 5J1DaGyqwX3t1j2pR/i0VjNPa187Zms5hx0AZ9Wp8qkAmDdq3CYp6da6
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ6D3NOwhVCykBanX5ov8EbDezsCDANBgkqhkiG
+# 9w0BAQEFAASBgHkFBuhT8r2kKIPwzL4QRlhwRPUZG6VMCR342ID1ZAzVK77WpGwi
+# 0Oql3eMIqTFgIVkF9DpA849YYkR+8ON7vMdOohfv/dw4xspWprMI/8NFW1E/Jdxi
+# d20uRWTzgQsslNDEs9Hj2m2nRpkDqSLSe5oYMmN8EKgR+Z/t1u8Pa4ME
 # SIG # End signature block

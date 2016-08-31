@@ -23,12 +23,12 @@ function Add-SshKey()
 .DESCRIPTION
   The Add-SshKey function searches a directory recursively for keys and
   adds them to the running SSH instance.
-  
+
   Currently, ssh-add for Unix (including Cygwin or Git-bash) and PuTTy's
   plink are supported.
 
 .PARAMETER Path
-  Specifies the path to search. If none is given, default path '.ssh' is 
+  Specifies the path to search. If none is given, default path '.ssh' is
   searched.
 
 .SYNTAX
@@ -98,8 +98,8 @@ Export-ModuleMember Add-SshKey
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUc9YLn3BG/PvgHy+4HauAqnEP
-# ncegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUB5LJx9jdS935ZUHhvMkzQnig
+# eSqgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -115,8 +115,8 @@ Export-ModuleMember Add-SshKey
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRQxGiG+ILb979+eS7u0gW1hec7ZzANBgkqhkiG
-# 9w0BAQEFAASBgD9uu6ovYz/AWQktAiOlNLQz/7x5NO4od8/FFjZG5BvCZAYfZVup
-# jlBYxrF4NAs5Wn5+JqX4vgcaa2y7vfEF8swOJJIVwh7I4fuD+obfWpoozS1W+H5E
-# 2S3kSYT6jP/uYSchFwNTtleiJk5l9cBaee3XkNNTV0jEyiJjR1NcpJ9R
+# AgEVMCMGCSqGSIb3DQEJBDEWBBSxb+3TokWpdzCHru2S8NcfZu7t7zANBgkqhkiG
+# 9w0BAQEFAASBgCA7ptz2gsuOWlxyNjYiySTtRjn+JW/Djj8/aFkzgXlaTZ57YnhQ
+# L/RgdOqeNY7qkAwQ0YWqo3gh26nsMzHlablFLipj2Ng/qSb/acdcbvuu68Gvklkj
+# OaOhsQnZh93ZZnGMHQNIfct5QyDbOOF+egzYmMCbebWmfiGZxvcDKERG
 # SIG # End signature block

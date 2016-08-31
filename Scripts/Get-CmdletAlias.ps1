@@ -23,7 +23,7 @@
   PS > Set-Alias -Name gh -Value Get-Help
   PS > Get-CmdletAlias Get-Help
   Returns the alias 'gh'.
-  
+
 .LINK
   Get-Alias
 #>
@@ -32,14 +32,14 @@ function Get-CmdletAlias
 {
   [CmdletBinding(SupportsShouldProcess=$true)]
   param(
-    [Parameter(Position=0, ValueFromPipeline=$true, 
+    [Parameter(Position=0, ValueFromPipeline=$true,
      ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
     [String]
 	  [ValidateNotNullOrEmpty()]
 	  $Name
   )
 
-  process 
+  process
   {
     Get-Alias | where {$_.definition -like "*$Name*"} | Format-Table `
      Definition, Name -auto
@@ -49,8 +49,8 @@ function Get-CmdletAlias
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUHsAuKPVSsYn3+bz2J+/Qz/Fw
-# 2t6gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUQEkYijeJL42+2UF6/gD7ib1j
+# Td6gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -66,8 +66,8 @@ function Get-CmdletAlias
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBSFwJRMLy7TguAAAa1j7bC4hCExwTANBgkqhkiG
-# 9w0BAQEFAASBgKEHDY4fkQLm2LP407cKwIRFz2VAdbGtajzAvr1lA8UEsUlR6KN9
-# 09j2FYxLtjunOeCKIYyWl5OijzE9St9HXsxYiX0ee0OjDj1JgcXzMR//2ruHv8CP
-# GXw0ywQk0bRxVaWzxAbW9Y/NsAgC0HPLf1sNOW88wa/+Eg0UEDfzJ2yq
+# AgEVMCMGCSqGSIb3DQEJBDEWBBS3k5hJYSj3Iqz0Ko/EQD4qBDlNIjANBgkqhkiG
+# 9w0BAQEFAASBgB64vXXhBd8VzEDvzg2UYJYNzZ+QWGDhcJjjJOpyafPuAo6kCJKB
+# Tp7Tg5pfrL4C40lfPZKhGJHhU+6a+kN/92AF5WX931Vu4R6KHnF4MkiypLqkADkR
+# OzUiwPQgwa8SqFKohhjcva6i3Y2coz8uzCic642w/Fn3v9TW07yEJKrS
 # SIG # End signature block

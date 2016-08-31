@@ -65,7 +65,7 @@ function Invoke-BatchFile
   PowerShell process (either 32bit or 64bit).
 
 .PARAMETER Version
-  The version of Visual Studio to import environment variables for. Valid 
+  The version of Visual Studio to import environment variables for. Valid
   values are 2008, 2010, 2012, 2013, and 2015.
 
 .PARAMETER Architecure
@@ -134,8 +134,8 @@ function Import-VisualStudioVars
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1nt7u3iutienNqG8D2+46GUe
-# cGugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrcMreWTGEFcqNpAQ68b9Gdyn
+# oZagggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -151,8 +151,8 @@ function Import-VisualStudioVars
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTsjWaHtLsveyNbdWVfr3Vz8EIvTzANBgkqhkiG
-# 9w0BAQEFAASBgHTBEqQwtDbu2vE+1kPTCOQl0hLQrAjvrNxbVu0eTUXN0Agli5Fd
-# sfxfYOVjhNRGWW5XIfVd4OrOT1CtP2i3i47uTsXSIdlm43BgMLRlzJfYe0XOswLS
-# k5nSfOcvlRA5o9ZRL3Xnf2/g+7YTr1sv+enUWgexY96gfYom5RfBaVkX
+# AgEVMCMGCSqGSIb3DQEJBDEWBBSfxwAvWFNQ4yks9/xziF4W//10ADANBgkqhkiG
+# 9w0BAQEFAASBgFJBuGlec6qKIUVUa5MZ+h6ldS9MM34ty95ojdb8KWhL5GHCTDof
+# fbJ8CT3dJ0Bk348n2Mv/F+gfBB6fF0pzqtC5pdYBnDpoMrMBfoyywRS94Pyn/xlC
+# 6yyA2PsHe0wS54r7ztgjzi1EBdJVbtOBXkQSYPuANd08tjSbtJCBJz2a
 # SIG # End signature block

@@ -15,8 +15,8 @@
 
 .DESCRIPTION
   The Set-SolarizedColorScheme adds or changes the PowerShell console color
-  table registry values to the colors of the Solarized color scheme 
-  (http://ethanschoonover.com/solarized). 
+  table registry values to the colors of the Solarized color scheme
+  (http://ethanschoonover.com/solarized).
 
 .PARAMETER Variant
   Specifies the color scheme variant.
@@ -26,7 +26,7 @@
 .EXAMPLE
   PS > Set-SolarizedColorScheme(Dark)
   Sets the PowerShell console colors to the dark Solarized color scheme.
-  
+
 .LINK
 
 #>
@@ -41,13 +41,13 @@ function Set-SolarizedColorScheme
       [ValidateSet("Dark", "Light")]
       $variant = "Dark"
   )
-  
+
   process {
-    $key = 'HKCU:\Console\%SystemRoot%_system32_WindowsPowerShell_v1.0_powershell.exe' 
+    $key = 'HKCU:\Console\%SystemRoot%_system32_WindowsPowerShell_v1.0_powershell.exe'
     $key = 'HKCU:\Console\Windows PowerShell'
     if (Test-Path $key) {
           # Common color table
-          Set-ItemProperty -Path $key -Name ColorTable00 -Value 0x00362b00 
+          Set-ItemProperty -Path $key -Name ColorTable00 -Value 0x00362b00
           Set-ItemProperty -Path $key -Name ColorTable01 -Value 0x00969483
           Set-ItemProperty -Path $key -Name ColorTable02 -Value 0x00756e58
           Set-ItemProperty -Path $key -Name ColorTable03 -Value 0x00a1a193
@@ -82,13 +82,13 @@ function Set-SolarizedColorScheme
 function Set-ConsoleFont
 {
   process {
-    $key = 'HKCU:\Console\%SystemRoot%_system32_WindowsPowerShell_v1.0_powershell.exe' 
+    $key = 'HKCU:\Console\%SystemRoot%_system32_WindowsPowerShell_v1.0_powershell.exe'
     if (Test-Path $key) {
-       Set-ItemProperty -Path $key -Name FaceName -Value "Consolas" 
+       Set-ItemProperty -Path $key -Name FaceName -Value "Consolas"
        Set-ItemProperty -Path $key -Name FontFamily -Value 0x00000036
        Set-ItemProperty -Path $key -Name FontSize -Value 0x000e0000
        Set-ItemProperty -Path $key -Name FontWeight -Value 0x00000190
-    } 
+    }
   }
 }
 
@@ -104,8 +104,8 @@ function Out-ConsoleColors
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUt4AV8Xw670YT3Imq0Stpd+ru
-# 8QqgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUwKQEa6rwESYyo1+B3rtcMpqo
+# 1BOgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -121,8 +121,8 @@ function Out-ConsoleColors
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRSgzzGc9VN3Y3tVST13LxZaGqGlzANBgkqhkiG
-# 9w0BAQEFAASBgApBWKVPUKGaIo0izp8a4xIDV/3N6NZX0Be2Norki0PiAEmHs7Go
-# KY7YBJ6Rv8XLtQEZwTvWe4YuLCnHoOdrrSrSWxIEOSnHP/bdA2Hjq85p2i3byK6h
-# VC3yvunBLIfy4Um0nX4Bndcvzb6ONi+wmZGvOqFeo2/AT/kEgtbc5dNn
+# AgEVMCMGCSqGSIb3DQEJBDEWBBR/GbAAWTXhzGuDm4+HonnnU/7byDANBgkqhkiG
+# 9w0BAQEFAASBgEodrmKysnsgVuc/U1kWLn7rd84ypyANS5jvNewByjkWBJ7tHvQ+
+# 5OA94r9zqUUBpwcUH8VUvGQ6ND+wCPj1b6zRn1scaIO/46BDw0a8jPrKc20Leaje
+# BnN51mRkzq0Wr5Vfv8YNn2WnkhmkfcTrZGTqnCR6f9Q3NpQXJqTSIicP
 # SIG # End signature block
