@@ -9,13 +9,14 @@
 #
 ################################################################################
 
+[CmdletBinding()]
 param(
   [String]
   [ValidateNotNullOrEmpty()]
-  $Path,
-  [String]
-  [ValidateNotNullOrEmpty()]
-  $Link = (Join-Path -Path $home Documents\WindowsPowerShell)
+  $Path
+  #[String]
+  #[ValidateNotNullOrEmpty()]
+  #$Link = (Join-Path -Path $home Documents\WindowsPowerShell)
 )
 
 <#
@@ -23,10 +24,9 @@ param(
   Installs poshutils and its dependencies.
 
 .DESCRIPTION
-  The Install-PoshUtils function installs required modules.
-  It also creates a link from Link to Path, if no such link exists.
-  If no argument to Link is given, the default PowerShell user
-  directory - $HOME/Documents/WindowsPowerShell - is assumed.
+  The Install-PoshUtils function creates a link from the default PowerShell user
+  directory - $HOME/Documents/WindowsPowerShell - to Path.
+  It then installs the required modules.
 
 .PARAMETER Path
   Specifies the installation path.
@@ -69,6 +69,17 @@ function Install-PoshUtils
       return
     }
 
+    # Create link
+    if(Test-Path -Path $Path -PathType Container) {
+      $_target = Convert-Path -Path $Path
+      if(!(Test-Path $Link)) {
+        Write-Verbose "Creating link from $Link to $_target"
+        # For backwards compatibility to PowerShell 4 and earlier
+        # PowerShell 5 provides New-Item instead
+        cmd.exe /c mklink /J $Link $_target 2>&1 | Out-Null
+      }
+    }
+
     if(Get-Command -Name Install-Module -CommandType Function -ErrorAction Stop) {
       # Update this variable in case of additional dependencies
       $_deps = 'Pester', 'posh-git', 'PsReadline', 'PSColor', 'Invoke-MsBuild'
@@ -78,38 +89,29 @@ function Install-PoshUtils
         param (
           [String]$Name
         )
-        if((Get-Module -Name $Name -ListAvailable)) {
+        if(!(Get-Module -Name $Name -ListAvailable)) {
+          Write-Verbose "Installing dependency $Name"
           # Install to user module directory
           Install-Module -Name $Name -Scope CurrentUser
         }
       }
 
-      Write-Verbose "Installing dependencies"
       foreach ($dep in $_deps) {
         Invoke-Command -ScriptBlock $_install -ArgumentList $dep
       }
     }
 
-    # Create link
-    if(Test-Path -Path $Path -PathType Container) {
-      $_target = Resolve-Path -Path $Path
-      $_link = Resolve-Path -Path $Link
-      if(!(Test-Path $_link)) {
-        Write-Verbose "Creating link from $_link to $_target"
-        cmd.exe /c mklink /J $_link $_target
-      }
-    }
     Write-Output "Installed poshutils."
   }
 }
 
-Install-PoshUtils -Path $Path -Link $Link
+Install-PoshUtils -Path $Path -Link (Join-Path -Path $home Documents\WindowsPowerShell)
  
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUuQi4CugVxC6nmok1MfoGajEL
-# AQegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUIVQIRGbabKF+MIrUgNn+NwlE
+# t4CgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -125,8 +127,8 @@ Install-PoshUtils -Path $Path -Link $Link
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBSOTYAEHbvANFF6nTdQI6JEgrdWTDANBgkqhkiG
-# 9w0BAQEFAASBgAoRcOaZS7q01GlRxZzbyhz+WcigrWUrg3pV/9doVkn+JIcoJOJJ
-# 76nNWg9kiFKkyLsHYiKUfr9AWpOJxLcFR+Lrqdq9P7uiDRT5Yu5bE2zaDID3CBR3
-# KRp3/+LX1qJ90FEA6wxSQK1ZQ5733q0/PySGt7SSZMKoocOd9EPYd3uY
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTF85Las2hLUPaGhhymtaMA8m3YOTANBgkqhkiG
+# 9w0BAQEFAASBgCwDj0XOK75Y+ta4ChGxkbpljTkCHVxn2EW6LtqlVqid9Qq7qnIk
+# YrNRGx9UIb3nxP1okK0O8LW/H/NlZBAQaI5XtDqntX8j/bDSAadFs4JoSN+gmRvT
+# tlA9UIqL6KEAyzmerOsW0o46EaSpelzf4OavilsmljEEJTbAORa+ZZN3
 # SIG # End signature block
