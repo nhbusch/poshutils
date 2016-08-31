@@ -11,6 +11,8 @@ They make use of the following external PowerShell modules:
 * [Pester](https://github.com/pester/Pester)
 * [PsReadline](https://github.com/lzybkr/PSReadLine) (part of PowerShell 5.0)
 * [posh-git](https://github.com/dahlbyk/posh-git)
+* [PSColor](https://github.com/Davlind/PSColor)
+* [Invoke-MsBuild](https://github.com/deadlydog/Invoke-MsBuild)
 
 which may be retrieved from the [PowerShellGallery](https://www.powershellgallery.com/).
 
@@ -33,8 +35,8 @@ cd path/to/repo
 .\Install
 ```
 
-which clones this repository, changes to the installation directory, and runs the 
-install script. The install script will also create a link from the PowerShell 
+which clones this repository, changes to the installation directory, and runs the
+install script. The install script will also create a link from the PowerShell
 user directory - usually `$env:USERPROFILE\Documents\WindowsPowerShell` - to the
 above installation directory.
 
@@ -45,8 +47,26 @@ Install external modules
 Installing external modules requires PowerShellGet, which is part of PowerShell
 5.0 or later (distributed with Windows 10 or
 [Windows Management Framework 5.0)](http://go.microsoft.com/fwlink/?LinkId=398175).
-If you are on PowerShell 3.0 or 4.0, you need to install
+If you are on PowerShell 4.0 or earlier, you need to install
 [PowerShellGet](https://www.microsoft.com/en-us/download/details.aspx?id=49186) instead.
+
+Either clone the repository during first time installation
+
+```
+  git clone https://github.com/nhbusch/poshutils.git path/to/repo
+```
+
+or update it with
+
+```
+  git pull
+```
+
+iThen, create a link from the PowerShell user directory to the installation directory
+
+```powershell
+  cmd /c mklink /j (Split-Path $PROFILE -Parent) path\to\repo\poshutils
+```
 
 To install the above dependencies into the user module path, run e.g.,
 
@@ -54,16 +74,4 @@ To install the above dependencies into the user module path, run e.g.,
 Install-Module -Name PSReadLine -Scope CurrentUser
 ```
 
-Finally, clone this repository
-
-```
-  git clone https://github.com/nhbusch/poshutils.git path/to/repo
-```
-
-and create a hard link from the PowerShell user directory to there
-
-```powershell
-  cmd /c mklink /j (Split-Path $PROFILE -Parent) path\to\repo\poshutils
-```
-
-and your are done!
+Your are done!
