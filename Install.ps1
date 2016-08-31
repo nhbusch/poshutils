@@ -13,10 +13,7 @@
 param(
   [String]
   [ValidateNotNullOrEmpty()]
-  $Path
-  #[String]
-  #[ValidateNotNullOrEmpty()]
-  #$Link = (Join-Path -Path $home Documents\WindowsPowerShell)
+  $Path = (Get-Location)
 )
 
 <#
@@ -110,8 +107,8 @@ Install-PoshUtils -Path $Path -Link (Join-Path -Path $home Documents\WindowsPowe
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUIVQIRGbabKF+MIrUgNn+NwlE
-# t4CgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUNjrKKyPuLv/eZrRGNWXgYVsJ
+# pB6gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -127,8 +124,8 @@ Install-PoshUtils -Path $Path -Link (Join-Path -Path $home Documents\WindowsPowe
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTF85Las2hLUPaGhhymtaMA8m3YOTANBgkqhkiG
-# 9w0BAQEFAASBgCwDj0XOK75Y+ta4ChGxkbpljTkCHVxn2EW6LtqlVqid9Qq7qnIk
-# YrNRGx9UIb3nxP1okK0O8LW/H/NlZBAQaI5XtDqntX8j/bDSAadFs4JoSN+gmRvT
-# tlA9UIqL6KEAyzmerOsW0o46EaSpelzf4OavilsmljEEJTbAORa+ZZN3
+# AgEVMCMGCSqGSIb3DQEJBDEWBBT7+puYtAJE4Hqbm9cY3042waIpsjANBgkqhkiG
+# 9w0BAQEFAASBgAyvI6i8lr/LgNN8tN/DHjZL6ntb50P5RVdzkx/C7+/Ud/OnOiGd
+# KLLNlKPGHxXlPmBu+q6bGSpVPI9HYWY/fmrAdVBho7GEupR68rBidNvJZpjGJP0y
+# 135zZc9N8PL0WVEG0AcEq6Rid6K6lt6eCGDyikHqTmJm8wpOV22pUNme
 # SIG # End signature block

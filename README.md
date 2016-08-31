@@ -62,7 +62,7 @@ or update it with
   git pull
 ```
 
-iThen, create a link from the PowerShell user directory to the installation directory
+Then, create a link from the PowerShell user directory to the installation directory
 
 ```powershell
   cmd /c mklink /j (Split-Path $PROFILE -Parent) path\to\repo\poshutils
