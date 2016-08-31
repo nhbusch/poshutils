@@ -9,3 +9,5 @@ bin
 Modules/Pester
 Modules/PSReadline
 Modules/posh-git
+Modules/PSColor
+Modules/Invoke-MsBuild
