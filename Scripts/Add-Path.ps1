@@ -33,7 +33,7 @@
   Specifies whether to add the path to the beginning or end of list.
 
 .EXAMPLE
-  PS > Add-Path C:\path\to\my\files 
+  PS > Add-Path C:\path\to\my\files
   Adds the directory 'C:\path\to\my\files' to the list of system paths for the
   current process.
 
@@ -46,7 +46,7 @@
 
 #>
 
-function Add-Path 
+function Add-Path
 {
   [CmdletBinding(SupportsShouldProcess=$true)]
   param(
@@ -112,8 +112,8 @@ function Add-Path
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUwtAdl7ot05lz9HGJv1AJ6ehj
-# ho+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUKWu+1A09F74Kw+lavCQ3oU8t
+# XEqgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -129,8 +129,8 @@ function Add-Path
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTjYYdclRpaZeBln4oziU0d1QGhdjANBgkqhkiG
-# 9w0BAQEFAASBgIsmzV6uFKtcu5cFtva7eITZNGhhvtuOtOVRcuxR3XSaVc2VHbM4
-# TuKqLRVGZXZZzHV9f13kEKznZwNNr9matWW5OZP1EGlxBAReGVgOuKhns4E/cP7a
-# endARWhoTtk/rw4t/8AQdqU1jLIGBMtUo6kJbh1+edV/fZmlHdtf4CyU
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQPpNPc8yhFflVPmgJATcZNLC8MzDANBgkqhkiG
+# 9w0BAQEFAASBgE8GHeVFA2SYDlhnBoVbPV+H5wpLKlje4eAbROtD9Ifp8R+AY10p
+# Xm+BcCMOhqdkZcrLKr+qV/XOMP9GuzUVndvPbF9q18VlFUZT+AoElNCRlMoOnV3L
+# NdloIed5cTrfwRR/v9ClClEx+gFY95fbfx5oODVEOqXp1YfSZIPYYGLM
 # SIG # End signature block
