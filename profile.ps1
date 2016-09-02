@@ -10,8 +10,8 @@
 ################################################################################
 
 ################################################################################
-# User paths 
-function Set-UserPaths($Root) 
+# User paths
+function Set-UserPaths($Root)
 {
   # User script path
   $script_path= Join-Path $Root 'Scripts'
@@ -37,7 +37,7 @@ function Set-UserPaths($Root)
     }
   }
   Add-LocalCommandPath
-  
+
   @{Root = $Root; Scripts = $script_path}
 }
 
@@ -61,7 +61,7 @@ if((Get-Command -Name git) -and (Get-Module -Name posh-git -ListAvailable)) {
 
 # If not auto-loaded, import PSReadline
 if($Host.Name -eq 'ConsoleHost') {
-  if(!(Get-Module -Name PSReadline) -and (Get-Module -Name PsReadline -ListAvailable)) {
+  if((Get-Module -Name PSReadline -ListAvailable) -and !(Get-Module -Name PsReadline)) {
     Import-Module -Name PSReadLine
   }
 
@@ -71,13 +71,27 @@ if($Host.Name -eq 'ConsoleHost') {
   }
 }
 
+# FIXME Enable once extraneous blank line issue has been resolved
+# If not auto-loaded, import PSColor
+#if($Host.Name -eq 'ConsoleHost') {
+#  if((Get-Module -Name PSColor -ListAvailable) -and !(Get-Module -Name PSColor)) {
+#    Import-Module -Name PSColor
+#  }
+
+#  # Configure
+
+#  if(Test-Path -Path (Join-Path $UserPath.Root 'PSColorConfig.Local.ps1') -PathType Leaf) {
+#    . (Join-Path $UserPath.Root 'PSColorConfig.Local.ps1')
+#  }
+#}
+
 ################################################################################
 # Configure
 
 # Console host
 if($Host.Name -eq 'ConsoleHost') {
   if(Test-Path -Path (Join-Path $UserPath.Root  'ConsoleConfig.Local.ps1') -PathType Leaf) {
-     & (Join-Path $UserPath.Root 'ConsoleConfig.Local.ps1') 
+     & (Join-Path $UserPath.Root 'ConsoleConfig.Local.ps1')
   }
 }
 
@@ -89,7 +103,7 @@ function global:prompt
   # Replace home path with tilde
   $path = $pwd.ProviderPath.Replace("$env:HOMEDRIVE"+"$env:HOMEPATH",'~').Replace("$HOME", '~').Replace("$env:USERPROFILE",'~~')
   Write-Host ("$env:USERNAME@$env:COMPUTERNAME"+":") -ForegroundColor Green -NoNewline # was Cyan
-  Write-Host ("$path") -ForegroundColor Yellow -NoNewline 
+  Write-Host ("$path") -ForegroundColor Yellow -NoNewline
 
   if($WithGitSupport) {
     Write-VcsStatus
@@ -101,14 +115,14 @@ function global:prompt
 
 ################################################################################
 # Functions
-# Dot sources all function files and scripts in local scripts directory, 
+# Dot sources all function files and scripts in local scripts directory,
 # currently set to '$PSScriptRoot\Scripts'.
-# Valid function files must end with *.ps1 extension. 
+# Valid function files must end with *.ps1 extension.
 # Files beginning with double underscores are excluded from loading.
 # FIXME Eventually place them in a module and load this
-Get-ChildItem $UserPath.Scripts | 
-      Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } | 
-      ForEach-Object { . $_.FullName } 
+Get-ChildItem $UserPath.Scripts |
+      Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } |
+      ForEach-Object { . $_.FullName }
 
 ################################################################################
 # PS drives
@@ -130,7 +144,7 @@ New-Alias -Name cmake -Value cmake.bat
 New-Alias -Name ctest -Value ctest.bat
 New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
-#FIXME alias ll when colored dir output
+New-Alias -Name build -Value Invoke-MsBuildHere
 
 # Change to powershell user script directory
 if (Test-Path -Path $UserPath.Root -PathType Container) {
@@ -140,8 +154,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUIwamm+7IZqHP2xouX0+gy7EM
-# 6wKgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUE/WEv+Ylm21rSS7Nn9MKacST
+# O6CgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -157,8 +171,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBT1yWl0UhiBxJCiYZh+x1tWt9e3BzANBgkqhkiG
-# 9w0BAQEFAASBgJwTYXihULiT+tfYCt00uiI6Psj1u5SUOaUEONtG/0aLiDiFb7pH
-# 3BXL8PAYf2yyH5Hr8KWK/toSvPPOyZSzkccFCJMzGyu+JqFvWwSbbxEo/HgWaDXu
-# L+tKo63KqbAuEtZqPgNRWKpnQGJJyldx6ctHwqL4Lvtdi7d+jobDAVW2
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ+ez0ibvlnIPglZdltuzN2vVN4EzANBgkqhkiG
+# 9w0BAQEFAASBgG97djgD4rXNGrLNM4JWhBjFm9DE8LBbeq7RxmCo+OPlqIOpmgb2
+# BMqcFin4mSxMzKJSWhCxDoOlhvelGNtcLZNXiTLkaLaLhBoKR5pliRsQ8uZXT+Jf
+# KLHANIMPdvHcj3vd9mIMIRjpkZb0OnHhBszvYIsTNY0UpvE6bv+yybc6
 # SIG # End signature block

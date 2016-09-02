@@ -38,15 +38,15 @@ Set-PSReadlineOption -TokenKind Variable -ForegroundColor DarkRed # see Solarize
 Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Green
 Set-PSReadlineOption -TokenKind Command -ForegroundColor DarkCyan # or Gray
 Set-PSReadlineOption -TokenKind Parameter -ForegroundColor DarkYellow # or DarkRed if Var is DarkCyan
-# Not used: DarkMagenta, White, Red, 
+# Not used: DarkMagenta, White, Red,
 
 # Don't be a nuisance
  Set-PSReadlineOption -BellStyle Visual
- 
+
  #endregion
 
 #region History
-Set-PSReadlineOption 
+Set-PSReadlineOption
 Set-PSReadlineOption -MaximumHistoryCount 4096 `
                      -HistorySearchCursorMovesToEnd `
                      -HistoryNoDuplicates `
@@ -75,7 +75,7 @@ Set-PSReadlineKeyHandler -Key DownArrow `
   [Microsoft.PowerShell.PSConsoleReadLine]::MoveToEndOfLine()
 }
 
-# It also clears the line with RevertLine so the undo stack is reset, 
+# It also clears the line with RevertLine so the undo stack is reset,
 # though redo will still reconstruct the command line.
 # Mnemonic: _S_napshot / _S_tash
 Set-PSReadlineKeyHandler -Key Alt+s `
@@ -111,7 +111,7 @@ Set-PSReadlineKeyHandler -Key F8 `
     foreach ($line in [System.IO.File]::ReadLines((Get-PSReadlineOption).HistorySavePath)) {
       if ($line.EndsWith('`')) {
         $line = $line.Substring(0, $line.Length - 1)
-        $lines = if ($lines) { 
+        $lines = if ($lines) {
           "$lines`n$line"
         }
         else {
@@ -124,7 +124,7 @@ Set-PSReadlineKeyHandler -Key F8 `
         $line = "$lines`n$line"
         $lines = ''
       }
-      
+
       if (($line -cne $last) -and (!$pattern -or ($line -match $pattern))) {
         $last = $line
         $line
@@ -181,7 +181,7 @@ Set-PSReadlineKeyHandler -Key '"',"'" `
                          -LongDescription "Insert paired quotes if not already on a quote" `
                          -ScriptBlock {
   param($key, $arg)
-  
+
   $line = $null
   $cursor = $null
   [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
@@ -214,7 +214,7 @@ Set-PSReadlineKeyHandler -Key '(','{','[' `
   $line = $null
   $cursor = $null
   [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-  [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 1)        
+  [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 1)
 }
 
 Set-PSReadlineKeyHandler -Key ')',']','}' `
@@ -232,6 +232,38 @@ Set-PSReadlineKeyHandler -Key ')',']','}' `
   }
   else {
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)")
+  }
+}
+
+# Smart deletion handling matching quotes and backspaces
+Set-PSReadlineKeyHandler -Key Backspace `
+                         -BriefDescription SmartBackspace `
+                         -LongDescription "Delete previous character or matching quotes/parens/braces" `
+                         -ScriptBlock {
+  param($key, $arg)
+
+  $line = $null
+  $cursor = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+  if ($cursor -gt 0) {
+    $toMatch = $null
+    if ($cursor -lt $line.Length) {
+      switch ($line[$cursor]) {
+      <#case#> '"' { $toMatch = '"'; break }
+      <#case#> "'" { $toMatch = "'"; break }
+      <#case#> ')' { $toMatch = '('; break }
+      <#case#> ']' { $toMatch = '['; break }
+      <#case#> '}' { $toMatch = '{'; break }
+      }
+    }
+
+    if ($toMatch -ne $null -and $line[$cursor-1] -eq $toMatch) {
+      [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
+    }
+    else {
+      [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
+    }
   }
 }
 
@@ -337,13 +369,13 @@ Set-PSReadlineKeyHandler -Key Alt+e `
   $errors = $null
   $cursor = $null
   [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$ast, [ref]$tokens, [ref]$errors, [ref]$cursor)
-                           
+
   $startAdjustment = 0
   foreach ($token in $tokens) {
     if ($token.TokenFlags -band [System.Management.Automation.Language.TokenFlags]::CommandName) {
       $alias = $ExecutionContext.InvokeCommand.GetCommand($token.Extent.Text, 'Alias')
       if ($alias -ne $null) {
-        $resolvedCommand = $alias.ResolvedCommandName 
+        $resolvedCommand = $alias.ResolvedCommandName
         if ($resolvedCommand -ne $null) {
           $extent = $token.Extent
           $length = $extent.EndOffset - $extent.StartOffset
@@ -351,7 +383,7 @@ Set-PSReadlineKeyHandler -Key Alt+e `
             $extent.StartOffset + $startAdjustment,
             $length,
             $resolvedCommand)
-          
+
           # Our copy of the tokens won't have been updated, so we need to
           # adjust by the difference in length
           $startAdjustment += ($resolvedCommand.Length - $length)
@@ -361,17 +393,61 @@ Set-PSReadlineKeyHandler -Key Alt+e `
   }
 }
 
-# Run cmake in current directory
+# Mark, yank, and jump current directory
+# Ctrl+Shift+j then type a key to mark the current directory.
+# Ctrl+j with the same key will change back to that directory without
+# needing to type cd and won't change the command line.
+
+$global:PSReadlineMarks = @{}
+
+Set-PSReadlineKeyHandler -Key Ctrl+Shift+j `
+                         -BriefDescription MarkDirectory `
+                         -LongDescription "Mark the current directory" `
+                         -ScriptBlock {
+  param($key, $arg)
+
+  $key = [Console]::ReadKey($true)
+  $global:PSReadlineMarks[$key.KeyChar] = $pwd
+}
+
+Set-PSReadlineKeyHandler -Key Ctrl+j `
+                         -BriefDescription JumpDirectory `
+                         -LongDescription "Goto the marked directory" `
+                         -ScriptBlock {
+  param($key, $arg)
+
+  $key = [Console]::ReadKey()
+  $dir = $global:PSReadlineMarks[$key.KeyChar]
+  if ($dir) {
+    Set-Location $dir
+    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+  }
+}
 
 # Build current directory
+#Set-PSReadlineKeyHandler -Key F7 `
+                         #-BriefDescription BuildDirectory `
+                         #-LongDescription "Build project in current directory" `
+#                         -ScriptBlock {
+#  param($key, $arg)
+
+#  # FIXME output of function garbles command line
+#  $command = Invoke-MsBuildHere -Target Rebuild | Out-File out.log | Get-Content
+#  if ($command) {
+#    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+#    [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($command))
+#    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+#    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+#  }
+#}
 
 #endregion
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUEU00xbkvUqPeTamhLxzV/m9I
-# r9CgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUVA0fYEtWMUUwBo37lwq1Fj39
+# AIugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -387,8 +463,8 @@ Set-PSReadlineKeyHandler -Key Alt+e `
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQ7bUwBVDqTzYAcjPjzheJjfkQAtzANBgkqhkiG
-# 9w0BAQEFAASBgAJ9b3Z92DVTn4SaaSa02wW1Fl7e741Qf8BSRFJbEtJvLoWpqKkF
-# C/GqF/98A/DM8pf4J3wMG+1j8Ndtrk2d3/bWfgkgIlecGNSPxWJ592HxO5wxo4i8
-# 6npVV9+9zD5Rs5+NfATUfzAtSTjSFvJN/j0MpwhfLHveloZKE3uZkztZ
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRIW03eF1TXFr4RzOP4rVWp4GffuTANBgkqhkiG
+# 9w0BAQEFAASBgE8GIfvpuPXtJlkRNLWVO/6QSeeUalQJZq0OCBSkvsHWhrOOt7nR
+# zcQk6BHURhhZFXrUAAImJBedyxKiFsTnB7ZtIx1yJk7tLvr4PW3y5fARYClYz9Yc
+# RyJ8m2YyVnzYFaRWmsTniTjnOmCMKKjeAh5esZOFlNWeS1FHoH6w+vzY
 # SIG # End signature block
