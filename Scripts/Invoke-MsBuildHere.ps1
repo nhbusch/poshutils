@@ -71,14 +71,14 @@ function Invoke-MsBuildHere
   begin
   {
     if(!(Get-Command -Name Invoke-MsBuild)) {
-      Write-Warning "Missing required command `'Invoke-MsBuild`'."
+      Write-Error "Missing required command `'Invoke-MsBuild`'."
       return
     }
   }
 
   process
   {
-    $_types = @('*.sln', '*.csproj', '*.vcxproj', '*.vcproj')
+    $_types = @('*.proj','*.sln', '*.csproj', '*.vcxproj', '*.vcproj')
 
     foreach($type in $_types) {
       $_inputs = @(Get-ChildItem (".\" + $type))
@@ -87,7 +87,11 @@ function Invoke-MsBuildHere
       }
     }
     $_input = ($_inputs[0]).Name
-    Write-Verbose "Building solution or project `'$_input`'."
+    if([string]::IsNullOrEmpty($_input)) {
+      Write-Error "No suitable input found. Supported types are: $_types."
+      return
+    }
+    Write-Output "Building solution or project `'$_input`'..."
 
     switch -regex ($Platform) {
       'x86|win32' {
@@ -119,7 +123,7 @@ function Invoke-MsBuildHere
     $_params = "/target:$_target /property:Configuration=$Configuration;Platform=$_platform;BuildInParallel=true /maxcpucount"
 
     Write-Verbose "Building with `'$($_params))`'."
-    
+
     $_result = Invoke-MsBuild -Path $_input -BuildLogDirectoryPath (Get-Location | Convert-Path) `
     -MsBuildParameters $_params
 
@@ -130,15 +134,20 @@ function Invoke-MsBuildHere
       Write-Output "Build FAILED. Check the build log $($_result.BuildLogFilePath) for details."
     }
     else {
-      Write-Output "Build: $($_result.Message)"
+      if([string]::IsNullOrEmpty($_result.Message)) {
+        Write-Output "Build completed with unspecified error."
+      }
+      else {
+        Write-Output "Build: $($_result.Message)"
+      }
     }
   }
 }
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUC5KVuFmXBU+k9WF8kBrpLlCK
-# M6egggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUb5qgbdPVC1r59dCTIU1tu0MI
+# dAmgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -154,8 +163,8 @@ function Invoke-MsBuildHere
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBSOsxOwYTLgHG7kkUrA508lRUappzANBgkqhkiG
-# 9w0BAQEFAASBgJYetV36T2/pMHFgXktpLkfz7lcXz9TOys+iSHKILKVN0kIR3A4D
-# E9N4fu80ogUBTQPpe7u2oybzi+EEz76mXiP64jvfsLvHPCI6TuWAdq5TzxLiDI7Z
-# rozmQ0sSJf9WWj/IQ9UBe73i0Day8FuGLwxVwSCWp4xXFW9VHSDYgl6g
+# AgEVMCMGCSqGSIb3DQEJBDEWBBS8tinX7a7GXymaxdczRZX/5IbeBTANBgkqhkiG
+# 9w0BAQEFAASBgJf3g7dGpT2DNHFaL4voPbitogU7arzEFORP70OAZQVqrAISo9dk
+# kM/PYxZZZ5/9eyfGGCUQ0B13OPVZUQxOJRvsT9vPttLs0+XAIlZZ547DtzCPH5cJ
+# WxGC692EyRFtrOMmdNxB37QAAKdm52x3Js3186jOadbXZVSK+z5kOPVP
 # SIG # End signature block
