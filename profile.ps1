@@ -100,10 +100,14 @@ function global:prompt
 {
   $realLASTEXITCODE = $LASTEXITCODE
 
+  $is_nuget_console = $profile.Contains('NuGet_profile')
+  $location_color = if ($is_nuget_console) {'DarkGreen'} else {'Green'}
+  $path_color = if ($is_nuget_console) {'DarkYellow'} else {'Yellow'}
+
   # Replace home path with tilde
   $path = $pwd.ProviderPath.Replace("$env:HOMEDRIVE"+"$env:HOMEPATH",'~').Replace("$HOME", '~').Replace("$env:USERPROFILE",'~~')
-  Write-Host ("$env:USERNAME@$env:COMPUTERNAME"+":") -ForegroundColor Green -NoNewline # was Cyan
-  Write-Host ("$path") -ForegroundColor Yellow -NoNewline
+  Write-Host ("$env:USERNAME@$env:COMPUTERNAME"+":") -ForegroundColor $location_color -NoNewline # was Cyan
+  Write-Host ("$path") -ForegroundColor $path_color -NoNewline
 
   if($WithGitSupport) {
     Write-VcsStatus
@@ -139,7 +143,7 @@ New-Alias -Name ivv -Value Import-VisualStudioVars
 New-Alias -Name ssa -Value Start-SshAgent
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
-New-Alias -Name edit -Value vim.bat
+New-Alias -Name edit -Value code
 New-Alias -Name cmake -Value cmake.bat
 New-Alias -Name ctest -Value ctest.bat
 New-Alias -Name die -Value Stop-CurrentProcess
@@ -154,8 +158,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUE/WEv+Ylm21rSS7Nn9MKacST
-# O6CgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUcguCSLdrFvD7zatHx9en6Ts+
+# +gWgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -171,8 +175,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQ+ez0ibvlnIPglZdltuzN2vVN4EzANBgkqhkiG
-# 9w0BAQEFAASBgG97djgD4rXNGrLNM4JWhBjFm9DE8LBbeq7RxmCo+OPlqIOpmgb2
-# BMqcFin4mSxMzKJSWhCxDoOlhvelGNtcLZNXiTLkaLaLhBoKR5pliRsQ8uZXT+Jf
-# KLHANIMPdvHcj3vd9mIMIRjpkZb0OnHhBszvYIsTNY0UpvE6bv+yybc6
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTsE89yt/YSoWvQH8sX3VajQHw5dDANBgkqhkiG
+# 9w0BAQEFAASBgG/qlzufXSEJXm858qq+V88I5Kjvvr6KKtzA8FxIqZTYQznfG57X
+# i4zoPFCT/NLeHiXjAbFfiCN+iEQsOJtRiM+i0X3n286/bebjRrialgXhCzda/IK4
+# AWZe6UB1fDA6Bz3/HcxZHLD3fMFPq69ik28oa8WS8gt75kpDu28Z/GQk
 # SIG # End signature block
