@@ -149,6 +149,7 @@ New-Alias -Name ctest -Value ctest.bat
 New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
 New-Alias -Name build -Value Invoke-MsBuildHere
+New-Alias -Name vcpkg -Value vcpkg.bat
 
 # Change to powershell user script directory
 if (Test-Path -Path $UserPath.Root -PathType Container) {
@@ -158,8 +159,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUcguCSLdrFvD7zatHx9en6Ts+
-# +gWgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUyqX4kpiwBXSRA9A1xis0fv7G
+# i1ygggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -175,8 +176,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTsE89yt/YSoWvQH8sX3VajQHw5dDANBgkqhkiG
-# 9w0BAQEFAASBgG/qlzufXSEJXm858qq+V88I5Kjvvr6KKtzA8FxIqZTYQznfG57X
-# i4zoPFCT/NLeHiXjAbFfiCN+iEQsOJtRiM+i0X3n286/bebjRrialgXhCzda/IK4
-# AWZe6UB1fDA6Bz3/HcxZHLD3fMFPq69ik28oa8WS8gt75kpDu28Z/GQk
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQR9Y8hfGPSfNRziGx+wbFTQZYMmTANBgkqhkiG
+# 9w0BAQEFAASBgDEMS4zcGNKOC0R1QcMSazowJ7+Tf9vFl7tFYewC2XAFp4GWVGXJ
+# ahLYG6PJQJEWnomF7ouiFRD5tOghSsNO/8rMnRwqjs/ZIAfMdUqhbsOzAaG89djB
+# 9nyC9CK6Kp04jsb+L1o8xoj32vbckVGpT/Z9AEKiTXju78YCZd92Chll
 # SIG # End signature block
