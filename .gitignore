@@ -11,3 +11,4 @@ Modules/PSReadline
 Modules/posh-git
 Modules/PSColor
 Modules/Invoke-MsBuild
+Modules/VSSetup
