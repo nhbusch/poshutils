@@ -12,3 +12,5 @@ Modules/posh-git
 Modules/PSColor
 Modules/Invoke-MsBuild
 Modules/VSSetup
+.vs/
+.vscode/

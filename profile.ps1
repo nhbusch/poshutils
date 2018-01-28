@@ -71,6 +71,11 @@ if($Host.Name -eq 'ConsoleHost') {
   }
 }
 
+# Posh-vcpkg
+if(Test-Path -Path 'D:\vcpkg\scripts\posh-vcpkg' -PathType Container) {
+  Import-Module -Name 'D:\vcpkg\scripts\posh-vcpkg'
+}
+
 # FIXME Enable once extraneous blank line issue has been resolved
 # If not auto-loaded, import PSColor
 #if($Host.Name -eq 'ConsoleHost') {
@@ -160,8 +165,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUaDUb34H0uozfoVR/gZY01gkY
-# bdCgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU4x55tI49wWkcwoc3i8vH1EI5
+# WwmgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -177,8 +182,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTfrZcb+iAnCoDOZ0vz6onn797dUDANBgkqhkiG
-# 9w0BAQEFAASBgBxJpOVOxDGGUgMLl/EkPy4WmsmdnY3H0DJZXicnPw92bgZyAQkg
-# phEbDOl6pDNIY5ekrZf+CR/S2IWkItMXXrjvbXQWpXQgjjrff4zShbGBf5uRZvfP
-# W4OgtX3Ipiv5DlBvZzfjBZkOE0lejtvnGSMB2969CI2FZu5rGMBMd+mK
+# AgEVMCMGCSqGSIb3DQEJBDEWBBR56lsREbcZPxnSTezkccCiiUFuGjANBgkqhkiG
+# 9w0BAQEFAASBgCOrvlQZ9IJo4fgeK72e1DKs9ZhODzvR/U9Yb8BkHw6dOdT42Pb8
+# vuat8yycgcifY6zNTSHtvADI9PsOP8iobc0JVbimejycPp8tc6aHilFBSow30NY2
+# sxxnNyHo5T0a23LkDP/FFTfoIerltu1yvDblMTrT+Q0X104TrGHWF9QO
 # SIG # End signature block
