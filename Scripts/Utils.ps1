@@ -79,21 +79,35 @@ function Stop-CurrentProcess
   Make link.
 
 .DESCRIPTION
-  The function mklink is a wrapper aound the mklink command built into cmd.exe.
+  The function mklink is a wrapper around the mklink command built into cmd.exe.
   All arguments are forwarded to the builtin command.
 
 .LINK
 
 #>
-function mklink
-{
-  cmd /c mklink $args
+function mklink {
+    cmd /c mklink $args
+}
+
+<#
+.SYNOPSIS
+  Compute checksum.
+
+.DESCRIPTION
+  The function chksum is a wrapper around a custom checksum executable
+  All arguments are forwarded to the wrapped executable.
+
+.LINK
+
+#>
+function chksum {
+    & 'C:\opt\sysinternals\sigcheck.exe' -h $args
 }
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU4H0KUAOmJLMmCg/juFTVBXYm
-# 0vigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU2/hBIOIdbfD0SaWDz1JhgRQS
+# KhugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -109,8 +123,8 @@ function mklink
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTfrunm2DOxW4pQOe0H3A+Bh/ZVlzANBgkqhkiG
-# 9w0BAQEFAASBgCndpdZv+2YLcp+EO1l5HHBQ+cMaDBKPAJvfrPYeAWXxqsEdKkmh
-# IzOaxRAm9KJ7ZG1AveYFG74PxfJVw7/fdC0IQDhi9IogGW91eRslHZK+UpV7N/7o
-# KhKXC7iwUIjtYeElYbXNWGaxCAEzA1O6QRAXWIHcQmvJLX6caFEU8qZe
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTXd21Zlm7d5f0QmQulrzlzQE1USTANBgkqhkiG
+# 9w0BAQEFAASBgHS2DuHh1gWKV7BR9usMlqG+S1Bb/9Zm/vxrYCJT71k7iogPKG7U
+# gOg17FO76EYtTTLyrXuswgsXCGKjnRu+YmWVTjqRJZGPapzEGh4UXDpvMoEQpDoW
+# nU/R26nWvlMsjhLtPLO/d6lmuu5f8Xp1occTb0zcorqnZ08MCMjDEBvn
 # SIG # End signature block
