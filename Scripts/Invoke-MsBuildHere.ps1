@@ -113,7 +113,7 @@ function Invoke-MsBuildHere
         $_target = 'Build'
       }
       'Rebuild' {
-        $_target = 'Clean,Build'
+        $_target = 'Clean;Build'
       }
       default {
        $_target = 'Clean;Build'

@@ -13,6 +13,7 @@ They make use of the following external PowerShell modules:
 * [posh-git](https://github.com/dahlbyk/posh-git)
 * [PSColor](https://github.com/Davlind/PSColor)
 * [Invoke-MsBuild](https://github.com/deadlydog/Invoke-MsBuild)
+* [VSSetup](https://github.com/Microsoft/vssetup.powershell)
 
 which may be retrieved from the [PowerShellGallery](https://www.powershellgallery.com/).
 

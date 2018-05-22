@@ -6,11 +6,6 @@ Test.xml
 *.exe
 *.dll
 bin
-Modules/Pester
-Modules/PSReadline
-Modules/posh-git
-Modules/PSColor
-Modules/Invoke-MsBuild
-Modules/VSSetup
+Modules/
 .vs/
 .vscode/
