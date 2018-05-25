@@ -153,7 +153,6 @@ New-Alias -Name cmake -Value cmake.bat
 New-Alias -Name ctest -Value ctest.bat
 New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
-New-Alias -Name build -Value Invoke-MsBuildHere
 New-Alias -Name vcpkg -Value vcpkg.bat
 New-Alias -Name ninja -Value ninja.bat
 
@@ -165,8 +164,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU4x55tI49wWkcwoc3i8vH1EI5
-# WwmgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUJrsQFgGZpSiVi3jgPGicjnNa
+# U0SgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -182,8 +181,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBR56lsREbcZPxnSTezkccCiiUFuGjANBgkqhkiG
-# 9w0BAQEFAASBgCOrvlQZ9IJo4fgeK72e1DKs9ZhODzvR/U9Yb8BkHw6dOdT42Pb8
-# vuat8yycgcifY6zNTSHtvADI9PsOP8iobc0JVbimejycPp8tc6aHilFBSow30NY2
-# sxxnNyHo5T0a23LkDP/FFTfoIerltu1yvDblMTrT+Q0X104TrGHWF9QO
+# AgEVMCMGCSqGSIb3DQEJBDEWBBS2masFJwYb48VgfCkbsGmaHhJE/jANBgkqhkiG
+# 9w0BAQEFAASBgCY9QqG7fOnhidszmeQ3eWjNNTkruc8xAQtp3f/XKb0DCVxcLrJG
+# k6tF0kaWnzJmjwxRTaI3whzhh6+FANiI5jajSiEQrDC9WIvpMYUw4PKGzsYcL81N
+# K8KsFENXqYwn/baDMsgvbejiejuvuS3Ikrts5kunW1G7O3GJv6hZ2cbJ
 # SIG # End signature block
