@@ -30,9 +30,11 @@ function Set-UserPaths($Root)
     $head = (Get-Item "Env:HOMEDRIVE").Value, 'C:' | Get-Unique # don't sort
     foreach ($h in $head) {
       $path = Join-Path $h $tail
-      if(Test-Path -Path $path -PathType Container) {
-        $env:path += ";" + $path
-        break
+      if(($env:path -split ';' -replace '\\+$') -notcontains $path) {
+        if(Test-Path -Path $path -PathType Container) {
+          $env:path += ";" + $path
+          break
+        }
       }
     }
   }
@@ -155,6 +157,7 @@ New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
 New-Alias -Name vcpkg -Value vcpkg.bat
 New-Alias -Name ninja -Value ninja.bat
+New-Alias -Name npe -Value 'C:\opt\npe\NuGetPackageExplorer.exe'
 
 # Change to powershell user script directory
 if (Test-Path -Path $UserPath.Root -PathType Container) {
@@ -164,8 +167,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUJrsQFgGZpSiVi3jgPGicjnNa
-# U0SgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU+eq9y4g/oyThUb+SmpodtCGF
+# XjqgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -181,8 +184,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBS2masFJwYb48VgfCkbsGmaHhJE/jANBgkqhkiG
-# 9w0BAQEFAASBgCY9QqG7fOnhidszmeQ3eWjNNTkruc8xAQtp3f/XKb0DCVxcLrJG
-# k6tF0kaWnzJmjwxRTaI3whzhh6+FANiI5jajSiEQrDC9WIvpMYUw4PKGzsYcL81N
-# K8KsFENXqYwn/baDMsgvbejiejuvuS3Ikrts5kunW1G7O3GJv6hZ2cbJ
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRFvoewB3WBuMSbGe3OzMSfM0RRKDANBgkqhkiG
+# 9w0BAQEFAASBgHoTuBTjQ+oe8Pj55KpoySIIReH9hluCDd2U0CEGmnlESqe4NpGJ
+# qBAYRyDuXZ+IvoTjkuRbXKl3rG2qb6BUylPKkDN36nFVuUeEJFylVwT3eivFixnu
+# gJMTUues025bIqP8/CuBHWW/4HWK354I4VivC7c/eexeqdSuIqno0obm
 # SIG # End signature block
