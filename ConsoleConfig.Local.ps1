@@ -10,44 +10,41 @@
 ################################################################################
 
 # Sets console settings
-function Set-ConsoleConfig
-{
-  $restore = $Host.UI.RawUI
-  $console = $Host.UI.RawUI
+function Set-ConsoleConfig {
+    $restore = $Host.UI.RawUI
+    $console = $Host.UI.RawUI
 
-  try {
-    $console.ForegroundColor = "DarkBlue"
+    try {
+        # Modify cursor
+        $console.CursorSize = 12
 
-    # Modify cursor
-    $console.CursorSize = 12
+        # Modify special property objects
+        $buffer_size = $console.BufferSize
+        $buffer_size.Width = 150
+        $buffer_size.Height = 300
+        $console.BufferSize = $buffer_size
 
-    # Modify special property objects
-    $buffer_size = $console.BufferSize
-    $buffer_size.Width = 150
-    $buffer_size.Height = 300
-    $console.BufferSize = $buffer_size
+        $size = $console.WindowSize
+        $size.Width = 150
+        $size.Height = 50
+        $console.WindowSize = $size
+    }
+    catch [System.Management.Automation.SetValueInvocationException] {
+        $console = $restore
+    }
 
-    $size = $console.WindowSize
-    $size.Width = 150
-    $size.Height = 50
-    $console.WindowSize = $size
-  }
-  catch [System.Management.Automation.SetValueInvocationException] {
-    $console = $restore
-  }
-
-  # For dark color scheme
-  $Host.PrivateData.DebugBackgroundColor = "Black"
-  $Host.PrivateData.ErrorBackgroundColor = "Black"
-  $Host.PrivateData.WarningForegroundColor = "DarkRed"
+    # For dark color scheme
+    $Host.PrivateData.DebugBackgroundColor = "Black"
+    $Host.PrivateData.ErrorBackgroundColor = "Black"
+    $Host.PrivateData.WarningForegroundColor = "DarkRed"
 }
 
 Set-ConsoleConfig
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUQMLQcrr+LKv5JDoa4oHIiZp6
-# DHSgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1a3MJ+I9kiKlvW6veonJHkgW
+# +4mgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -63,8 +60,8 @@ Set-ConsoleConfig
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRc4mflTAB9BwOloNq1ICd42uk/pzANBgkqhkiG
-# 9w0BAQEFAASBgHGFxCswXo5AXJH3K8b97V+ElE35AZ/YTiTzDTpCDQiGrMDKbZjD
-# 3dQ3j3djEPg4Vcoo1t9xo09P2sYtuULMsqyqByQdXU7E1ZX4P/0RgBPwMX4+xBDb
-# 1Y2A99ATIjuUmfNcmcFR7EgXzN5uws8oiz6qs7i2iCEOJyVR0jUhgExc
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQla7CtdsKNlYF68UXJBl/fQiz4UjANBgkqhkiG
+# 9w0BAQEFAASBgGs8cuffFvt91kco+7Irw0gkFXGJ+Di6Pc4bg+WpgefH6ywnfqek
+# pO5BH6CobHhp59vR0odoZVHxseJKpiIQZPSVp45/vX5psjuxrVQs3miPHz17EeNe
+# I/PwTVRFpMKKrdUxrPiaKkducQRH/slckMmKMf/ZkbCyQyRe1ul4YbZ/
 # SIG # End signature block
