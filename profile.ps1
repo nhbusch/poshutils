@@ -108,9 +108,7 @@ function global:prompt {
     $path_color = 'DarkYellow'
 
     # Replace home path with tilde
-    $path = $pwd.ProviderPath.Replace("$env:HOMEDRIVE" + "$env:HOMEPATH", '~').Replace("$HOME", '~').Replace("$env:USERPROFILE", '~~') `
-        | Split-Path -Leaf
-    # $path = Split-Path -Leaf
+    $path = $pwd.ProviderPath.Replace("$env:HOME", '~').Replace("$env:USERPROFILE", '~~') | Split-Path -Leaf
     Write-Host ("$env:USERNAME@$env:COMPUTERNAME" + ":") -ForegroundColor $location_color -NoNewline
     Write-Host ("$path") -ForegroundColor $path_color -NoNewline
 
@@ -175,8 +173,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU0Ad/ZaFj6WTuY9GLanUdXZcd
-# w/OgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUI9Q6/ei50FVmQOFAOlK38yry
+# iO+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -192,8 +190,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTnQXzDtlKgVqvCWiQ/vjV7Jd6CJzANBgkqhkiG
-# 9w0BAQEFAASBgC3bgYN2UNzDu6xQ9mLxOK+Y1oxggV5MpgOw+ebXnpcWA9jnyS3B
-# yeSbKXv9TFYNmWgpGy2oHC5in3SqLX/PjNVCZbCuKuIPzwcIjrk75FTbdfTCAR/m
-# t7eMWeOaq2jq7oZkvE7i/jM/vGZo64ginjCtQkI2SR8X44VVJYEQFGso
+# AgEVMCMGCSqGSIb3DQEJBDEWBBSZ2Tld3zZEujOd6Jum4vANF2x4mzANBgkqhkiG
+# 9w0BAQEFAASBgBG9gkiVDTGHhIuefO99Svz7hNK9wDpxln2uwzgfaGNmQLxYdeDM
+# x91oCPuzQQEV35YMzNaWe2RuAirAjAzDKzYbhC+qupznCYgEAobCYltjzA3I/AmM
+# YBhvFSrl9Q5fgCl/KshRsAn6CBOK0mO6KbmzZMZ9qr/tBjAKOrCPxlUn
 # SIG # End signature block
