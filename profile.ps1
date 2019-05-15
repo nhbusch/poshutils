@@ -2,7 +2,7 @@
 #
 # Powershell profile for current user on all hosts
 #
-# Copyright (c) 2014-2016 Nils H. Busch. All rights reserved.
+# Copyright (c) 2014 Nils H. Busch. All rights reserved.
 #
 # Distributed under the MIT License (MIT).
 # See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
@@ -38,7 +38,7 @@ function Set-UserPaths($Root) {
     }
     Add-LocalCommandPath
 
-    @{Root = $Root; Scripts = $script_path}
+    @{Root = $Root; Scripts = $script_path }
 }
 
 $UserPath = Set-UserPaths(Split-Path $MyInvocation.MyCommand.Definition -Parent)
@@ -75,20 +75,6 @@ if($Host.Name -eq 'ConsoleHost') {
 if(Test-Path -Path 'D:\vcpkg\scripts\posh-vcpkg' -PathType Container) {
     Import-Module -Name 'D:\vcpkg\scripts\posh-vcpkg'
 }
-
-# FIXME Enable once extraneous blank line issue has been resolved
-# If not auto-loaded, import PSColor
-#if($Host.Name -eq 'ConsoleHost') {
-#  if((Get-Module -Name PSColor -ListAvailable) -and !(Get-Module -Name PSColor)) {
-#    Import-Module -Name PSColor
-#  }
-
-#  # Configure
-
-#  if(Test-Path -Path (Join-Path $UserPath.Root 'PSColorConfig.Local.ps1') -PathType Leaf) {
-#    . (Join-Path $UserPath.Root 'PSColorConfig.Local.ps1')
-#  }
-#}
 
 ################################################################################
 # Configure
@@ -128,8 +114,8 @@ function global:prompt {
 # Files beginning with double underscores are excluded from loading.
 # FIXME Eventually place them in a module and load this
 Get-ChildItem $UserPath.Scripts |
-    Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } |
-    ForEach-Object { . $_.FullName }
+Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } |
+ForEach-Object { . $_.FullName }
 
 ################################################################################
 # PS drives
@@ -150,20 +136,19 @@ if(Test-Path 'D:\dev' -PathType Container) {
 
 ################################################################################
 # Aliases
-New-Alias -Name ivv -Value Import-VisualStudioVars
 New-Alias -Name ssa -Value Start-SshAgent
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
-New-Alias -Name edit -Value code
-New-Alias -Name cmake -Value cmake.bat
-New-Alias -Name ctest -Value ctest.bat
 New-Alias -Name die -Value Stop-CurrentProcess
-New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
-New-Alias -Name vcpkg -Value vcpkg.bat
-New-Alias -Name ninja -Value ninja.bat
-New-Alias -Name npe -Value 'C:\opt\npe\NuGetPackageExplorer.exe'
-New-Alias -Name conda -Value conda.bat
-New-Alias -Name python -Value python.bat
+if(Get-Command -Name code -ErrorAction SilentlyContinue) {
+    New-Alias -Name edit -Value code
+}
+if(Get-Command -Name 'C:\Program Files\Git\usr\bin\diff.exe' -ErrorAction SilentlyContinue) {
+    New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
+}
+if(Get-Command -Name 'C:\opt\npe\NuGetPackageExplorer.exe' -ErrorAction SilentlyContinue) {
+    New-Alias -Name npe -Value 'C:\opt\npe\NuGetPackageExplorer.exe'
+}
 
 # Change to powershell user script directory
 if (Test-Path -Path $UserPath.Root -PathType Container) {

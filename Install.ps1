@@ -11,9 +11,9 @@
 
 [CmdletBinding()]
 param(
-  [String]
-  [ValidateNotNullOrEmpty()]
-  $Path = (Get-Location)
+    [String]
+    [ValidateNotNullOrEmpty()]
+    $Path = (Get-Location)
 )
 
 <#
@@ -41,69 +41,72 @@ param(
   Install-Module
 
 #>
-function Install-PoshUtils
-{
-  [CmdletBinding(SupportsShouldProcess=$true)]
-  param(
-    [Parameter(Position=0, ValueFromPipeline=$true,
-     ValueFromPipelineByPropertyName=$true, Mandatory=$true)]
-    [String]
-    [ValidateNotNullOrEmpty()]
-    $Path,
-    [Parameter(Position=1, ValueFromPipeline=$false,
-     ValueFromPipelineByPropertyName=$false, Mandatory=$true)]
-    [String]
-    $Link
-  )
-  process
-  {
-    # Installs required modules and creates a hardlink from the default user script
-    # directory to the poshutils installation directory
+function Install-PoshUtils {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+    param(
+        [Parameter(Position = 0, ValueFromPipeline = $true,
+            ValueFromPipelineByPropertyName = $true, Mandatory = $true)]
+        [String]
+        [ValidateNotNullOrEmpty()]
+        $Path,
+        [Parameter(Position = 1, ValueFromPipeline = $false,
+            ValueFromPipelineByPropertyName = $false, Mandatory = $true)]
+        [String]
+        $Link
+    )
+    process {
+        # Installs required modules and creates a hardlink from the default user script
+        # directory to the poshutils installation directory
 
-    # Requires PowerShell 3.0 or later
-    if($PSVersionTable.PSVersion.Major -lt 3) {
-      Write-Error -Message ("ERROR: Requires PowerShell 3.0 or later. Found version $($PSVersionTable.PSVersion).")
-      return
-    }
-
-    # Create link
-    if(Test-Path -Path $Path -PathType Container) {
-      $_target = Convert-Path -Path $Path
-      if(!(Test-Path $Link)) {
-        Write-Verbose "Creating link from $Link to $_target"
-        # For backwards compatibility to PowerShell 4 and earlier
-        # PowerShell 5 provides New-Item instead
-        cmd.exe /c mklink /J $Link $_target 2>&1 | Out-Null
-      }
-    }
-
-    if(Get-Command -Name Install-Module -CommandType Function -ErrorAction Stop) {
-      # Update this variable in case of additional dependencies
-      $_deps = 'Pester', 'posh-git', 'PsReadline', 'PSColor', 'Invoke-MsBuild'
-
-      # Install script
-      $_install = {
-        param (
-          [String]$Name
-        )
-        if(!(Get-Module -Name $Name -ListAvailable)) {
-          Write-Verbose "Installing dependency $Name"
-          # Install to user module directory
-          Install-Module -Name $Name -Scope CurrentUser
+        # Requires PowerShell 3.0 or later
+        if($PSVersionTable.PSVersion.Major -lt 3) {
+            Write-Error -Message ("ERROR: Requires PowerShell 3.0 or later. Found version $($PSVersionTable.PSVersion).")
+            return
         }
-      }
 
-      foreach ($dep in $_deps) {
-        Invoke-Command -ScriptBlock $_install -ArgumentList $dep
-      }
+        # Create link
+        if(Test-Path -Path $Path -PathType Container) {
+            $_target = Convert-Path -Path $Path
+            if(!(Test-Path $Link)) {
+                Write-Verbose "Creating link from $Link to $_target"
+                # For backwards compatibility to PowerShell 4 and earlier
+                # PowerShell 5 provides New-Item instead
+                cmd.exe /c mklink /J $Link $_target 2>&1 | Out-Null
+            }
+            else {
+                Write-Verbose "The directory $Link already exists. Copying the necessary files."
+                # Copy-Item is just ridiculous
+                Robocopy.exe $_target $Link *.ps1 /S | Out-Null
+            }
+        }
+
+        if(Get-Command -Name Install-Module -CommandType Function -ErrorAction Stop) {
+            # Update this variable in case of additional dependencies
+            $_deps = 'posh-git', 'PsReadline', 'Invoke-MsBuild'
+
+            # Install script
+            $_install = {
+                param (
+                    [String]$Name
+                )
+                if(!(Get-Module -Name $Name -ListAvailable)) {
+                    Write-Verbose "Installing dependency $Name"
+                    # Install to user module directory
+                    Install-Module -Name $Name -Scope CurrentUser
+                }
+            }
+
+            foreach ($dep in $_deps) {
+                Invoke-Command -ScriptBlock $_install -ArgumentList $dep
+            }
+        }
+
+        Write-Output "Installed poshutils."
     }
-
-    Write-Output "Installed poshutils."
-  }
 }
 
 Install-PoshUtils -Path $Path -Link (Join-Path -Path $home Documents\WindowsPowerShell)
- 
+
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
