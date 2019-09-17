@@ -38,7 +38,7 @@ function Set-UserPaths($Root) {
     }
     Add-LocalCommandPath
 
-    @{Root = $Root; Scripts = $script_path}
+    @{Root = $Root; Scripts = $script_path }
 }
 
 $UserPath = Set-UserPaths(Split-Path $MyInvocation.MyCommand.Definition -Parent)
@@ -128,8 +128,8 @@ function global:prompt {
 # Files beginning with double underscores are excluded from loading.
 # FIXME Eventually place them in a module and load this
 Get-ChildItem $UserPath.Scripts |
-    Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } |
-    ForEach-Object { . $_.FullName }
+Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } |
+ForEach-Object { . $_.FullName }
 
 ################################################################################
 # PS drives
@@ -143,8 +143,8 @@ if(Test-Path 'D:\dev' -PathType Container) {
     if(Test-Path 'D:\dev\repos' -PathType Container) {
         New-PSDrive -Name repos -PSProvider filesystem -Root D:\dev\repos | Out-Null
     }
-    if(Test-Path 'D:\dev\tfs' -PathType Container) {
-        New-PSDrive -Name tfs -PSProvider filesystem -Root D:\dev\tfs | Out-Null
+    if(Test-Path 'D:\dev\tfvc' -PathType Container) {
+        New-PSDrive -Name tfvc -PSProvider filesystem -Root D:\dev\tfvc | Out-Null
     }
 }
 
@@ -155,15 +155,15 @@ New-Alias -Name ssa -Value Start-SshAgent
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
 New-Alias -Name edit -Value code
-New-Alias -Name cmake -Value cmake.bat
-New-Alias -Name ctest -Value ctest.bat
+New-Alias -Name cmake -Value cmake.cmd
+New-Alias -Name ctest -Value ctest.cmd
 New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
-New-Alias -Name vcpkg -Value vcpkg.bat
-New-Alias -Name ninja -Value ninja.bat
+New-Alias -Name vcpkg -Value vcpkg.cmd
+New-Alias -Name ninja -Value ninja.cmd
 New-Alias -Name npe -Value 'C:\opt\npe\NuGetPackageExplorer.exe'
-New-Alias -Name conda -Value conda.bat
-New-Alias -Name python -Value python.bat
+New-Alias -Name conda -Value conda.cmd
+New-Alias -Name python -Value python.cmd
 
 # Change to powershell user script directory
 if (Test-Path -Path $UserPath.Root -PathType Container) {
@@ -173,8 +173,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUI9Q6/ei50FVmQOFAOlK38yry
-# iO+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUnHPgcDpRRy2XDDHcmiEmG7RH
+# GTegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -190,8 +190,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBSZ2Tld3zZEujOd6Jum4vANF2x4mzANBgkqhkiG
-# 9w0BAQEFAASBgBG9gkiVDTGHhIuefO99Svz7hNK9wDpxln2uwzgfaGNmQLxYdeDM
-# x91oCPuzQQEV35YMzNaWe2RuAirAjAzDKzYbhC+qupznCYgEAobCYltjzA3I/AmM
-# YBhvFSrl9Q5fgCl/KshRsAn6CBOK0mO6KbmzZMZ9qr/tBjAKOrCPxlUn
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTNUU79eyVJ+ykH+XxayiW5gfHPLTANBgkqhkiG
+# 9w0BAQEFAASBgJXsvMv0jIKKHr0yrIXY+7tf+3Ef9ZBTLlTHkZR/6EorVNnc26J+
+# GEgw7i1YZUAuC8MCDEEgNFVr3zB8OFMSciqv/NG1RnFOvvZ6R6i0MccPiRt7mayo
+# b8NW8sLeAnjBJ7DDGdRww2N9dsCx7JOCnAvFtpOKIKxUb8JnVmBtsk+N
 # SIG # End signature block
