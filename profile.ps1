@@ -155,15 +155,9 @@ New-Alias -Name ssa -Value Start-SshAgent
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
 New-Alias -Name edit -Value code
-New-Alias -Name cmake -Value cmake.cmd
-New-Alias -Name ctest -Value ctest.cmd
 New-Alias -Name die -Value Stop-CurrentProcess
 New-Alias -Name sdiff -Value 'C:\Program Files\Git\usr\bin\diff.exe'
-New-Alias -Name vcpkg -Value vcpkg.cmd
-New-Alias -Name ninja -Value ninja.cmd
 New-Alias -Name npe -Value 'C:\opt\npe\NuGetPackageExplorer.exe'
-New-Alias -Name conda -Value conda.cmd
-New-Alias -Name python -Value python.cmd
 
 # Change to powershell user script directory
 if (Test-Path -Path $UserPath.Root -PathType Container) {
@@ -173,8 +167,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUnHPgcDpRRy2XDDHcmiEmG7RH
-# GTegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUHguKQ20doX9IaipHFg5PW9Vd
+# 96KgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -190,8 +184,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTNUU79eyVJ+ykH+XxayiW5gfHPLTANBgkqhkiG
-# 9w0BAQEFAASBgJXsvMv0jIKKHr0yrIXY+7tf+3Ef9ZBTLlTHkZR/6EorVNnc26J+
-# GEgw7i1YZUAuC8MCDEEgNFVr3zB8OFMSciqv/NG1RnFOvvZ6R6i0MccPiRt7mayo
-# b8NW8sLeAnjBJ7DDGdRww2N9dsCx7JOCnAvFtpOKIKxUb8JnVmBtsk+N
+# AgEVMCMGCSqGSIb3DQEJBDEWBBST30NdL+CmoKpvtoOJi6nLoUr6TTANBgkqhkiG
+# 9w0BAQEFAASBgFc5MB3e64lltGoD0jhuIzP3mg4qLLOIsPQVGnLIYHAajsYnEotK
+# qGw1dnNM1kptcX9UXs39SdDfCDuGSWPeto46DtbtSk5ou6XGzyOV22jgkpXzQJOR
+# gr08QXeTDFZru2pNVHUuyazferslyI8HRvNib7QsF/jA6PXhfSy/Yrbt
 # SIG # End signature block
