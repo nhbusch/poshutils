@@ -26,31 +26,45 @@ else {
 #endregion
 
 #region Visual
-
-# Configure colors for Solarized Dark
-Set-PSReadlineOption -TokenKind Comment -ForegroundColor DarkGreen
-Set-PSReadlineOption -TokenKind String -ForegroundColor Cyan
-Set-PSReadlineOption -TokenKind Number -ForegroundColor Magenta # or DarkMagenta
-Set-PSReadlineOption -TokenKind Type -ForegroundColor Yellow
-Set-PSReadlineOption -TokenKind Operator -ForegroundColor Gray # or DarkMagenta
-Set-PSReadlineOption -TokenKind Member -ForegroundColor Blue
-Set-PSReadlineOption -TokenKind Variable -ForegroundColor DarkRed # see Solarized website or DarkCyan
-Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Green
-Set-PSReadlineOption -TokenKind Command -ForegroundColor DarkCyan # or Gray
-Set-PSReadlineOption -TokenKind Parameter -ForegroundColor DarkYellow # or DarkRed if Var is DarkCyan
-# Not used: DarkMagenta, White, Red,
+if((Get-Module PSReadline).Version -ge "2.0") {
+  Set-PSReadlineOptionn -Colors @{
+    Comment   = 'DarkGreen'
+    String    = 'Cyan'
+    Number    = 'Magenta'
+    Type      = 'Yellow'
+    Operator  = 'Gray'
+    Member    = 'Blue'
+    Variable  = 'DarkRed'
+    Keyword   = 'Green'
+    Command   = 'DarkCyan'
+    Parameter = 'DarkYellow'
+  }
+}
+else {
+  Set-PSReadlineOption -TokenKind Comment -ForegroundColor DarkGreen
+  Set-PSReadlineOption -TokenKind String -ForegroundColor Cyan
+  Set-PSReadlineOption -TokenKind Number -ForegroundColor Magenta # or DarkMagenta
+  Set-PSReadlineOption -TokenKind Type -ForegroundColor Yellow
+  Set-PSReadlineOption -TokenKind Operator -ForegroundColor Gray # or DarkMagenta
+  Set-PSReadlineOption -TokenKind Member -ForegroundColor Blue
+  Set-PSReadlineOption -TokenKind Variable -ForegroundColor DarkRed # see Solarized website or DarkCyan
+  Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Green
+  Set-PSReadlineOption -TokenKind Command -ForegroundColor DarkCyan # or Gray
+  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor DarkYellow # or DarkRed if Var is DarkCyan
+  # Not used: DarkMagenta, White, Red,
+}
 
 # Don't be a nuisance
- Set-PSReadlineOption -BellStyle Visual
+Set-PSReadlineOption -BellStyle Visual
 
- #endregion
+#endregion
 
 #region History
 Set-PSReadlineOption
 Set-PSReadlineOption -MaximumHistoryCount 4096 `
-                     -HistorySearchCursorMovesToEnd `
-                     -HistoryNoDuplicates `
-                     -HistorySavePath (Join-Path $env:APPDATA -ChildPath "Microsoft\Windows\PowerShell\console_history.txt")
+  -HistorySearchCursorMovesToEnd `
+  -HistoryNoDuplicates `
+  -HistorySavePath (Join-Path $env:APPDATA -ChildPath "Microsoft\Windows\PowerShell\console_history.txt")
 
 Set-PSReadlineOption -AddToHistoryHandler {
   param([string]$line)
@@ -60,17 +74,17 @@ Set-PSReadlineOption -AddToHistoryHandler {
 # Fix bug Vi mode not honoring HistorySearchCursorMovesToEnd
 # Vi command mode j,k follow default Emacs behavior where cursor is placed where left
 Set-PSReadlineKeyHandler -Key UpArrow `
-                         -BriefDescription PreviousHistory `
-                         -LongDescription 'Replace the input with the previous item in the history' `
-                         -ScriptBlock {
+  -BriefDescription PreviousHistory `
+  -LongDescription 'Replace the input with the previous item in the history' `
+  -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::PreviousHistory()
   [Microsoft.PowerShell.PSConsoleReadLine]::MoveToEndOfLine()
 }
 
 Set-PSReadlineKeyHandler -Key DownArrow `
-                         -BriefDescription NextHistory `
-                         -LongDescription 'Replace the input with the next item in the history' `
-                         -ScriptBlock {
+  -BriefDescription NextHistory `
+  -LongDescription 'Replace the input with the next item in the history' `
+  -ScriptBlock {
   [Microsoft.PowerShell.PSConsoleReadLine]::NextHistory()
   [Microsoft.PowerShell.PSConsoleReadLine]::MoveToEndOfLine()
 }
@@ -79,16 +93,16 @@ Set-PSReadlineKeyHandler -Key DownArrow `
 # though redo will still reconstruct the command line.
 # Mnemonic: _S_napshot / _S_tash
 Set-PSReadlineKeyHandler -Key Alt+s `
-                         -BriefDescription SaveInHistory `
-                         -LongDescription "Save current line in history but do not execute" `
-                         -ScriptBlock {
-    param($key, $arg)
+  -BriefDescription SaveInHistory `
+  -LongDescription "Save current line in history but do not execute" `
+  -ScriptBlock {
+  param($key, $arg)
 
-    $line = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-    [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($line)
-    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+  $line = $null
+  $cursor = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+  [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($line)
+  [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
 }
 
 # This key handler shows the entire or filtered history using Out-GridView. The
@@ -96,9 +110,9 @@ Set-PSReadlineKeyHandler -Key Alt+s `
 # is inserted to the command line without invoking. Multiple command selection
 # is supported, e.g. selected by Ctrl + Click.
 Set-PSReadlineKeyHandler -Key F8 `
-                         -BriefDescription History `
-                         -LongDescription 'Show command history' `
-                         -ScriptBlock {
+  -BriefDescription History `
+  -LongDescription 'Show command history' `
+  -ScriptBlock {
   $pattern = $null
   [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$pattern, [ref]$null)
   if ($pattern) {
@@ -145,15 +159,15 @@ Set-PSReadlineKeyHandler -Key F8 `
 
 # Insert text from the clipboard as a here string
 Set-PSReadlineKeyHandler -Key Ctrl+Shift+v `
-                         -BriefDescription PasteAsHereString `
-                         -LongDescription "Paste the clipboard text as a here string" `
-                         -ScriptBlock {
+  -BriefDescription PasteAsHereString `
+  -LongDescription "Paste the clipboard text as a here string" `
+  -ScriptBlock {
   param($key, $arg)
 
   Add-Type -Assembly PresentationCore
   if ([System.Windows.Clipboard]::ContainsText()) {
     # Get clipboard text - remove trailing spaces, convert \r\n to \n, and remove the final \n.
-    $text = ([System.Windows.Clipboard]::GetText() -replace "\p{Zs}*`r?`n","`n").TrimEnd()
+    $text = ([System.Windows.Clipboard]::GetText() -replace "\p{Zs}*`r?`n", "`n").TrimEnd()
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("@'`n$text`n'@")
   }
   else {
@@ -164,9 +178,9 @@ Set-PSReadlineKeyHandler -Key Ctrl+Shift+v `
 # Copy working directory to clipboard
 # Mnemonic:_W_orking directory
 Set-PSReadlineKeyHandler -Key Alt+w `
-                         -BriefDescription CopyWorkingDirectoryToClipboard `
-                         -LongDescription "Copy the working directory to the clipboard" `
-                         -ScriptBlock {
+  -BriefDescription CopyWorkingDirectoryToClipboard `
+  -LongDescription "Copy the working directory to the clipboard" `
+  -ScriptBlock {
   Add-Type -Assembly PresentationCore
   [System.Windows.Clipboard]::SetText($pwd.Path, 'Text')
 }
@@ -176,10 +190,10 @@ Set-PSReadlineKeyHandler -Key Alt+w `
 #region Text objects
 
 # Smart insertion of braces/parens, quotation marks
-Set-PSReadlineKeyHandler -Key '"',"'" `
-                         -BriefDescription SmartInsertQuote `
-                         -LongDescription "Insert paired quotes if not already on a quote" `
-                         -ScriptBlock {
+Set-PSReadlineKeyHandler -Key '"', "'" `
+  -BriefDescription SmartInsertQuote `
+  -LongDescription "Insert paired quotes if not already on a quote" `
+  -ScriptBlock {
   param($key, $arg)
 
   $line = $null
@@ -198,10 +212,10 @@ Set-PSReadlineKeyHandler -Key '"',"'" `
   }
 }
 
-Set-PSReadlineKeyHandler -Key '(','{','[' `
-                         -BriefDescription InsertPairedBraces `
-                         -LongDescription "Insert matching braces" `
-                         -ScriptBlock {
+Set-PSReadlineKeyHandler -Key '(', '{', '[' `
+  -BriefDescription InsertPairedBraces `
+  -LongDescription "Insert matching braces" `
+  -ScriptBlock {
   param($key, $arg)
 
   $closeChar = switch ($key.KeyChar) {
@@ -217,10 +231,10 @@ Set-PSReadlineKeyHandler -Key '(','{','[' `
   [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor - 1)
 }
 
-Set-PSReadlineKeyHandler -Key ')',']','}' `
-                         -BriefDescription SmartCloseBraces `
-                         -LongDescription "Insert closing brace or skip" `
-                         -ScriptBlock {
+Set-PSReadlineKeyHandler -Key ')', ']', '}' `
+  -BriefDescription SmartCloseBraces `
+  -LongDescription "Insert closing brace or skip" `
+  -ScriptBlock {
   param($key, $arg)
 
   $line = $null
@@ -237,9 +251,9 @@ Set-PSReadlineKeyHandler -Key ')',']','}' `
 
 # Smart deletion handling matching quotes and backspaces
 Set-PSReadlineKeyHandler -Key Backspace `
-                         -BriefDescription SmartBackspace `
-                         -LongDescription "Delete previous character or matching quotes/parens/braces" `
-                         -ScriptBlock {
+  -BriefDescription SmartBackspace `
+  -LongDescription "Delete previous character or matching quotes/parens/braces" `
+  -ScriptBlock {
   param($key, $arg)
 
   $line = $null
@@ -250,15 +264,15 @@ Set-PSReadlineKeyHandler -Key Backspace `
     $toMatch = $null
     if ($cursor -lt $line.Length) {
       switch ($line[$cursor]) {
-      <#case#> '"' { $toMatch = '"'; break }
-      <#case#> "'" { $toMatch = "'"; break }
-      <#case#> ')' { $toMatch = '('; break }
-      <#case#> ']' { $toMatch = '['; break }
-      <#case#> '}' { $toMatch = '{'; break }
+        <#case#> '"' { $toMatch = '"'; break }
+        <#case#> "'" { $toMatch = "'"; break }
+        <#case#> ')' { $toMatch = '('; break }
+        <#case#> ']' { $toMatch = '['; break }
+        <#case#> '}' { $toMatch = '{'; break }
       }
     }
 
-    if ($toMatch -ne $null -and $line[$cursor-1] -eq $toMatch) {
+    if ($toMatch -ne $null -and $line[$cursor - 1] -eq $toMatch) {
       [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
     }
     else {
@@ -271,36 +285,34 @@ Set-PSReadlineKeyHandler -Key Backspace `
 # but you need parens to do that.  This binding will help by putting parens around the current selection,
 # or if nothing is selected, the whole line.
 Set-PSReadlineKeyHandler -Key 'Alt+(' `
-                         -BriefDescription ParenthesizeSelection `
-                         -LongDescription "Put parenthesis around the selection or entire line and move the cursor to after the closing parenthesis" `
-                         -ScriptBlock {
-    param($key, $arg)
+  -BriefDescription ParenthesizeSelection `
+  -LongDescription "Put parenthesis around the selection or entire line and move the cursor to after the closing parenthesis" `
+  -ScriptBlock {
+  param($key, $arg)
 
-    $selectionStart = $null
-    $selectionLength = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
+  $selectionStart = $null
+  $selectionLength = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
 
-    $line = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-    if ($selectionStart -ne -1)
-    {
-        [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, '(' + $line.SubString($selectionStart, $selectionLength) + ')')
-        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
-    }
-    else
-    {
-        [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, '(' + $line + ')')
-        [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
-    }
+  $line = $null
+  $cursor = $null
+  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+  if ($selectionStart -ne -1) {
+    [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, '(' + $line.SubString($selectionStart, $selectionLength) + ')')
+    [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
+  }
+  else {
+    [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, '(' + $line + ')')
+    [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
+  }
 }
 
 # Change the token under or before the cursor, cycling through single quotes, double quotes,
 # or no quotes each time it is invoked.
 Set-PSReadlineKeyHandler -Key "Alt+'" `
-                         -BriefDescription ToggleQuoteArgument `
-                         -LongDescription "Toggle quotes on the argument under the cursor" `
-                         -ScriptBlock {
+  -BriefDescription ToggleQuoteArgument `
+  -LongDescription "Toggle quotes on the argument under the cursor" `
+  -ScriptBlock {
   param($key, $arg)
 
   $ast = $null
@@ -359,9 +371,9 @@ Set-PSReadlineKeyHandler -Chord 'Ctrl+D,Ctrl+C' -Function CaptureScreen
 # Replace any aliases on the command line with the resolved commands.
 # Mnemonic: _E_xpand alias
 Set-PSReadlineKeyHandler -Key Alt+e `
-                         -BriefDescription ExpandAliases `
-                         -LongDescription "Replace all aliases with the full command" `
-                         -ScriptBlock {
+  -BriefDescription ExpandAliases `
+  -LongDescription "Replace all aliases with the full command" `
+  -ScriptBlock {
   param($key, $arg)
 
   $ast = $null
@@ -398,12 +410,12 @@ Set-PSReadlineKeyHandler -Key Alt+e `
 # Ctrl+j with the same key will change back to that directory without
 # needing to type cd and won't change the command line.
 
-$global:PSReadlineMarks = @{}
+$global:PSReadlineMarks = @{ }
 
 Set-PSReadlineKeyHandler -Key Ctrl+Shift+j `
-                         -BriefDescription MarkDirectory `
-                         -LongDescription "Mark the current directory" `
-                         -ScriptBlock {
+  -BriefDescription MarkDirectory `
+  -LongDescription "Mark the current directory" `
+  -ScriptBlock {
   param($key, $arg)
 
   $key = [Console]::ReadKey($true)
@@ -411,9 +423,9 @@ Set-PSReadlineKeyHandler -Key Ctrl+Shift+j `
 }
 
 Set-PSReadlineKeyHandler -Key Ctrl+j `
-                         -BriefDescription JumpDirectory `
-                         -LongDescription "Goto the marked directory" `
-                         -ScriptBlock {
+  -BriefDescription JumpDirectory `
+  -LongDescription "Goto the marked directory" `
+  -ScriptBlock {
   param($key, $arg)
 
   $key = [Console]::ReadKey()
@@ -426,8 +438,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 
 # Build current directory
 #Set-PSReadlineKeyHandler -Key F7 `
-                         #-BriefDescription BuildDirectory `
-                         #-LongDescription "Build project in current directory" `
+#-BriefDescription BuildDirectory `
+#-LongDescription "Build project in current directory" `
 #                         -ScriptBlock {
 #  param($key, $arg)
 
@@ -446,8 +458,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUVA0fYEtWMUUwBo37lwq1Fj39
-# AIugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUaJX/4R0Q51tnolhtL/rxYXSY
+# PwOgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -463,8 +475,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRIW03eF1TXFr4RzOP4rVWp4GffuTANBgkqhkiG
-# 9w0BAQEFAASBgE8GIfvpuPXtJlkRNLWVO/6QSeeUalQJZq0OCBSkvsHWhrOOt7nR
-# zcQk6BHURhhZFXrUAAImJBedyxKiFsTnB7ZtIx1yJk7tLvr4PW3y5fARYClYz9Yc
-# RyJ8m2YyVnzYFaRWmsTniTjnOmCMKKjeAh5esZOFlNWeS1FHoH6w+vzY
+# AgEVMCMGCSqGSIb3DQEJBDEWBBSOyNgoIaWUfUYFd/SFtbdTaLmr9TANBgkqhkiG
+# 9w0BAQEFAASBgCVloQtlY37o2zGmy90QK49GvkAvuEoOnoMb3Mj/WzJnOjSpFv+l
+# xvRjRh99X3W1N1P6bLIHM0VUVhTGTrKKhAhgGpHR+Cj8VXd8PaJrp3nUe5wL48eb
+# ye1gY6F1IBhLojfifMxVw5etiOuRTKJueoyNVlN8r5/7aipqgKa4k6r7
 # SIG # End signature block
