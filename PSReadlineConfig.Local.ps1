@@ -28,30 +28,32 @@ else {
 #region Visual
 if((Get-Module PSReadline).Version -ge "2.0") {
   Set-PSReadlineOptionn -Colors @{
-    Comment   = 'DarkGreen'
-    String    = 'Cyan'
-    Number    = 'Magenta'
+    Comment   = 'DarkGray'
+    String    = 'Green'
+    Number    = 'DarkYellow'
     Type      = 'Yellow'
-    Operator  = 'Gray'
-    Member    = 'Blue'
-    Variable  = 'DarkRed'
-    Keyword   = 'Green'
-    Command   = 'DarkCyan'
-    Parameter = 'DarkYellow'
+    Operator  = 'Cyan'
+    Member    = 'DarkBlue'
+    Variable  = 'Red'
+    Keyword   = 'Magenta'
+    Command   = 'Blue'
+    Parameter = 'White'
+    Error     = 'DarkRed'
+    #ContinuationPrompt = ''
   }
 }
 else {
-  Set-PSReadlineOption -TokenKind Comment -ForegroundColor DarkGreen
-  Set-PSReadlineOption -TokenKind String -ForegroundColor Cyan
-  Set-PSReadlineOption -TokenKind Number -ForegroundColor Magenta # or DarkMagenta
+  Set-PSReadlineOption -TokenKind Comment -ForegroundColor DarkGray
+  Set-PSReadlineOption -TokenKind String -ForegroundColor Green
+  Set-PSReadlineOption -TokenKind Number -ForegroundColor DarkYellow
   Set-PSReadlineOption -TokenKind Type -ForegroundColor Yellow
-  Set-PSReadlineOption -TokenKind Operator -ForegroundColor Gray # or DarkMagenta
-  Set-PSReadlineOption -TokenKind Member -ForegroundColor Blue
-  Set-PSReadlineOption -TokenKind Variable -ForegroundColor DarkRed # see Solarized website or DarkCyan
-  Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Green
-  Set-PSReadlineOption -TokenKind Command -ForegroundColor DarkCyan # or Gray
-  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor DarkYellow # or DarkRed if Var is DarkCyan
-  # Not used: DarkMagenta, White, Red,
+  Set-PSReadlineOption -TokenKind Operator -ForegroundColor Cyan
+  Set-PSReadlineOption -TokenKind Member -ForegroundColor DarkBlue
+  Set-PSReadlineOption -TokenKind Variable -ForegroundColor Red # gray
+  Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Magenta
+  Set-PSReadlineOption -TokenKind Command -ForegroundColor Blue 
+  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Gray # red
+  Set-PSReadlineOption -ErrorForegroundColor DarkRed
 }
 
 # Don't be a nuisance
