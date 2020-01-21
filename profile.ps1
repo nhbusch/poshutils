@@ -129,8 +129,8 @@ if(Test-Path 'D:\dev' -PathType Container) {
     if(Test-Path 'D:\dev\repos' -PathType Container) {
         New-PSDrive -Name repos -PSProvider filesystem -Root D:\dev\repos | Out-Null
     }
-    if(Test-Path 'D:\dev\tfs' -PathType Container) {
-        New-PSDrive -Name tfs -PSProvider filesystem -Root D:\dev\tfs | Out-Null
+    if(Test-Path 'D:\dev\tfvc' -PathType Container) {
+        New-PSDrive -Name tfvc -PSProvider filesystem -Root D:\dev\tfvc | Out-Null
     }
 }
 
