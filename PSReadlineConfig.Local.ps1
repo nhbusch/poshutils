@@ -27,7 +27,7 @@ else {
 
 #region Visual
 if((Get-Module PSReadline).Version -ge "2.0") {
-  Set-PSReadlineOptionn -Colors @{
+  Set-PSReadlineOption -Colors @{
     Comment   = 'DarkGray'
     String    = 'Green'
     Number    = 'DarkYellow'
@@ -37,7 +37,7 @@ if((Get-Module PSReadline).Version -ge "2.0") {
     Variable  = 'Red'
     Keyword   = 'Magenta'
     Command   = 'Blue'
-    Parameter = 'White'
+    Parameter = 'Cyan'
     Error     = 'DarkRed'
     #ContinuationPrompt = ''
   }
@@ -49,10 +49,10 @@ else {
   Set-PSReadlineOption -TokenKind Type -ForegroundColor Yellow
   Set-PSReadlineOption -TokenKind Operator -ForegroundColor Cyan
   Set-PSReadlineOption -TokenKind Member -ForegroundColor DarkBlue
-  Set-PSReadlineOption -TokenKind Variable -ForegroundColor Red # gray
+  Set-PSReadlineOption -TokenKind Variable -ForegroundColor Red
   Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Magenta
   Set-PSReadlineOption -TokenKind Command -ForegroundColor Blue 
-  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Gray # red
+  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
   Set-PSReadlineOption -ErrorForegroundColor DarkRed
 }
 
