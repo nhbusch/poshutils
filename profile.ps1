@@ -24,7 +24,7 @@ function Set-UserPaths($Root) {
 
     # Adds path to local commands to PATH environment variable
     function Add-LocalCommandPath {
-        $tail = Join-Path 'opt' 'utils'
+        $tail = Join-Path 'opt' 'cmd'
         $head = (Get-Item "Env:HOMEDRIVE").Value, 'C:' | Get-Unique # don't sort
         foreach ($h in $head) {
             $path = Join-Path $h $tail
@@ -151,15 +151,18 @@ if(Get-Command -Name 'C:\opt\npe\NuGetPackageExplorer.exe' -ErrorAction Silently
 }
 
 # Change to powershell user script directory
-if (Test-Path -Path $UserPath.Root -PathType Container) {
+if (Test-Path -Path dev: -PathType Container) {
+    Set-Location dev:
+}
+elseif (Test-Path -Path $UserPath.Root -PathType Container) {
     Set-Location $UserPath.Root
 }
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUI9Q6/ei50FVmQOFAOlK38yry
-# iO+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU69S1yGT0ZApq6ApZsFRND4fb
+# /4SgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -175,8 +178,8 @@ if (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBSZ2Tld3zZEujOd6Jum4vANF2x4mzANBgkqhkiG
-# 9w0BAQEFAASBgBG9gkiVDTGHhIuefO99Svz7hNK9wDpxln2uwzgfaGNmQLxYdeDM
-# x91oCPuzQQEV35YMzNaWe2RuAirAjAzDKzYbhC+qupznCYgEAobCYltjzA3I/AmM
-# YBhvFSrl9Q5fgCl/KshRsAn6CBOK0mO6KbmzZMZ9qr/tBjAKOrCPxlUn
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ6QFLVb3vADzA0bDdEaI4G7jNmHDANBgkqhkiG
+# 9w0BAQEFAASBgE5zGEzNXwZUWKHgWMcUYXTfwLq9XnYyAojgWdJJa0ByeL4Jl9zm
+# L6+Jbq1DSxnhBqUMgawpPHtWkpqd6i+5cvac2C5Y7l1l+mwDgDM958ILTl5Oa1xl
+# pJp0gdcdCH76Cl6pLJWf2TUGZXu36/hf4srdB7+BKXk6yQt6EwQNgl22
 # SIG # End signature block

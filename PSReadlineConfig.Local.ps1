@@ -27,7 +27,7 @@ else {
 
 #region Visual
 if((Get-Module PSReadline).Version -ge "2.0") {
-  Set-PSReadLineOption -Colors @{
+  Set-PSReadlineOption -Colors @{
     Comment   = 'DarkGray'
     String    = 'Green'
     Number    = 'DarkYellow'
@@ -50,10 +50,10 @@ else {
   Set-PSReadlineOption -TokenKind Member -ForegroundColor DarkBlue
   Set-PSReadlineOption -TokenKind Variable -ForegroundColor Red
   Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Magenta
-  Set-PSReadlineOption -TokenKind Command -ForegroundColor Cyan
-  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor DarkRed
+  Set-PSReadlineOption -TokenKind Command -ForegroundColor Blue
+  Set-PSReadlineOption -TokenKind Parameter -ForegroundColor Cyan
+  Set-PSReadlineOption -ErrorForegroundColor DarkRed
 }
-# Not used: DarkMagenta, White, Red,
 
 # Don't be a nuisance
 Set-PSReadlineOption -BellStyle Visual
@@ -436,31 +436,13 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
     [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
   }
 }
-
-# Build current directory
-#Set-PSReadlineKeyHandler -Key F7 `
-#-BriefDescription BuildDirectory `
-#-LongDescription "Build project in current directory" `
-#                         -ScriptBlock {
-#  param($key, $arg)
-
-#  # FIXME output of function garbles command line
-#  $command = Invoke-MsBuildHere -Target Rebuild | Out-File out.log | Get-Content
-#  if ($command) {
-#    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-#    [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($command))
-#    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
-#    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-#  }
-#}
-
 #endregion
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUVA0fYEtWMUUwBo37lwq1Fj39
-# AIugggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUVycdUbVL0Gtvvpp8b+kroTsA
+# hp+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -476,8 +458,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBRIW03eF1TXFr4RzOP4rVWp4GffuTANBgkqhkiG
-# 9w0BAQEFAASBgE8GIfvpuPXtJlkRNLWVO/6QSeeUalQJZq0OCBSkvsHWhrOOt7nR
-# zcQk6BHURhhZFXrUAAImJBedyxKiFsTnB7ZtIx1yJk7tLvr4PW3y5fARYClYz9Yc
-# RyJ8m2YyVnzYFaRWmsTniTjnOmCMKKjeAh5esZOFlNWeS1FHoH6w+vzY
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRdrRTLIRUw4o8AR/RxxR13FzfuezANBgkqhkiG
+# 9w0BAQEFAASBgG+zd7D312ObCiJdw0AP97waZAlUGnPvuWJCfgbpXhWalx63IXps
+# oahcleDy3O9Xq08rK/VZwWpqaVvhUsIDx6jp+4WGi3FGB4MqaZ+kz92GkwOiL73a
+# 9nJVbzn+uQ3bPjHrQmWNwvaJLSC54kDFuCdtVPicYKuzqWbFQ+M2DCFr
 # SIG # End signature block
