@@ -37,7 +37,7 @@ if((Get-Module PSReadline).Version -ge "2.0") {
     Variable  = 'Red'
     Keyword   = 'Magenta'
     Command   = 'Blue'
-    Parameter = 'White' # or Cyan
+    Parameter = 'Cyan'
     Error     = 'DarkRed'
   }
 }
@@ -50,7 +50,7 @@ else {
   Set-PSReadlineOption -TokenKind Member -ForegroundColor DarkBlue
   Set-PSReadlineOption -TokenKind Variable -ForegroundColor Red
   Set-PSReadlineOption -TokenKind Keyword -ForegroundColor Magenta
-  Set-PSReadlineOption -TokenKind Command -ForegroundColor White
+  Set-PSReadlineOption -TokenKind Command -ForegroundColor Cyan
   Set-PSReadlineOption -TokenKind Parameter -ForegroundColor DarkRed
 }
 # Not used: DarkMagenta, White, Red,
