@@ -47,7 +47,7 @@ $UserPath = Set-UserPaths(Split-Path $MyInvocation.MyCommand.Definition -Parent)
 # Import modules with special needs
 
 # Posh-Git
-if((Get-Command -Name git) -and (Get-Module -Name posh-git -ListAvailable)) {
+if((Get-Command -Name git -ErrorAction SilentlyContinue) -and (Get-Module -Name posh-git -ListAvailable)) {
     Import-Module posh-git
     if(Get-Module -Name posh-git) {
         $WithGitSupport = $true;
@@ -153,16 +153,15 @@ if(Get-Command -Name 'C:\opt\npe\NuGetPackageExplorer.exe' -ErrorAction Silently
 # Change to powershell user script directory
 if (Test-Path -Path dev: -PathType Container) {
     Set-Location dev:
-}
-elseif (Test-Path -Path $UserPath.Root -PathType Container) {
+} elseif (Test-Path -Path $UserPath.Root -PathType Container) {
     Set-Location $UserPath.Root
 }
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUYr9bkOamG/5kKgizRlWNBdvM
-# 5ZGgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQURMb/8g9u87D8M0Cw0m2Ur7BI
+# qCCgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -178,8 +177,8 @@ elseif (Test-Path -Path $UserPath.Root -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBSCDaTon7JuYEtce03kY/7LND+I2TANBgkqhkiG
-# 9w0BAQEFAASBgJMBLlgpzyy1+TNR35qWU925yDNhnuYxmkJqmK+UwG0AK/ZfsRkW
-# BVr1pFw9XA5Pp6aC4AdMDMdNRCOXvIeDR4YPlHRwkgTRDO8mwky4COgk/xSMeEZB
-# 8PSI6F+9iyxMCp7Aq2eMgc26ildOGRs55rFPZmudQpxpkFEYhsIKFLIq
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ+SqGYEJOgE4Fb7+ozCd94uL+0MzANBgkqhkiG
+# 9w0BAQEFAASBgFWLm2rHEZf7AaCxym74dDoOJgwtyVoamqeYDU2nfhA8DRdD4Ndy
+# T5TDLfvrbyYUDuOBgR1InCandLgNLwNd/I3qL4+Ic2fDArLb45sSMplA92K+8+kd
+# nbfrR216rdUj+91i4CQKbOaIgun4g+6FhbdjxJGLu9FOQmaGZX112IiC
 # SIG # End signature block
