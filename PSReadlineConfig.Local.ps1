@@ -10,7 +10,12 @@
 ################################################################################
 
 # Other hosts don't work so well
-if ($host.Name -ne 'ConsoleHost' -or !(Get-Module -Name PSReadline)) { return }
+$hostSupported = ($Host.Name -eq 'ConsoleHost')
+# FIXME Some setting lets 'ls' command not return on Visual Studio Code host.
+#$hostSupported = ($Host.Name -eq 'ConsoleHost')-or `
+# (($Host.Name -eq 'Visual Studio Code Host') -and $Host.Version -gt 2020.2)
+
+if (!$hostSupported -or !(Get-Module -Name PSReadline)) { return }
 
 #region General
 
@@ -18,8 +23,7 @@ if ($host.Name -ne 'ConsoleHost' -or !(Get-Module -Name PSReadline)) { return }
 if((Get-Module PSReadline).Version -ge "1.2") {
   Set-PSReadlineOption -EditMode "Vi"
   Set-PSReadlineOption -ViModeIndicator Cursor
-}
-else {
+} else {
   Write-Warning "Vi mode not supported. Reverting to default mode.`nPlease, upgrade `'PSReadline`' version to 1.2 or higher."
 }
 
@@ -40,8 +44,7 @@ if((Get-Module PSReadline).Version -ge "2.0") {
     Parameter = 'Cyan'
     Error     = 'DarkRed'
   }
-}
-else {
+} else {
   Set-PSReadlineOption -TokenKind Comment -ForegroundColor DarkGray
   Set-PSReadlineOption -TokenKind String -ForegroundColor Green
   Set-PSReadlineOption -TokenKind Number -ForegroundColor DarkYellow
@@ -128,8 +131,7 @@ Set-PSReadlineKeyHandler -Key F8 `
         $line = $line.Substring(0, $line.Length - 1)
         $lines = if ($lines) {
           "$lines`n$line"
-        }
-        else {
+        } else {
           $line
         }
         continue
@@ -170,8 +172,7 @@ Set-PSReadlineKeyHandler -Key Ctrl+Shift+v `
     # Get clipboard text - remove trailing spaces, convert \r\n to \n, and remove the final \n.
     $text = ([System.Windows.Clipboard]::GetText() -replace "\p{Zs}*`r?`n", "`n").TrimEnd()
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("@'`n$text`n'@")
-  }
-  else {
+  } else {
     [Microsoft.PowerShell.PSConsoleReadLine]::Ding()
   }
 }
@@ -204,8 +205,7 @@ Set-PSReadlineKeyHandler -Key '"', "'" `
   if ($line[$cursor] -eq $key.KeyChar) {
     # Just move the cursor
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
-  }
-  else {
+  } else {
     # Insert matching quotes, move cursor to be in between the quotes
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)" * 2)
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
@@ -244,8 +244,7 @@ Set-PSReadlineKeyHandler -Key ')', ']', '}' `
 
   if ($line[$cursor] -eq $key.KeyChar) {
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
-  }
-  else {
+  } else {
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)")
   }
 }
@@ -275,8 +274,7 @@ Set-PSReadlineKeyHandler -Key Backspace `
 
     if ($toMatch -ne $null -and $line[$cursor - 1] -eq $toMatch) {
       [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
-    }
-    else {
+    } else {
       [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
     }
   }
@@ -301,8 +299,7 @@ Set-PSReadlineKeyHandler -Key 'Alt+(' `
   if ($selectionStart -ne -1) {
     [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, '(' + $line.SubString($selectionStart, $selectionLength) + ')')
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
-  }
-  else {
+  } else {
     [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, '(' + $line + ')')
     [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
   }
@@ -346,12 +343,10 @@ Set-PSReadlineKeyHandler -Key "Alt+'" `
     if ($tokenText[0] -eq '"' -and $tokenText[-1] -eq '"') {
       # Switch to no quotes
       $replacement = $tokenText.Substring(1, $tokenText.Length - 2)
-    }
-    elseif ($tokenText[0] -eq "'" -and $tokenText[-1] -eq "'") {
+    } elseif ($tokenText[0] -eq "'" -and $tokenText[-1] -eq "'") {
       # Switch to double quotes
       $replacement = '"' + $tokenText.Substring(1, $tokenText.Length - 2) + '"'
-    }
-    else {
+    } else {
       # Add single quotes
       $replacement = "'" + $tokenText + "'"
     }
@@ -441,8 +436,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUHaZcRxyHk8WTau3utkABvh2W
-# yWCgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU5fwIFnFVvrqcnbn2b5dGSPpn
+# y/GgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -458,8 +453,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTquAX5hKhZS3EyHMnttpohOJgdEDANBgkqhkiG
-# 9w0BAQEFAASBgAUXFe33RZW8xEWykBvGmI/JHkKo3tv+QgI7kHeulrqvu8tQ6RXL
-# d+11M/nqWmDfpL9Yf6DyTOTGC+l/fWrczd4OUZHB5LBjNdnx62EC6cDgV74xgPm8
-# AQ8fQPfg7pXAey4idGaWJrhmNOJq0/+SUl6bKSupNDUnnUz3CxpIWHXV
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTPKkBBPOMNL4gTYCNMI33v+vCRGDANBgkqhkiG
+# 9w0BAQEFAASBgAjSyLUNHxSnxH3Jp28YIR58YbRNODvpQ+Bzlr7MpEstYeXxFsQW
+# n22EADtEM9YaYjxmfCsppASvKobAXb2b4QLf05+gs0Ut2EwClazx0TL074+4bSmG
+# j4UaLA5a34Of+LBMszU9PTjmaTExCtDrjJDB3JYIL2OiRVVfb1HLDzkR
 # SIG # End signature block
