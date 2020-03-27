@@ -138,6 +138,7 @@ New-Alias -Name ssa -Value Start-SshAgent
 New-Alias -Name gh -Value Get-Help
 New-Alias -Name walk -Value Invoke-WalkCommand
 New-Alias -Name die -Value Stop-CurrentProcess
+New-Alias -Name touch -Value Set-ItemDateTime
 if(Get-Command -Name code -ErrorAction SilentlyContinue) {
     New-Alias -Name edit -Value code
 }
@@ -148,7 +149,7 @@ if(Get-Command -Name 'C:\opt\npe\NuGetPackageExplorer.exe' -ErrorAction Silently
     New-Alias -Name npe -Value 'C:\opt\npe\NuGetPackageExplorer.exe'
 }
 
-# Change to powershell user script directory
+# Change to dev drive or powershell user script directory
 if (Test-Path -Path dev: -PathType Container) {
     Set-Location dev:
 } elseif (Test-Path -Path $UserPath.Root -PathType Container) {
@@ -158,8 +159,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUM9/e+iubhAhGFOIAtFm4zMLl
-# iN6gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU7CgcT1VuiqX1eOv8G/bHuPfl
+# qgKgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -175,8 +176,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTW5T9F3QIwOCDX+2bE0gEZxdsEGTANBgkqhkiG
-# 9w0BAQEFAASBgDkrqB3cpy2cUC5hCKQrqta6OGp8Yv94+k5j0yW6vYHiDi9PSZ/p
-# Tit3/EAPC9MwC1npgzjZNWHlUuk8cqXV0Zlq28j35HYnExOEyiKZYdZZyxYplesg
-# BefW7mncDG8WsVafyAqbE7X6XsMvIjIIEIzs1esfHGYZbI7+j7sfotap
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ9gcsdRB7yRYrtCDnUco9ENNjW7jANBgkqhkiG
+# 9w0BAQEFAASBgH6JdX7NhE+pht3vipjB9LDCUrhFfnfsLMf/QzUJgiHxKRHPjKi+
+# CWv9I+m304UdSfsspCI2GbOG9nsQG8jCO2o+YA/WuyNvrmPXwWp+03UcN4X5HK3E
+# bz67xRk8RAd+spsG3FQDSacAmZWNHLtFr55AhS64tHGOEE2qOUT+qLWE
 # SIG # End signature block
