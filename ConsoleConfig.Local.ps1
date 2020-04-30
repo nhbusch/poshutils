@@ -20,16 +20,15 @@ function Set-ConsoleConfig {
 
         # Modify special property objects
         $buffer_size = $console.BufferSize
-        $buffer_size.Width = 150
+        $buffer_size.Width = 120
         $buffer_size.Height = 300
         $console.BufferSize = $buffer_size
 
         $size = $console.WindowSize
-        $size.Width = 150
+        $size.Width = 120
         $size.Height = 50
         $console.WindowSize = $size
-    }
-    catch [System.Management.Automation.SetValueInvocationException] {
+    } catch [System.Management.Automation.SetValueInvocationException] {
         $console = $restore
     }
 
@@ -43,8 +42,8 @@ Set-ConsoleConfig
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU1a3MJ+I9kiKlvW6veonJHkgW
-# +4mgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU3w/FiFxis1RHax2GYuuEF4Nr
+# 9vigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -60,8 +59,8 @@ Set-ConsoleConfig
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQla7CtdsKNlYF68UXJBl/fQiz4UjANBgkqhkiG
-# 9w0BAQEFAASBgGs8cuffFvt91kco+7Irw0gkFXGJ+Di6Pc4bg+WpgefH6ywnfqek
-# pO5BH6CobHhp59vR0odoZVHxseJKpiIQZPSVp45/vX5psjuxrVQs3miPHz17EeNe
-# I/PwTVRFpMKKrdUxrPiaKkducQRH/slckMmKMf/ZkbCyQyRe1ul4YbZ/
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQ7GA57pWNgXh0r0yRcCbr4LbtaWzANBgkqhkiG
+# 9w0BAQEFAASBgDGA9kFF722uKHI1iOry16lMyVcvxqmwon07RKaCAR+AVKsragJX
+# /4Xq3vd8RF663E4+V7EaTsX4/DVWewiHmn2WjUEwwsfhtZnliajvFUs88mx8Eujm
+# dlWyNKUn8LRZiVFPNS7eDm6weynPkyH3O4rOoy0AU6BYMB9NJoHP1l+2
 # SIG # End signature block
