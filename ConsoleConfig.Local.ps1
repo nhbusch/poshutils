@@ -21,7 +21,7 @@ function Set-ConsoleConfig {
         # Modify special property objects
         $buffer_size = $console.BufferSize
         $buffer_size.Width = 120
-        $buffer_size.Height = 300
+        $buffer_size.Height = 5000
         $console.BufferSize = $buffer_size
 
         $size = $console.WindowSize
@@ -42,8 +42,8 @@ Set-ConsoleConfig
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU3w/FiFxis1RHax2GYuuEF4Nr
-# 9vigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUpIlioDqk6PoJwNmipJLaBcDu
+# p6SgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -59,8 +59,8 @@ Set-ConsoleConfig
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQ7GA57pWNgXh0r0yRcCbr4LbtaWzANBgkqhkiG
-# 9w0BAQEFAASBgDGA9kFF722uKHI1iOry16lMyVcvxqmwon07RKaCAR+AVKsragJX
-# /4Xq3vd8RF663E4+V7EaTsX4/DVWewiHmn2WjUEwwsfhtZnliajvFUs88mx8Eujm
-# dlWyNKUn8LRZiVFPNS7eDm6weynPkyH3O4rOoy0AU6BYMB9NJoHP1l+2
+# AgEVMCMGCSqGSIb3DQEJBDEWBBSH5hGf1Fu+gJrGsxNgHAxftINtgTANBgkqhkiG
+# 9w0BAQEFAASBgBihCZYqU0PWTd+F9T1pKcYJYZS3SpYQ0rxz7/80fxQEueC/1sXX
+# Wy6GTBZFwkwGav0x9NFEPoElpM1DjfnC2x+9evjTc/hgUYOqun82Sh9E6LBzxn0f
+# ypZuwBtkY2KI7AC1beL6d0AWi9PSWpIWYHW49K9NX2aNCuGs2zHppozM
 # SIG # End signature block
