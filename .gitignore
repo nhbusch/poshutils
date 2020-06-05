@@ -7,5 +7,6 @@ Test.xml
 *.dll
 bin
 Modules/
+Help/
 .vs/
 .vscode/

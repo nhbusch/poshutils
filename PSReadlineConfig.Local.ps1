@@ -12,8 +12,8 @@
 # Other hosts don't work so well
 $hostSupported = ($Host.Name -eq 'ConsoleHost')
 # FIXME Some setting lets 'ls' command not return on Visual Studio Code host.
-#$hostSupported = ($Host.Name -eq 'ConsoleHost')-or `
-# (($Host.Name -eq 'Visual Studio Code Host') -and $Host.Version -gt 2020.2)
+# $hostSupported = ($Host.Name -eq 'ConsoleHost') -or `
+# (($Host.Name -eq 'Visual Studio Code Host') -and $Host.Version -ge 2020.4)
 
 if (!$hostSupported -or !(Get-Module -Name PSReadline)) { return }
 
@@ -64,7 +64,6 @@ Set-PSReadlineOption -BellStyle Visual
 #endregion
 
 #region History
-Set-PSReadlineOption
 Set-PSReadlineOption -MaximumHistoryCount 4096 `
   -HistorySearchCursorMovesToEnd `
   -HistoryNoDuplicates `
@@ -436,8 +435,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU5fwIFnFVvrqcnbn2b5dGSPpn
-# y/GgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUSTeeHI+h3ohik9gcLhZsCbN+
+# XR+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -453,8 +452,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTPKkBBPOMNL4gTYCNMI33v+vCRGDANBgkqhkiG
-# 9w0BAQEFAASBgAjSyLUNHxSnxH3Jp28YIR58YbRNODvpQ+Bzlr7MpEstYeXxFsQW
-# n22EADtEM9YaYjxmfCsppASvKobAXb2b4QLf05+gs0Ut2EwClazx0TL074+4bSmG
-# j4UaLA5a34Of+LBMszU9PTjmaTExCtDrjJDB3JYIL2OiRVVfb1HLDzkR
+# AgEVMCMGCSqGSIb3DQEJBDEWBBStXGkCOXzeD58o7eindsydeRW8jTANBgkqhkiG
+# 9w0BAQEFAASBgFV5XLR2kz4LdC6VC6M9o62dXUCKNC19c1PClg3NnuvfYF6TV6Bn
+# qKstN1jsOS3Q8aa4dS2vlZQSqtvKBtF+UHvU9w5VbjtJYyY0ngvdsuN9wsfKAHTl
+# IcvlDrFxTILkKYGC3BW891OD7M9l7ayyad5ZP1nIQZ+kGE8Cs6apHbry
 # SIG # End signature block
