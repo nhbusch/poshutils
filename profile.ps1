@@ -27,11 +27,13 @@ function Set-UserPaths($Root) {
         $tail = Join-Path 'opt' 'cmd'
         $head = (Get-Item "Env:HOMEDRIVE").Value, 'C:' | Get-Unique # don't sort
         foreach ($h in $head) {
-            $path = Join-Path $h $tail
-            if(($env:path -split ';' -replace '\\+$') -notcontains $path) {
-                if(Test-Path -Path $path -PathType Container) {
-                    $env:path += ";" + $path
-                    break
+            if (Test-Path -LiteralPath $h -ErrorAction SilentlyContinue) { 
+                $path = Join-Path $h $tail
+                if(($env:path -split ';' -replace '\\+$') -notcontains $path) {
+                    if(Test-Path -Path $path -PathType Container) {
+                        $env:path += ";" + $path
+                        break
+                    }
                 }
             }
         }
@@ -164,8 +166,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQURJipat6cZfVjFWFVv7vMLUuw
-# VUigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrWkOf79ZhzDeSIZshu/MJ3Ij
+# PtKgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -181,8 +183,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTYFbKebfOp4lWd943g4/rQlrnskTANBgkqhkiG
-# 9w0BAQEFAASBgJSXudEcViJUkWbhonkKPSXf25rNUTUmC4HlFVsj3P5vl5Tbt12K
-# hH0LDwEZ0d2QPkg2W8ubvfeaw0VN3Jj99M8a048kakjFCebaK5STrgddWPHk3/lW
-# SoQvpzNG6Z/ilXvxb1g5ojPcxiS0TnIzhWsq4rtVQBo1BAIkK+xRVzV0
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTlLYU+xeKSTjY8oGgq8KdrsskxjjANBgkqhkiG
+# 9w0BAQEFAASBgJsGoKNrF7wSZ2TFbPnIy8qjOwp15kuNLE4D1JXW59frrGKOzrAH
+# VcaGxdivHjxU9sAV0K9pVNpGAZtaLw5wJoHUwXjUm78i13hKJyjPrB2dQrFdoVCY
+# i1a9RAoe1vCqEonNh4ZL55fQlzvhCC0ZGZ17dAEYtR1R0O2+v26UUGPq
 # SIG # End signature block
