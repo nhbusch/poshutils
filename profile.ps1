@@ -8,6 +8,7 @@
 # See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT.
 #
 ################################################################################
+#Requires -Version 3
 
 ################################################################################
 # User paths
@@ -168,8 +169,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUp6ksao+QMkN8ofpMnc4+2jr8
-# dyigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUZvg5bHklsMwKxY6A2gDqlA8T
+# U4igggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -185,8 +186,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTQeaTuNZ0UZXcMHfUH+O8RmoLq/zANBgkqhkiG
-# 9w0BAQEFAASBgIreyHupLCgas4b73aZGAbDg3qJOvl0lWZ6eeFHJv36iPV6DNmbZ
-# 240jPFZfK/1zQ4c7ZILCv+84YPN6CUblSXgLVMEa7wRdoMxXkWPw6exB7gooYnId
-# T37r83zDI4US4PKfYXRcYs1gdH0EOjJ7Q/p1fCZqjqf1jYGqsprCjLwU
+# AgEVMCMGCSqGSIb3DQEJBDEWBBQMAw/Arq7m+s/PwGcjba8C6sUvEzANBgkqhkiG
+# 9w0BAQEFAASBgJjrMcRUjg1phtZWNc8hPTdApu7FsacTF/NCrhOoZXNCj2DtVX7L
+# CUSHnjz+xbvR3n4I8X/tQjXxS86YoToyXNZLNHnDgpnGHt7L6omMOSR3VrTlQ5K0
+# RAeQLjNz/LxN2Vjhx640pQ5RBg9wmfzgE640qUHjooW4p2XyydRfUI/L
 # SIG # End signature block
