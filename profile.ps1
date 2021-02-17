@@ -62,13 +62,15 @@ if((Get-Command -Name git -ErrorAction SilentlyContinue) -and (Get-Module -Name 
 }
 
 # If not auto-loaded, import PSReadline
-if((Get-Module -Name PSReadline -ListAvailable) -and !(Get-Module -Name PSReadline)) {
-    Import-Module -Name PSReadLine
-}
+if(Get-Module -Name PSReadline -ListAvailable) {
+    if(!(Get-Module -Name PSReadline)) {
+        Import-Module -Name PSReadLine
+    }
 
-# Configure
-if(Test-Path -Path (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1') -PathType Leaf) {
-    . (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1')
+    # Configure
+    if(Test-Path -Path (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1') -PathType Leaf) {
+        . (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1')
+    }
 }
 
 # Posh-vcpkg
@@ -166,8 +168,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUrWkOf79ZhzDeSIZshu/MJ3Ij
-# PtKgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUp6ksao+QMkN8ofpMnc4+2jr8
+# dyigggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -183,8 +185,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTlLYU+xeKSTjY8oGgq8KdrsskxjjANBgkqhkiG
-# 9w0BAQEFAASBgJsGoKNrF7wSZ2TFbPnIy8qjOwp15kuNLE4D1JXW59frrGKOzrAH
-# VcaGxdivHjxU9sAV0K9pVNpGAZtaLw5wJoHUwXjUm78i13hKJyjPrB2dQrFdoVCY
-# i1a9RAoe1vCqEonNh4ZL55fQlzvhCC0ZGZ17dAEYtR1R0O2+v26UUGPq
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTQeaTuNZ0UZXcMHfUH+O8RmoLq/zANBgkqhkiG
+# 9w0BAQEFAASBgIreyHupLCgas4b73aZGAbDg3qJOvl0lWZ6eeFHJv36iPV6DNmbZ
+# 240jPFZfK/1zQ4c7ZILCv+84YPN6CUblSXgLVMEa7wRdoMxXkWPw6exB7gooYnId
+# T37r83zDI4US4PKfYXRcYs1gdH0EOjJ7Q/p1fCZqjqf1jYGqsprCjLwU
 # SIG # End signature block

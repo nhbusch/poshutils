@@ -15,7 +15,7 @@ $hostSupported = ($Host.Name -eq 'ConsoleHost')
 # $hostSupported = ($Host.Name -eq 'ConsoleHost') -or `
 # (($Host.Name -eq 'Visual Studio Code Host') -and $Host.Version -ge 2020.4)
 
-if (!$hostSupported -or !(Get-Module -Name PSReadline)) { return }
+if (!$hostSupported) { return }
 
 #region General
 
@@ -435,8 +435,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUSTeeHI+h3ohik9gcLhZsCbN+
-# XR+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQU9sqcJ6gmubV8NLKBo9URd2cU
+# eBSgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -452,8 +452,8 @@ Set-PSReadlineKeyHandler -Key Ctrl+j `
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBStXGkCOXzeD58o7eindsydeRW8jTANBgkqhkiG
-# 9w0BAQEFAASBgFV5XLR2kz4LdC6VC6M9o62dXUCKNC19c1PClg3NnuvfYF6TV6Bn
-# qKstN1jsOS3Q8aa4dS2vlZQSqtvKBtF+UHvU9w5VbjtJYyY0ngvdsuN9wsfKAHTl
-# IcvlDrFxTILkKYGC3BW891OD7M9l7ayyad5ZP1nIQZ+kGE8Cs6apHbry
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTQGNaQYz13G+eMN2h1T8Tk6mvywzANBgkqhkiG
+# 9w0BAQEFAASBgGlXFoZhvZGL60Txu4/vcCGT5OUiQBWb803gr9PyVqLPBeDwFVoy
+# n94vwbgdCWuydpolJ+kHgDwB/IpNDOOHN7/suo71ZtSPV/giN2E5F3mKYdZvVxpU
+# cdo29SmOXKI3ed5kNmkOsHaTULq6fvoNpXCmHBQEI/Ow2OyaX93l1ou9
 # SIG # End signature block
