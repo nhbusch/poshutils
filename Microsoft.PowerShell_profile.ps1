@@ -9,15 +9,30 @@
 #
 ################################################################################
 
+function Set-HostWindowTitle {
+  # PowerShell < 5.x runs only on Windows
+  if (($PSVersionTable.PSVersion.Major -le 5) -or $IsWindows) {
+    $current_user = [Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())
+    $is_admin = $current_user.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+  } else {
+    #*nix
+    $is_admin = 0 -eq (id -u)
+  }
+  
+  $title = 'PowerShell ' + (Get-Host).Version.ToString()
+  $title += if($is_admin) { ' | ADMIN | ' } else { ' | ' }
+  $title += "$env:USERDOMAIN\$env:USERNAME@$env:COMPUTERNAME"
+  (Get-Host).UI.RawUI.WindowTitle = $title
+}
+
 # Customize PowerShell console host
-(Get-Host).UI.RawUI.WindowTitle += `
-  "  [ $env:USERDOMAIN\$env:USERNAME@$env:COMPUTERNAME ]"
+Set-HostWindowTitle
 
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUco2fYauYHSLG8U7M+yrAWECI
-# OG2gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUcxSUrJ67lZW4xsoOgbiprkRj
+# hlmgggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -33,8 +48,8 @@
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBS3aIZfmOkOPbZxLAUSUY/nofnddjANBgkqhkiG
-# 9w0BAQEFAASBgEQKfMWIVAsNTiufFWjx67Zr8Y6z/5NpYCq1DAwKhFWAWe6Yf3Pg
-# K9NMfIv1CJhbxdB7qJxeKDgIYIGBkuzVmb3lEI36k/JmtY/fbvrl3mgTMrbYqMxs
-# /0w2lkq7QAuVgCzfrqk/g868Ufnn5cV4MVpQH/mGZutO3j3p5FdmNspQ
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRhS3U2tvnMbmvJLtNgs8pbbXkGGjANBgkqhkiG
+# 9w0BAQEFAASBgEo0r+P++0MYoABFr8B0cmk76gCoxpn8HwsffLbHP91zmLvJd6rI
+# FpniyZkUS1LP02MoiBneyEurrbY9w7HOMFPPJK2oAfvNo3tmq2h8s9E4/x9O5oqU
+# 1Gvr3Fqt/sjtwanzuleG9hmgfKTXiyUIYXqgQX74UDy1MbjuDFT/QGQv
 # SIG # End signature block
