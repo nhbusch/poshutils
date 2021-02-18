@@ -49,19 +49,6 @@ $UserPath = Set-UserPaths(Split-Path $MyInvocation.MyCommand.Definition -Parent)
 ################################################################################
 # Import modules with special needs
 
-# Posh-Git
-if((Get-Command -Name git -ErrorAction SilentlyContinue) -and (Get-Module -Name posh-git -ListAvailable)) {
-    Import-Module posh-git
-    if(Get-Module -Name posh-git) {
-        $WithGitSupport = $true;
-
-        # Configure
-        if(Test-Path -Path (Join-Path $UserPath.Root 'PoshGitConfig.Local.ps1') -PathType Leaf) {
-            . (Join-Path $UserPath.Root 'PoshGitConfig.Local.ps1')
-        }
-    }
-}
-
 # If not auto-loaded, import PSReadline
 if(Get-Module -Name PSReadline -ListAvailable) {
     if(!(Get-Module -Name PSReadline)) {
@@ -71,6 +58,16 @@ if(Get-Module -Name PSReadline -ListAvailable) {
     # Configure
     if(Test-Path -Path (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1') -PathType Leaf) {
         . (Join-Path $UserPath.Root 'PSReadlineConfig.Local.ps1')
+    }
+}
+
+# Posh-Git
+if((Get-Command -Name git -ErrorAction SilentlyContinue) -and (Get-Module -Name posh-git -ListAvailable)) {
+    Import-Module posh-git
+
+    # Configure
+    if(Test-Path -Path (Join-Path $UserPath.Root 'PoshGitConfig.Local.ps1') -PathType Leaf) {
+        . (Join-Path $UserPath.Root 'PoshGitConfig.Local.ps1')
     }
 }
 
@@ -87,31 +84,6 @@ if($Host.Name -eq 'ConsoleHost') {
     if(Test-Path -Path (Join-Path $UserPath.Root  'ConsoleConfig.Local.ps1') -PathType Leaf) {
         & (Join-Path $UserPath.Root 'ConsoleConfig.Local.ps1')
     }
-}
-
-# Set prompt, adding the git prompt parts when inside git repos
-function global:prompt {
-    $realLASTEXITCODE = $LASTEXITCODE
-
-    $user_color = 'DarkGreen'
-    $host_color = 'DarkMagenta'
-    $path_color = 'DarkYellow'
-    $sep_color = 'DarkGray'
-
-    # Replace home path with tilde
-    $path = $pwd.ProviderPath.Replace("$env:HOME", '~').Replace("$env:USERPROFILE", '~~') | Split-Path -Leaf
-    Write-Host "$env:USERNAME" -ForegroundColor $user_color -NoNewline
-    Write-Host '@' -ForegroundColor $sep_color -NoNewline
-    Write-Host "$env:COMPUTERNAME" -ForegroundColor $host_color -NoNewline
-    Write-Host ':' -ForegroundColor $sep_color -NoNewline
-    Write-Host ("$path") -ForegroundColor $path_color -NoNewline
-
-    if($WithGitSupport) {
-        Write-VcsStatus
-    }
-
-    $global:LASTEXITCODE = $realLASTEXITCODE
-    return "$('>' * ($nestedPromptLevel + 1)) "
 }
 
 ################################################################################
@@ -169,8 +141,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUZvg5bHklsMwKxY6A2gDqlA8T
-# U4igggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUBKov8aVerNDeO/DtPdhr/HVT
+# FEegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -186,8 +158,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBQMAw/Arq7m+s/PwGcjba8C6sUvEzANBgkqhkiG
-# 9w0BAQEFAASBgJjrMcRUjg1phtZWNc8hPTdApu7FsacTF/NCrhOoZXNCj2DtVX7L
-# CUSHnjz+xbvR3n4I8X/tQjXxS86YoToyXNZLNHnDgpnGHt7L6omMOSR3VrTlQ5K0
-# RAeQLjNz/LxN2Vjhx640pQ5RBg9wmfzgE640qUHjooW4p2XyydRfUI/L
+# AgEVMCMGCSqGSIb3DQEJBDEWBBTgMi7LLy8acGNzXw7FY/3DNo1Y2TANBgkqhkiG
+# 9w0BAQEFAASBgBVzRxFeLD4TKhkDSJ/s1AfsDLKFcm/SnOoCyWP/jc1IC3PBER80
+# l3EFYgD8MvKO3324ZS9huQOC2LXf7nVi8WDu3QAJa7zbRvwQmLfJpYMDlWNzYUVi
+# ZUganQAG03sgx8zF1p24xMiJbJxRx2E4D/PERHDBZsk3mMEHRZShWKMk
 # SIG # End signature block
