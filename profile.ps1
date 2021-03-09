@@ -98,6 +98,16 @@ Where-Object { $_.Name -notlike '__*' -and $_.Name -like '*.ps1' } |
 ForEach-Object { . $_.FullName }
 
 ################################################################################
+# Completers
+# PowerShell parameter completion shim for the dotnet CLI
+Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock {
+    param($commandName, $wordToComplete, $cursorPosition)
+    dotnet complete --position $cursorPosition "$wordToComplete" | ForEach-Object {
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+    }
+}
+
+################################################################################
 # PS drives
 New-PSDrive -Name user -PSProvider filesystem -Root $env:USERPROFILE | Out-Null
 New-PSDrive -Name scripts -PSProvider filesystem -Root $UserPath.Root | Out-Null
@@ -141,8 +151,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # SIG # Begin signature block
 # MIIERgYJKoZIhvcNAQcCoIIENzCCBDMCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
-# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUBKov8aVerNDeO/DtPdhr/HVT
-# FEegggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
+# AgEAAgEAAgEAAgEAAgEAMCEwCQYFKw4DAhoFAAQUeZvJDCydS1i9S7fHPUyxOjax
+# tA+gggJQMIICTDCCAbmgAwIBAgIQy8TBt4Oo9JZDpd5zbA43pDAJBgUrDgMCHQUA
 # MCwxKjAoBgNVBAMTIVBvd2VyU2hlbGwgTG9jYWwgQ2VydGlmaWNhdGUgUm9vdDAe
 # Fw0xNTA1MjcxNjEzMjVaFw0zOTEyMzEyMzU5NTlaMC0xKzApBgNVBAMTIkJ1c2No
 # IE5pbHMgSG9sZ2VyIFdBTkJVIFBvd2VyU2hlbGwwgZ8wDQYJKoZIhvcNAQEBBQAD
@@ -158,8 +168,8 @@ if (Test-Path -Path dev: -PathType Container) {
 # UG93ZXJTaGVsbCBMb2NhbCBDZXJ0aWZpY2F0ZSBSb290AhDLxMG3g6j0lkOl3nNs
 # DjekMAkGBSsOAwIaBQCgeDAYBgorBgEEAYI3AgEMMQowCKACgAChAoAAMBkGCSqG
 # SIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQBgjcCAQsxDjAMBgorBgEEAYI3
-# AgEVMCMGCSqGSIb3DQEJBDEWBBTgMi7LLy8acGNzXw7FY/3DNo1Y2TANBgkqhkiG
-# 9w0BAQEFAASBgBVzRxFeLD4TKhkDSJ/s1AfsDLKFcm/SnOoCyWP/jc1IC3PBER80
-# l3EFYgD8MvKO3324ZS9huQOC2LXf7nVi8WDu3QAJa7zbRvwQmLfJpYMDlWNzYUVi
-# ZUganQAG03sgx8zF1p24xMiJbJxRx2E4D/PERHDBZsk3mMEHRZShWKMk
+# AgEVMCMGCSqGSIb3DQEJBDEWBBRPPQoNpZ5B4PYucGLvePcUm+mBnTANBgkqhkiG
+# 9w0BAQEFAASBgKG+EAiCc33sJRB9fXEScVXmcvb0zRdoRMF6kaBz8oDew5NTwicc
+# W4O9YVNNoQ0Dq1GB5Y20ZEREcbLNxlbfglLv4DnO1YGIhg6Ad7bmB53Pc/jKEV16
+# VABbBDxaxt+7rbx/vtzc1ZaM6fMqM8n2ykEE1Y2lyY+hVfHSxuhSs3sM
 # SIG # End signature block
